@@ -1,0 +1,105 @@
+﻿HELP SYSTEM FUNCTIONAL DESCRIPTION
+
+OVERVIEW
+The help system follows a data-driven architecture pattern using CSV configuration files to define help content, routing, and display behavior.
+
+The help system comprises the following main components:
+* Help Menu - Accessible from the top navigation bar providing access to the complete help directory
+* Help Content Viewer - Displays markdown-formatted help content with hierarchical navigation
+* Role-Based Filtering - Help topics are filtered based on user's current role selection
+
+
+
+HELP CONTENT ARCHITECTURE
+Help content is organized using a directory-based structure with CSV configuration files defining the help topology, content mapping, and role-based visibility.
+
+Help content files are stored in the following structure:
+assets/help/
+├── help-directory.csv       # Primary help directory structure and navigation
+└── content/                 # Markdown files containing help documentation e.g.
+    ├── some-help-topic.md
+    ├── another-help-topic.md
+    └── [additional help topics]
+
+HELP DIRECTORY CONFIGURATION
+The file help-directory.csv defines the hierarchical structure of the help system and determines how help topics are organized and accessed through the help menu. This file contains the following fields:
+
+- HelpId          # Primary key. Unique identifier for the help topic (use kebab-case)
+- Title           # Display title for the help topic
+- ParentHelpId    # Foreign key. Parent help topic for hierarchical organization. Empty for top-level topics
+- ContentFile     # Filename of the markdown content file in assets/help/content/
+- Role            # Role(s) required to view this topic. Empty = visible to all. Supports semicolon-separated roles (e.g., "Controller;Editor")
+- Order           # Display order within parent category (use increments of 10 for flexibility)
+- LastUpdated     # Date of last content update for maintenance tracking (YYYY-MM-DD format)
+- Description     # Brief description of help topic content (displayed in sub-topic listings)
+
+The help directory supports unlimited hierarchical nesting. Topics without a ParentHelpId are displayed as top-level categories in the help menu.
+
+
+HIERARCHICAL NAVIGATION FEATURES
+
+Parent Topics with Content:
+- Parent topics can have their own content pages (not just menu labels)
+- Parent topics are clickable to display their content
+- Parent topics are expandable/collapsible to show/hide children
+- Default state: all parent topics are expanded
+
+Sub-Topic Listings:
+- When a parent topic is displayed, a "Sub-Topics" section is automatically appended
+- Sub-topics are shown as clickable links with titles and descriptions
+- Clicking a sub-topic link navigates to that topic's content
+- Sub-topic links are styled with left border and hover effects
+
+Menu Behavior:
+- Expand/collapse icons (▶/▼) control visibility of child topics
+- Parent topics show in bold font
+- Active topic is highlighted in blue
+- Child topics are indented based on nesting level (15px per level)
+
+
+ROLE-BASED FILTERING
+
+Integration with Role System:
+- Reads user roles from localStorage (key: 'selectedRoles')
+- Filters help topics based on Role field in help-directory.csv
+- Supports multiple roles per topic using semicolon separator
+- Case-insensitive role matching
+- Recursive filtering applies to entire hierarchy
+
+Role Field Behavior:
+- Empty Role field = visible to everyone
+- Single role (e.g., "Controller") = visible only to users with that role
+- Multiple roles (e.g., "Controller;Editor") = visible to users with ANY of those roles
+- Child topics inherit parent visibility AND can add additional restrictions
+
+
+MARKDOWN CONTENT
+
+Supported Markdown Features:
+- Headers: # H1, ## H2, ### H3
+- Bold: **text** or __text__
+- Italic: *text* or _text_
+- Code: `inline code` or ```code blocks```
+- Lists: - item or * item or 1. item
+- Links: [text](url)
+- Line breaks and paragraphs
+
+Content Best Practices:
+- Use clear, descriptive headings
+- Keep paragraphs concise
+- Include practical examples
+- Use lists for step-by-step instructions
+- Add links to related topics where relevant
+
+
+FUTURE ENHANCEMENTS (Not Yet Implemented)
+
+Help Search:
+- Full-text search functionality across all help content
+- Real-time search results as user types
+- Highlighting of matching terms in results
+- Category filtering of search results
+- Search history for recently searched terms
+- help-search-index.csv for search optimization
+
+

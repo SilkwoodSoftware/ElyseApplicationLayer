@@ -1,0 +1,50 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+
+<div>
+  <div class="table-heading">All Users <br><br></div>
+</div>
+<div class="table-container" #tableContainer>
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of visibleColumns">
+          <div class="column-heading">
+            <span class="column-title" (click)="onColumnSelect(column)">{{ column }}</span>
+            <span class="sort-icon" *ngIf="sortColumn === column">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+          </div>
+          <img class="resize-handle" src="assets/icons/column-resize.svg" alt="Resize Icon" appColumnResize>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of sidList; let i = index"
+          [class.selected]="selectedRows.includes(user)"
+          (click)="onRowMultiSelect($event, user)">
+        <td *ngFor="let column of visibleColumns">{{ user[column] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="messages-container">
+  <span *ngFor="let item of messageItems" class="result-item">
+    {{ item.label }}: <span class="result-value">{{ item.value }}</span>
+  </span>
+</div>
+
+

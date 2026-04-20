@@ -1,0 +1,111 @@
+# Frontend (Angular)
+elyse_app-frontend/package-lock.json
+elyse_app-frontend/dist/
+elyse_app-frontend/.angular/
+elyse_app-frontend/node_modules/
+elyse_app-frontend/utility-tests/coverage/
+
+# Backend (ASP.NET Core)
+elyse_asp-backend/bin/
+elyse_asp-backend/obj/
+elyse_asp-backend/package-lock.json
+elyse_asp-backend/dist/
+elyse_asp-backend/node_modules/
+
+# DAL Service
+elyse_asp-backend/DAL/bin/
+elyse_asp-backend/DAL/obj/
+
+# Environment and configuration files
+*.env
+.env
+elyse_asp-backend/.env
+elyse_asp-backend/DAL/*.env
+appsettings.Production.json
+elyse_asp-backend/appsettings.Production.json
+
+# Build outputs and deployment packages
+DeploymentPackage/
+bin/
+obj/
+publish/
+logs/
+build-output/
+*.zip
+
+# Compiled binaries and build artifacts
+*.dll
+*.exe
+*.pdb
+*.so
+*.dylib
+*.cache
+*.tmp
+
+# NuGet and package management
+*.nuget.props
+*.nuget.targets
+project.assets.json
+project.nuget.cache
+*.dgspec.json
+
+# ASP.NET specific build files
+*.AssemblyInfo.cache
+*.AssemblyAttributes.cs
+*.MvcApplicationPartsAssemblyInfo.*
+*.GlobalUsings.g.cs
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.sourcelink.json
+*.FileListAbsolute.txt
+*.Up2Date
+staticwebassets.build.json
+staticwebassets/
+
+# Test backend
+test-backend/node_modules/
+test-backend/coverage/
+test-backend/dist/
+test-backend/.env
+test-backend/*.log
+test-backend/npm-debug.log*
+test-backend/yarn-debug.log*
+test-backend/yarn-error.log*
+test-backend/.npm
+test-backend/.yarn
+test-backend/.pnp.*
+test-backend/.eslintcache
+test-backend/.tsbuildinfo
+test-backend/package-lock.json
+test-backend/out.txt
+test-backend/output.txt
+test-backend/output2.txt
+
+# General
+node_modules/
+package-lock.json
+compared.txt
+logs/
+*.log
+temp_*
+*.temp
+*.bak
+*.swp
+*~
+
+# IDE and Editor files
+.aider*
+.vs/
+.vscode/settings.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Development Resources
+SQL-Scripts/
+
+deploy

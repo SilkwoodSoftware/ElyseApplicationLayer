@@ -1,0 +1,353 @@
+================================================================================
+03 - KERBEROS CONSTRAINED DELEGATION (KCD) CONFIGURATION
+================================================================================
+
+OVERVIEW
+========
+
+Kerberos Constrained Delegation (KCD) allows the Elyse backend to
+impersonate authenticated users when connecting to SQL Server. This is
+essential for the security model: every database connection is made under
+the Windows identity of the actual user, not the application service account.
+
+Without KCD, the backend cannot pass the user's identity through to SQL
+Server (the "double-hop" problem), and all database connections would appear
+as the service account, breaking user-level access control.
+
+This document covers:
+
+    - Service Principal Name (SPN) registration
+    - Constrained Delegation configuration in Active Directory
+    - Verification procedures
+
+Prerequisites from previous steps:
+    - Active Directory configured per 01_DOMAIN_SETUP.txt (included in
+      this package)
+    - Service accounts svc_sql and svc_elyse_be created
+    - SQL Server installed per 02_SQL_SERVER_AND_DATABASE.txt (in the
+      database package: Elyse_DB_*.zip)
+    - SQL Server listening on TCP port 1433
+
+
+PREREQUISITES
+=============
+
+    [ ] Domain Administrator credentials (or delegated rights to manage
+        SPNs and delegation)
+    [ ] Access to Active Directory Users and Computers (ADUC) on the
+        Domain Controller
+    [ ] The following information:
+
+        SQL Server hostname:        e.g., ELYSE-SQL01
+        SQL Server FQDN:            e.g., ELYSE-SQL01.yourdomain.com
+        SQL Server port:            1433
+        SQL service account:        YOURDOMAIN\svc_sql
+
+        Backend hostname:           e.g., ELYSE-BE01
+        Backend FQDN:               e.g., ELYSE-BE01.yourdomain.com
+        Backend service account:    YOURDOMAIN\svc_elyse_be
+
+    Replace YOURDOMAIN, hostnames, and FQDNs with your actual values
+    throughout this document.
+
+
+================================================================================
+BACKGROUND: THE DOUBLE-HOP PROBLEM
+================================================================================
+
+In a standard Windows Authentication scenario:
+
+    User --> Backend (Hop 1) --> SQL Server (Hop 2)
+
+The user authenticates to the backend (Hop 1) using Kerberos or NTLM.
+However, by default, the backend cannot forward the user's credentials to
+SQL Server (Hop 2). This is the "double-hop" problem.
+
+KCD solves this by:
+
+    1. Registering SPNs so that Kerberos knows which service accounts are
+       responsible for which services.
+    2. Configuring the backend service account to be "trusted for delegation"
+       to the specific SQL Server service, allowing it to obtain Kerberos
+       tickets on behalf of the authenticated user.
+
+The result is that SQL Server sees the actual user's Windows identity on
+every connection, enabling user-level access control in the database.
+
+
+================================================================================
+STEP 1: REGISTER SERVICE PRINCIPAL NAMES (SPNs)
+================================================================================
+
+SPNs link a service (e.g., SQL Server, HTTP) to the domain account that runs
+it. Kerberos uses SPNs to locate the correct account when issuing tickets.
+
+Perform these commands on the Domain Controller (or any domain-joined machine
+with Domain Admin rights). Open an elevated Command Prompt and run:
+
+SQL Server SPNs (link SQL Server to svc_sql):
+
+    setspn -S MSSQLSvc/ELYSE-SQL01.yourdomain.com:1433 YOURDOMAIN\svc_sql
+    setspn -S MSSQLSvc/ELYSE-SQL01:1433 YOURDOMAIN\svc_sql
+
+Backend HTTP SPNs (link the backend HTTP service to svc_elyse_be):
+
+    setspn -S HTTP/ELYSE-BE01.yourdomain.com YOURDOMAIN\svc_elyse_be
+    setspn -S HTTP/ELYSE-BE01 YOURDOMAIN\svc_elyse_be
+
+Frontend Proxy SPNs (separate-server deployments):
+
+When the frontend and backend are on different servers, the user's browser
+connects to the frontend hostname (e.g., ELYSE-FE01) and requests a Kerberos
+ticket for HTTP/ELYSE-FE01. The frontend's ARR reverse proxy forwards this
+ticket to the backend. For the backend to accept it, svc_elyse_be must also
+have HTTP SPNs registered for the frontend hostname:
+
+    setspn -S HTTP/ELYSE-FE01.yourdomain.com YOURDOMAIN\svc_elyse_be
+    setspn -S HTTP/ELYSE-FE01 YOURDOMAIN\svc_elyse_be
+
+NOTE: If the frontend and backend are on the same server, skip these two
+commands — the backend HTTP SPNs above are sufficient. Only register frontend
+proxy SPNs when the frontend IIS site is on a different machine from the
+backend.
+
+Each command should respond with:
+    "Registering ServicePrincipalNames for ..."
+    "Updated object"
+
+If you see "Duplicate SPN found", the SPN is already registered. Verify it
+is registered to the correct account using the verification commands in
+Step 3.
+
+IMPORTANT: Replace the hostnames, FQDN, and domain name with your actual
+values. The hostnames must exactly match the server names as they appear in
+Active Directory.
+
+NOTE ON NAMED INSTANCES: If you installed SQL Server as a Named Instance
+rather than a Default Instance, the SPN format remains the same as long as
+you are connecting via the port number (1433). The SPN uses the port, not
+the instance name.
+
+
+================================================================================
+STEP 2: CONFIGURE CONSTRAINED DELEGATION
+================================================================================
+
+This step configures the backend service account (svc_elyse_be) to be
+trusted for delegation to the SQL Server service only. This is "constrained"
+delegation because it limits which services the account can impersonate
+users to.
+
+Step 2a: Enable Advanced Features in ADUC
+-------------------------------------------
+
+1. Open Active Directory Users and Computers (ADUC).
+2. Click the View menu.
+3. Ensure "Advanced Features" is checked.
+
+    IMPORTANT: If Advanced Features is not enabled, the Delegation tab will
+    not be visible on user account properties. This is the most common
+    reason for the Delegation tab being missing.
+
+Step 2b: Configure Delegation on the Backend Service Account
+--------------------------------------------------------------
+
+1. In ADUC, locate the svc_elyse_be account.
+   (Navigate to the Elyse OU or wherever the account was created.)
+
+2. Right-click svc_elyse_be and select Properties.
+
+3. Click the Delegation tab.
+
+    NOTE: If the Delegation tab is not visible:
+    - Verify that Advanced Features is checked (Step 2a).
+    - Verify that SPNs were successfully registered for this account
+      (Step 1). The Delegation tab only appears on accounts that have
+      at least one SPN registered.
+    - Close and reopen ADUC, then try again.
+
+4. Select: "Trust this user for delegation to specified services only"
+
+5. Select: "Use Kerberos only"
+
+    IMPORTANT: "Use Kerberos only" is the tighter security posture. It
+    requires that the user's initial authentication to the backend is
+    already Kerberos — the backend can only delegate the user's identity
+    to SQL Server if it received a genuine Kerberos ticket from the user
+    in the first place. This ensures end-to-end Kerberos authentication
+    and prevents delegation of identities that were authenticated via
+    weaker protocols such as NTLM.
+
+    The alternative option, "Use any authentication protocol", enables
+    Kerberos Protocol Transition, which allows the backend to accept
+    authentication via any method (including NTLM) and then obtain a
+    Kerberos ticket to SQL Server on behalf of the user. NTLM is a weaker
+    protocol (susceptible to relay attacks, no mutual authentication) and
+    allowing it to feed into delegation widens the attack surface. Do not
+    select this option.
+
+6. Click the Add... button.
+
+7. Click "Users or Computers..."
+
+8. Type: svc_sql
+   Click "Check Names" to resolve the account, then click OK.
+
+9. In the "Available services" list, select the MSSQLSvc entry (or entries)
+   that correspond to your SQL Server.
+
+10. Click OK.
+
+11. Click Apply, then OK.
+
+
+================================================================================
+STEP 3: VERIFICATION
+================================================================================
+
+Step 3a: Verify SPNs
+----------------------
+
+Run these commands from an elevated Command Prompt on the Domain Controller:
+
+    setspn -L YOURDOMAIN\svc_sql
+
+Expected output (2 entries):
+    MSSQLSvc/ELYSE-SQL01.yourdomain.com:1433
+    MSSQLSvc/ELYSE-SQL01:1433
+
+    setspn -L YOURDOMAIN\svc_elyse_be
+
+Expected output (2 or 4 entries, depending on deployment):
+    HTTP/ELYSE-BE01.yourdomain.com
+    HTTP/ELYSE-BE01
+    HTTP/ELYSE-FE01.yourdomain.com    <-- separate-server only
+    HTTP/ELYSE-FE01                    <-- separate-server only
+
+If any entries are missing, re-run the corresponding setspn command from
+Step 1.
+
+If an SPN is registered to the wrong account, remove it first:
+
+    setspn -D MSSQLSvc/ELYSE-SQL01:1433 WRONGDOMAIN\wrong_account
+
+Then re-register it to the correct account.
+
+Step 3b: Verify Delegation Configuration
+------------------------------------------
+
+1. In ADUC (with Advanced Features enabled), open the properties of
+   svc_elyse_be.
+
+2. Go to the Delegation tab.
+
+3. Verify the following three things are all correct:
+   - "Trust this user for delegation to specified services only" is selected.
+   - "Use Kerberos only" is selected.
+   - The services list shows the MSSQLSvc entry for svc_sql.
+
+Step 3c: End-to-End Verification (After Application Deployment)
+-----------------------------------------------------------------
+
+After the backend and frontend are deployed (see SERVER_README.txt and
+FRONTEND_README.txt in their respective deployment packages):
+
+1. Open the Elyse application in a web browser as a domain user.
+
+2. Navigate to: Connected User > Who is this?
+
+3. The username displayed should match the Windows login of the connected
+   user, NOT the service account (svc_elyse_be).
+
+If the service account name is displayed instead of the user's name, KCD
+is not working. Check:
+
+    - SPNs are registered correctly (Step 3a).
+    - Delegation is configured correctly (Step 3b).
+    - The backend .env file has USE_KCD=true.
+    - The IIS application pool is running as svc_elyse_be.
+    - The SQL Server service is running as svc_sql.
+    - DNS resolves the server hostnames correctly.
+    - There are no duplicate SPNs (run: setspn -X to check for duplicates
+      across the entire domain).
+
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Problem: Delegation tab is missing on the service account
+----------------------------------------------------------
+Cause:   Advanced Features not enabled in ADUC, or no SPNs registered.
+Fix:     Enable Advanced Features (View menu). Verify SPNs with
+         setspn -L YOURDOMAIN\svc_elyse_be. If no SPNs are listed,
+         re-run the setspn commands from Step 1.
+
+Problem: "Duplicate SPN found" error when registering SPNs
+------------------------------------------------------------
+Cause:   The SPN is already registered to another account.
+Fix:     Find the existing registration:
+             setspn -Q MSSQLSvc/ELYSE-SQL01:1433
+         Remove it from the wrong account:
+             setspn -D MSSQLSvc/ELYSE-SQL01:1433 WRONGDOMAIN\wrong_account
+         Re-register to the correct account.
+
+Problem: SPNs registered with placeholder domain name instead of actual domain
+-------------------------------------------------------------------------------
+Symptom: Running setspn -L shows FQDN entries containing "yourdomain.com"
+         (the placeholder from the documentation) instead of your actual
+         domain name. For example:
+             MSSQLSvc/ELYSE-SQL01.yourdomain.com:1433    <-- wrong
+         instead of:
+             MSSQLSvc/ELYSE-SQL01.contoso.com:1433       <-- correct
+Cause:   The setspn commands were copied directly from the documentation
+         without replacing the placeholder values.
+Fix:     Remove the incorrect SPNs:
+             setspn -D MSSQLSvc/ELYSE-SQL01.yourdomain.com:1433 YOURDOMAIN\svc_sql
+             setspn -D HTTP/ELYSE-BE01.yourdomain.com YOURDOMAIN\svc_elyse_be
+         Re-register with your actual domain name:
+             setspn -S MSSQLSvc/ELYSE-SQL01.contoso.com:1433 CONTOSO\svc_sql
+             setspn -S HTTP/ELYSE-BE01.contoso.com CONTOSO\svc_elyse_be
+
+Problem: KCD works for some users but not others
+--------------------------------------------------
+Cause:   The failing users may not be members of the Elyse_Users AD group,
+         or their Kerberos tickets may be stale.
+Fix:     Verify group membership. Have the user log out and back in to
+         obtain fresh Kerberos tickets. On the user's machine, run:
+             klist purge
+         Then log in again.
+
+Problem: Backend returns 401 Unauthorized
+-------------------------------------------
+Cause:   Windows Authentication may not be enabled in IIS, or the HTTP SPN
+         may be incorrect.
+Fix:     Verify IIS Windows Authentication is enabled (see SERVER_README.txt).
+         Verify HTTP SPNs match the backend hostname exactly.
+
+Problem: SQL Server connection fails with "Login failed for user"
+-------------------------------------------------------------------
+Cause:   The user's identity is not being passed through (KCD failure), or
+         the user is not a member of the Elyse_Users AD group.
+Fix:     Check the SQL Server error log for the exact login name that was
+         attempted. If it shows the service account name, KCD is not
+         working. Review all steps above. If it shows the user's name,
+         verify the user is in the Elyse_Users group and the SQL Server
+         login for that group exists.
+
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Install the backend application layer using SERVER_README.txt (included
+   in this package, or in the backend deployment package).
+
+2. Install the frontend application layer using FRONTEND_README.txt (in
+   the frontend deployment package: Elyse-Frontend-*-Deploy-*.zip).
+
+3. After both layers are installed, proceed to
+   04_BOOTSTRAPPING_AND_CONFIGURATION.txt (in the database package:
+   Elyse_DB_*.zip) to onboard users and configure the system.
+
+================================================================================

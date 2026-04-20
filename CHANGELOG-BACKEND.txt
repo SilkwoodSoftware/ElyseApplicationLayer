@@ -1,0 +1,11 @@
+ELYSE BACKEND - CHANGELOG
+=========================
+
+This file tracks all changes to the Elyse Backend application.
+Version format: YYYY.MM.DD-HHMM (date and time of build)
+
+-------------------------------------------------------------------------
+
+Version 2026-03-18
+-------------------------------------------
+Initial release.

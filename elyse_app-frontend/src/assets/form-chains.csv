@@ -1,0 +1,17 @@
+ChainId,LinkId,ActionType,Reference,Condition,InputParameters,OutputParameters,ChainType
+new-document,1,FORM,create-document-id,transactionStatus=Good,,newDocId,DIALOG_CLOSE
+new-document,2,FORM,form-edit-document-data,,newDocId:documentId,,DIALOG_CLOSE
+list-all-docs,1,READ,number-of-all-docs,transactionStatus=Good,,numberOfDocs,DIALOG_CLOSE
+list-all-docs,2,READ,all-documents,transactionStatus=Good,,,DIALOG_CLOSE
+list-all-files-with-numbers,1,READ,number-of-all-files,transactionStatus=Good,,numberOfFiles,DIALOG_CLOSE
+list-all-files-with-numbers,2,READ,all-files,transactionStatus=Good,,,DIALOG_CLOSE
+upload-files-plusdata-plusedit,1,FORM,file-upload-metadata,,,documentId;docGroupId;fileGroupId;retentionMonths;duplicateCheck,DIALOG_CLOSE
+upload-files-plusdata-plusedit,2,CUSTOM,upload-files,,documentId;docGroupId;fileGroupId;retentionMonths;duplicateCheck,newFileId,DIALOG_CLOSE
+upload-files-plusdata-plusedit,3,CUSTOM,edit-doc-file-data,,newFileId:fileId;documentId,,DIALOG_CLOSE
+username-contains,1,FORM,list-users-contains,,,,DIALOG_CLOSE
+documentid-contains,1,FORM,list-docid-contains,,,,DIALOG_CLOSE
+filename-contains,1,FORM,list-filename-contains,,,,DIALOG_CLOSE
+upload-files-with-metadata,1,FORM,file-upload-metadata,,,documentId;docGroupId;fileGroupId;retentionMonths;duplicateCheck,DIALOG_CLOSE
+upload-files-with-metadata,2,CUSTOM,upload-files,,documentId;docGroupId;fileGroupId;retentionMonths;duplicateCheck,newFileId,DIALOG_CLOSE
+new-document-restr,1,FORM,create-document-id-restr,transactionStatus=Good,,newDocId,DIALOG_CLOSE
+new-document-restr,2,FORM,form-edit-document-data,,newDocId:documentId,,DIALOG_CLOSE

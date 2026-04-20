@@ -1,0 +1,282 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+
+<style>
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+ 
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: hsl(191, 16%, 81%);
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(76, 76, 76, 0.726);
+    z-index: 1000;
+  }
+ 
+  .dropdown-content a {
+    color: black;
+    padding: 3px 16px;
+    text-decoration: none;
+    display: block;
+  }
+ 
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+</style>
+ 
+<!-- Define templates for SVGs -->
+ <!-- ADD -->
+<ng-template #addSvg>
+  <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="11" fill="none" stroke="black" stroke-width="2"/>
+    <line x1="12" y1="6" x2="12" y2="18" stroke="black" stroke-width="2"/>
+    <line x1="6" y1="12" x2="18" y2="12" stroke="black" stroke-width="2"/>
+  </svg>
+</ng-template>
+
+<!-- EDIT -->
+<ng-template #editSvg>
+  <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g transform="rotate(40 13 13)">
+      <path d="M 9.5  0  L 14.5 0 L 14.5 18 L 12 24 L 9.5 18 L 9.5 2 Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M 14.5 16 L 9.5 16" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+  </svg>
+</ng-template>
+
+<!-- DELETE -->
+<ng-template #deleteSvg>
+  <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="11" fill="none" stroke-width="2"/>
+    <line x1="7" y1="12" x2="17" y2="12" stroke-width="2"/>
+  </svg>
+</ng-template>
+
+<!-- LINK -->
+<ng-template #linkSvg>
+  <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M10 13 a 5 5 0 0 0  7.54  .54 l  3 -3 a 5 5 0 0 0 -7.07 -7.07 l -1.72  1.71" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M14 11 a 5 5 0 0 0 -7.54 -.54 l -3  3 a 5 5 0 0 0  7.07  7.07 l  1.71 -1.71" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+   </svg>
+</ng-template>
+
+<!-- LINK PLUS ADD -->
+<ng-template #linkAddSvg>
+  <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+      <!-- '+' -->     
+       <path d="M 4 3 l 0 6 M 1 6 l 6 0"></path>
+    <g transform="rotate(-45 13 13)">
+      <path d="M10 15H7C5.34315 15 4 13.6569 4 12C4 10.3431 5.34315 9 7 9H10M14 9H17C18.6569 9 20 10.3431 20 12C20 13.6569 18.6569 15 17 15H14M8 12H16"></path>   
+    </g>
+    </svg>
+   </svg>
+</ng-template>
+
+<!-- UNLINK -->
+<ng-template #unlinkSvg>
+  <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <g transform="rotate(-45 13 13)">
+    <path d="M 7 7.5 a 4 4 0 0 1 5.65 5.65 M 7 7.5 l -4 0 a 4 4 0 0 0 0 8 l 4 0 
+             M 22 7.5 a 4 4 0 0 0 0 8 l 3 0 M 22 7.5 l 3 0" />
+    <path d="M 10 18 l 0 3.5 M 13 17 l 2 3"  stroke-width="0.7"/>
+  </g>
+  </svg>
+</ng-template>
+
+<!-- End of SVG template definitions -->
+
+<div class="navigation-menu">
+
+  <!-- Favicon that navigates to root -->
+  <img src="favicon.ico" alt="Home" class="favicon-icon" (click)="navigateToRoot()" title="Home">
+
+  <div class="dropdown">
+    <button class="dropbtn" (click)="openRolesDialog()">
+      Select Roles
+    </button>
+  </div>
+
+  <!-- Delete button for the list of users -->
+<button class="dynamic-buttons" (click)="onDeleteRecord()" 
+  *ngIf="hasRole('Authorizer') && isListUsersPage"
+  [ngClass]="{'selected': selectedIds.length > 0}">
+  <ng-container *ngTemplateOutlet="deleteSvg"></ng-container>
+  Delete
+</button>
+
+  <!-- Delete button for the radio button lists -->
+<button class="dynamic-buttons" (click)="onDeleteDocRblists()" 
+*ngIf="hasRole('Configurator') && isDocRblistNamesPage"
+[ngClass]="{'selected': selectedIds.length > 0}">
+<ng-container *ngTemplateOutlet="deleteSvg"></ng-container>
+Delete
+</button>
+
+<!-- Add button for the list of users -->
+<button class="static-buttons" (click)="tableActionsService.openAddUserDialog()" 
+*ngIf="hasRole('Authorizer') && isListUsersPage">
+  <ng-container *ngTemplateOutlet="addSvg"></ng-container>
+  Add
+</button>
+
+<!-- Add button for the document radio button lists -->
+<button class="static-buttons" (click)="tableActionsService.openAddDocRblistDialog()" 
+*ngIf="hasRole('Configurator') && isDocRblistNamesPage" >
+  <ng-container *ngTemplateOutlet="addSvg"></ng-container>
+  Add
+</button>
+
+<!-- Edit button for the list of users -->
+<button class="dynamic-buttons" (click)="onEditUser()" 
+*ngIf="(hasRole('Controller') || hasRole('Configurator') || hasRole('Authorizer')) && isListUsersPage"
+  [ngClass]="{'selected': selectedIds.length === 1}">
+  <ng-container *ngTemplateOutlet="editSvg"></ng-container>
+  Edit
+</button>
+
+<!-- Edit button for the list of documents -->
+<button class="dynamic-buttons" (click)="onEditDocument()" 
+*ngIf="(hasRole('Controller') || hasRole('Editor')) && isAllDocumentsPage"
+[ngClass]="{'selected': selectedDocumentIds.length === 1}">
+<ng-container *ngTemplateOutlet="editSvg"></ng-container>
+  Edit data
+</button>
+
+<!-- Add button for the list of documents -->
+<button class="static-buttons" (click)="openCreateDocumentIdDialog()" 
+*ngIf="(hasRole('Controller') || hasRole('Editor')) && isAllDocumentsPage">
+<ng-container *ngTemplateOutlet="addSvg"></ng-container>
+  Add document
+</button>
+
+<!-- Edit button for the list of files -->
+<button class="dynamic-buttons" (click)="onEditFile()" 
+*ngIf="(hasRole('Controller') || hasRole('Editor')) && (isAllFilesPage || isFileSearchResultsPage)"
+[ngClass]="{'selected': selectedFileIds.length === 1}">
+<ng-container *ngTemplateOutlet="editSvg"></ng-container>
+  Edit data
+</button>
+
+ <!-- Edit button for documents and files -->
+<button class="dynamic-buttons" (click)="onEditDocumentOrFile()"
+*ngIf="(hasRole('Controller') || hasRole('Editor')) &&
+(isDocsByTextFieldPage || isOneDocumentDataPage || isAllFilesOneDocPage)"
+[ngClass]="{'selected': selectedDocumentId || selectedFileId}"
+[disabled]="!selectedDocumentId && !selectedFileId">
+<ng-container *ngTemplateOutlet="editSvg"></ng-container>
+Edit data
+</button>
+
+ <!-- Edit document ID button -->
+ <button class="dynamic-buttons"
+ *ngIf="(hasRole('Controller') || hasRole('Editor')) && isEditDocFileDataPage && documentIdAvailable"
+ (click)="openEditDocumentIdDialog()"
+ [ngClass]="{'selected': true}">
+ <ng-container *ngTemplateOutlet="editSvg"></ng-container>
+ Edit document ID 
+ </button>
+
+
+ <!-- Link button for linking a file to a document -->
+ <button class="dynamic-buttons" (click)="onLinkFileToDoc()" 
+ *ngIf="(hasRole('Controller') || hasRole('Editor')) && (isAllFilesPage || isFileSearchResultsPage)"
+ [ngClass]="{'selected': selectedFileIds.length > 0}">
+ <ng-container *ngTemplateOutlet="linkSvg"></ng-container>
+ Link to doc
+ </button>
+
+ 
+  <!-- Add a file and link it to a document -->
+  <button class="static-buttons"     
+  *ngIf="(hasRole('Controller') || hasRole('Editor')) 
+  && (isAllFilesOneDocPage)"
+  (click)="onAddFilesToDoc()" >
+  <ng-container *ngTemplateOutlet="linkAddSvg"></ng-container>
+  Add file and link
+  </button>
+
+ <!-- Unlink button for removing a file to a file to document link -->
+ <button class="dynamic-buttons"     
+ *ngIf="(hasRole('Controller') || hasRole('Editor')) 
+ && (isDocsByTextFieldPage || isOneDocumentDataPage || isAllFilesOneDocPage)"
+ [ngClass]="{'selected': selectedDocumentId || selectedFileIds.length > 0}"
+ (click)="onRemoveFileDocLink()" >
+ <ng-container *ngTemplateOutlet="unlinkSvg"></ng-container>
+ Remove link
+ </button>
+
+ <!-- Add button for adding files -->
+ <button class="static-buttons"     
+ *ngIf="(hasRole('Controller') || hasRole('Editor'))
+  && (isAllFilesPage || isFileSearchResultsPage)"
+ (click)="onAddFile()" >
+ <ng-container *ngTemplateOutlet="addSvg"></ng-container>
+ Add files
+ </button>
+
+ <!-- Delete button for deleting files -->
+ <button class="dynamic-buttons"     
+ *ngIf="(hasRole('Controller') || hasRole('Editor')) 
+&& (isDocsByTextFieldPage || isOneDocumentDataPage || isAllFilesOneDocPage || isAllFilesPage || isFileSearchResultsPage)"
+ [ngClass]="{'selected': selectedFileIds.length > 0}" 
+ (click)="onDeleteFiles()">
+ <ng-container *ngTemplateOutlet="deleteSvg"></ng-container>
+ Delete files
+ </button>
+
+  <!-- Delete button for deleting documents -->
+  <button class="dynamic-buttons"     
+  *ngIf="(hasRole('Controller') || hasRole('Editor')) 
+  && (isDocsByTextFieldPage || isAllDocumentsPage)"
+  [ngClass]="{'selected': selectedDocumentIds.length > 0}"
+  (click)="onDeleteDocuments()">
+  <ng-container *ngTemplateOutlet="deleteSvg"></ng-container>
+  Delete document IDs
+  </button>
+
+<!-- Roles button -->
+<button class="dynamic-buttons" (click)="onRolesByUser()" *ngIf="hasRole('Authorizer') && (isListUsersPage || isAllUsersRolesPage)"
+  [ngClass]="{'selected': selectedIds.length === 1}">
+<svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g transform="rotate(30 13 13)">
+  <!-- Brim -->
+  <path fill="none" d="M 0 14 L 5 16 L 12 17 L 21 16 L24 14"stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Crown -->
+  <path fill="none" d="M 7 16 L 9 6  L 12 8  L 15 6 L 17 16"stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Star -->
+  <g transform="translate(9,9)">
+  <g transform="scale(0.28)">
+  <path d="M 12 2 L 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2 z" stroke-width="2" fill="none"/></g>
+  </g>
+</g>
+</svg>
+  Roles
+</button>
+
+</div>
+     

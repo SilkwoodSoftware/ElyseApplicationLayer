@@ -1,0 +1,279 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.navigation-menu {
+  display: flex;
+  align-items: center;
+  background-color: transparent; /* Remove background color as it's set in the parent container */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin-bottom: 0; /* Remove margin to match other menus */
+  position: relative;
+  z-index: 100;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: #000000;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 0.7rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #9cc6f6;
+    color: #000000;
+    border: 1px solid #a5a5a5;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  &::after {
+    content: " ▼";
+    font-size: 0.6rem;
+    margin-left: 3px;
+    vertical-align: middle;
+  }
+}
+
+.dropdown-content,
+.sub-dropdown-content,
+.sub-sub-dropdown-content {
+  display: none;
+  position: absolute;
+  font-size: 0.7rem;
+  background-color: hsl(191, 16%, 81%); /* Match background color with other menus */
+  width: max-content; /* Flexible width to fit content without wrapping */
+  min-width: 200px; /* Minimum width for consistency */
+  max-width: 600px; /* Maximum width to prevent excessively wide menus */
+  box-shadow: 0px 8px 16px 0px rgba(76, 76, 76, 0.726); /* Match shadow with other menus */
+  border-radius: 0; /* Remove border radius to match other menus */
+  border: none; /* Remove border to match other menus */
+  z-index: 101;
+  /* Match padding with other menus */
+  padding: 0;
+
+  a {
+    color: #000000;
+    padding: 1px 16px; /* Reduced vertical padding to decrease spacing between items */
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+    position: relative;
+    white-space: nowrap; /* Prevent text wrapping */
+
+    &:hover {
+      background-color: #f1f1f1; /* Match hover color with other menus */
+      color: #000000;
+    }
+
+    &.has-children::after {
+      content: " ▶";
+      font-size: 0.6rem;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.dropdown-content {
+  top: 100%;
+  left: 0;
+}
+
+.sub-dropdown-content {
+  top: 100%; /* Position below the parent menu item */
+  left: 50px; /* Offset to the right to show more of the parent menu */
+  z-index: 102;
+  margin-left: 0;
+}
+
+.sub-sub-dropdown-content {
+  top: 100%; /* Position below the parent menu item */
+  left: 50px; /* Offset to the right to show more of the parent menu */
+  z-index: 103;
+  margin-left: 0;
+}
+
+.menu-item-wrapper {
+  position: relative;
+  /* Remove margin to match other menus */
+  margin: 0;
+  width: 100%; /* Ensure the wrapper takes full width */
+}
+
+/* Remove hover behavior since we're using click instead */
+/*
+.dropdown:hover > .dropdown-content {
+  display: block;
+}
+
+.menu-item-wrapper:hover > .sub-dropdown-content,
+.menu-item-wrapper:hover > .sub-sub-dropdown-content {
+  display: block;
+}
+*/
+
+/* Multiple Navigation Dropdowns Styling */
+.navigation-menu.multiple-dropdowns {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 100;
+  
+  /* Ensure dropdowns are evenly spaced */
+  gap: 5px;
+  
+  /* Direct Action Button (no dropdown arrow) */
+  .dropbtn.direct-action {
+    background-color: transparent;
+    color: #000000;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 0.7rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: #9cc6f6;
+      color: #000000;
+      border: 1px solid #a5a5a5;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    /* No dropdown arrow for direct action buttons */
+    &::after {
+      content: none;
+    }
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    
+    .dropbtn {
+      background-color: transparent;
+      color: #000000;
+      padding-left: 6px;
+      padding-right: 6px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      font-size: 0.7rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      white-space: nowrap; /* Prevent text wrapping */
+
+      &:hover {
+        background-color: #9cc6f6;
+        color: #000000;
+        border: 1px solid #a5a5a5;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      &::after {
+        content: " ▼";
+        font-size: 0.6rem;
+        margin-left: 3px;
+        vertical-align: middle;
+      }
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      font-size: 0.7rem;
+      background-color: hsl(191, 16%, 81%);
+      width: max-content; /* Flexible width to fit content without wrapping */
+      min-width: 200px; /* Minimum width for consistency */
+      max-width: 600px; /* Maximum width to prevent excessively wide menus */
+      box-shadow: 0px 8px 16px 0px rgba(76, 76, 76, 0.726);
+      border-radius: 0;
+      border: none;
+      z-index: 101;
+      padding: 0;
+      
+      a {
+        color: #000000;
+        padding: 1px 16px;
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.3s ease;
+        position: relative;
+        white-space: nowrap; /* Prevent text wrapping */
+
+        &:hover {
+          background-color: #f1f1f1;
+          color: #000000;
+        }
+
+        &.has-children::after {
+          content: " ▶";
+          font-size: 0.6rem;
+          position: absolute;
+          right: 8px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 768px) {
+  .navigation-menu.multiple-dropdowns {
+    flex-wrap: wrap;
+    
+    .dropdown .dropbtn {
+      font-size: 0.65rem;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  }
+}

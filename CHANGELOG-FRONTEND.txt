@@ -1,0 +1,43 @@
+ELYSE FRONTEND - CHANGELOG
+==========================
+
+This file tracks all changes to the Elyse Frontend application.
+Version format: YYYY.MM.DD-HHMM (date and time of build)
+
+-------------------------------------------------------------------------
+
+Version 2026.01.14-0630 - January 14, 2026
+-------------------------------------------
+
+Added:
+  - "Connected User -> Who is this?" menu function for user verification
+  - Displays authenticated username in message bar
+  - Deployment README now includes verification procedure using this function
+
+-------------------------------------------------------------------------
+
+Version 2026.01.14-0556 - January 14, 2026
+-------------------------------------------
+
+Added:
+  - Comprehensive update instructions for IIS deployments
+  - Update instructions for Node.js http-server deployments
+  - Browser cache clearing instructions
+  - Backup and rollback procedures
+  - Multi-user installation guidance for shared machines
+
+Changed:
+  - Browser tab title changed from "AmosAppFrontend" to "Elyse"
+  - Frontend config.json now includes /api in backend URL path
+  - Enhanced documentation for runtime configuration
+
+Fixed:
+  - Favicon caching issues resolved with browser cache instructions
+  - Configuration template format corrected
+
+-------------------------------------------------------------------------
+
+Version 2026-03-18
+-------------------------------------------
+
+Initial release 

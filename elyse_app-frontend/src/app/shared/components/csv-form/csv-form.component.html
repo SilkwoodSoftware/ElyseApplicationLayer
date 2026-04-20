@@ -1,0 +1,151 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="csv-form-container">
+  <!-- Container for form field menu -->
+  <ng-container #menuContainer></ng-container>
+  
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!errorMessage">
+    <h2 class="form-title" *ngIf="formTitle && !hideTitle">{{ getFormattedTitle() }}</h2>
+    <div class="form-fields">
+      <div *ngFor="let field of formFields" class="form-field" [ngClass]="getFieldTypeClass(field)">
+        <label [for]="field.id">
+          {{ field.label }}
+          <span *ngIf="field.isMandatory === true && !isFieldDisabled(field.id)" style="color: #ff0000; font-weight: bold; margin-left: 2px;">*</span>
+          <span *ngIf="isFieldDisabled(field.id)" style="color: #666; font-style: italic; margin-left: 8px; font-size: 0.9em;" title="This field will be populated from each of the {{ selectedRowCount }} selected rows during iteration">({{ selectedRowCount }} rows)</span>
+        </label>
+        <ng-container *ngIf="form.get(field.id)">
+          <ng-container [ngSwitch]="getInputType(field)">
+            <!-- Date field - Material datepicker with formatted display -->
+            <ng-container *ngSwitchCase="'date'">
+              <div class="input-container" style="display: inline-flex; align-items: center; position: relative;">
+                <span [style]="getInputStyle(field)"
+                      style="padding: 3px 8px; border: 1px solid #9f9f9f; border-radius: 4px; font-size: 0.6rem; font-family: Arial, sans-serif; background: white; display: inline-block; cursor: pointer;"
+                      (click)="picker.open()">
+                  {{ getFormattedDateDisplay(field) || field.placeholder || 'Select date' }}
+                </span>
+                <mat-datepicker-toggle [for]="picker" style="margin-left: 4px;"></mat-datepicker-toggle>
+                <input [id]="field.id"
+                       [formControlName]="field.id"
+                       [matDatepicker]="picker"
+                       style="position: absolute; opacity: 0; pointer-events: none;">
+                <mat-datepicker #picker startView="month" (closed)="onDateChange(field)"></mat-datepicker>
+              </div>
+            </ng-container>
+            
+            <!-- Dropdown field -->
+            <ng-container *ngSwitchCase="'dropdown'">
+              <select [id]="field.id" [formControlName]="field.id"
+                      [required]="field.isMandatory === true"
+                      [style]="getInputStyle(field)"
+                      (click)="onDropdownInteraction($event)"
+                      (change)="onDropdownChange($event, field.id)">
+                <option value="" disabled selected>-- Select --</option>
+                <option *ngFor="let option of getDropdownOptions(field)" [value]="getOptionValue(option)">
+                  {{ getOptionDisplayValue(option) }}
+                </option>
+                <option *ngIf="getDropdownOptions(field).length === 0" value="" disabled>No options available</option>
+              </select>
+            </ng-container>
+            
+            <!-- Lookup field -->
+            <ng-container *ngSwitchCase="'lookup'">
+              <div class="input-container">
+                <input [id]="field.id" [formControlName]="field.id"
+                       [required]="field.isMandatory === true" readonly
+                       [style]="getInputStyle(field)">
+                <button type="button" class="lookup-button"
+                        (click)="field.populationType === 'LOOKUP_TABLE' ? openLookupTable(field) : openLookupForm(field)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </button>
+              </div>
+            </ng-container>
+            
+            <!-- Menu field -->
+            <ng-container *ngSwitchCase="'menu'">
+              <div class="input-container">
+                <input [id]="field.id" [formControlName]="field.id"
+                       [required]="field.isMandatory === true && !isFieldDisabled(field.id)" readonly
+                       [style]="getInputStyle(field)">
+                <span class="menu-caret"
+                      [class.disabled]="isFieldDisabled(field.id)"
+                      (click)="!isFieldDisabled(field.id) && openFieldMenu($event, field)">▶</span>
+              </div>
+            </ng-container>
+            
+            <!-- Number field -->
+            <ng-container *ngSwitchCase="'number'">
+              <input type="number" [id]="field.id" [formControlName]="field.id"
+                     [required]="field.isMandatory === true"
+                     [placeholder]="field.placeholder || ''"
+                     [style]="getInputStyle(field)">
+            </ng-container>
+            
+            <!-- Default text field -->
+            <ng-container *ngSwitchDefault>
+              <input type="text" [id]="field.id" [formControlName]="field.id"
+                     [required]="field.isMandatory === true"
+                     [placeholder]="field.placeholder || ''"
+                     [maxlength]="field.characterLimit && field.characterLimit > 0 ? field.characterLimit : null"
+                     [style]="getInputStyle(field)">
+            </ng-container>
+          </ng-container>
+          
+          <!-- Error messages - only show after form submission -->
+          <ng-container *ngIf="form.get(field.id)?.invalid && isFormSubmitted">
+            <span class="error-message" *ngIf="form.get(field.id)?.hasError('required')">
+              {{ field.label }} is required
+            </span>
+            <span class="error-message" *ngIf="form.get(field.id)?.hasError('maxlength')">
+              Maximum {{ field.characterLimit }} characters allowed
+            </span>
+          </ng-container>
+          
+          <!-- Help text (not shown for disabled fields) -->
+          <ng-container *ngIf="field.helpText && !isFieldDisabled(field.id)">
+            <span class="field-info help-text">{{ field.helpText }}</span>
+          </ng-container>
+          
+          <!-- Character limit info -->
+          <ng-container *ngIf="field.characterLimit && field.characterLimit > 0 &&
+                               field.populationType !== 'API_DROPDOWN' && field.populationType !== 'FIXED_DROPDOWN'">
+            <span class="field-info character-limit">&nbsp;&nbsp;Max: {{ field.characterLimit }} characters</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    
+    <!-- Instructions section -->
+    <div class="form-instructions" *ngIf="formDefinition?.instructions">
+      {{ formDefinition?.instructions }}
+    </div>
+    
+    <div>
+      <button type="submit" class="confirmation-buttons" [disabled]="isLoading || form.invalid">
+        <span *ngIf="isLoading">Loading...</span>
+        <span *ngIf="!isLoading">Submit</span>
+      </button>
+      <button type="button" class="confirmation-buttons" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

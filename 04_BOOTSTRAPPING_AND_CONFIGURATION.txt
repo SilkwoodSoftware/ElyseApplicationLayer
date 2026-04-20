@@ -1,0 +1,369 @@
+================================================================================
+04 - BOOTSTRAPPING USER ROLES AND SYSTEM CONFIGURATION
+================================================================================
+
+OVERVIEW
+========
+
+What is "bootstrapping"? After all the software is installed (database,
+backend, frontend), the system is empty — it has no users and no permissions
+configured. "Bootstrapping" is the process of setting up the first users and
+granting them the permissions they need to start using the application.
+
+This document covers post-deployment configuration of the Elyse system:
+
+    - Verifying the installation
+    - User self-onboarding process
+    - Bootstrapping role permissions (single-user and multi-user)
+    - Global settings reference
+
+Prerequisites from previous steps:
+    - Database installed and verified per 02_SQL_SERVER_AND_DATABASE.txt
+    - Backend deployed and frontend deployed (see the README in each
+      deployment package: SERVER_README.txt or WORKGROUP_README.txt for the
+      backend, FRONTEND_README.txt for the frontend)
+
+    SERVER deployments only:
+    - KCD configured per 03_KCD_CONFIGURATION.txt
+    - At least one user added to the Elyse_Users AD group
+      (see 01_DOMAIN_SETUP.txt, Step 4)
+
+    WORKGROUP deployments:
+    - KCD and AD group are not required
+    - The SQL Server login for the service account was created during
+      backend deployment (see WORKGROUP_README.txt)
+
+
+================================================================================
+STEP 1: VERIFY THE INSTALLATION
+================================================================================
+
+Before bootstrapping users, verify that the complete stack (database +
+backend + frontend) is working end-to-end. This quick test confirms that all
+the pieces are connected correctly.
+
+SERVER Deployments
+------------------
+
+1. On a domain-joined workstation (not the server itself), open a web
+   browser such as Microsoft Edge or Google Chrome. In the address bar at
+   the top, type the frontend URL (e.g., http://ELYSE-FE01:8080) and press
+   Enter. The Elyse application should load.
+
+2. In the Elyse application, look at the grey navigation bar at the top of
+   the page. Click on "Connected User" (it is a menu item in the navigation
+   bar). A drop-down menu will appear. Click "Who is this?"
+
+3. A message bar will appear below the navigation bar displaying the Windows
+   username of the connected user (e.g., YOURDOMAIN\jsmith). This should be
+   your Windows login name — the same name you used to log in to the
+   workstation.
+
+If the username is correct, the following are confirmed:
+    - Windows Authentication is working
+    - KCD is passing the user's identity to SQL Server
+    - The database is resolving the user's Windows identity
+    - The user has CONNECT permission via the Elyse_Users AD group
+
+If the username is incorrect or shows the service account name:
+    - Review 03_KCD_CONFIGURATION.txt, Step 3c (End-to-End Verification)
+    - Check the backend .env file (USE_KCD must be true)
+    - Check IIS Windows Authentication settings
+
+WORKGROUP Deployments
+---------------------
+
+1. Open a web browser and navigate to the frontend URL (e.g.,
+   http://localhost:8080).
+
+2. Select "Connected User > Who is this?" from the grey navigation bar at
+   the top of the application.
+
+3. The message bar should display the Windows username of the local user
+   (e.g., COMPUTERNAME\JohnDoe).
+
+If the username is correct, the backend is connecting to SQL Server as the
+correct Windows account. If the username is incorrect, check the backend
+.env file and verify the Windows Service is running under the correct user
+account (see WORKGROUP_README.txt, Step 7).
+
+
+================================================================================
+STEP 2: SELF-ONBOARDING
+================================================================================
+
+Before a user can be granted any roles, they must self-onboard. This process
+creates a record of the user's Windows security identifier (SID) in the
+Elyse database and assigns an Elyse User ID.
+
+It is not possible to onboard a user without the user first being connected
+to the database with no privileges (i.e., for SERVER deployments, they must
+be a member of the Elyse_Users AD group and able to access the application).
+
+To self-onboard:
+
+1. The user opens the Elyse application in their web browser.
+2. Select "Connected User" > "Self Onboard" from the navigation bar.
+3. A dialog will confirm the successful transaction, or confirm that the
+   user is already onboarded.
+
+Each user who requires any privileges must complete this step individually.
+
+
+================================================================================
+STEP 3: BOOTSTRAPPING ROLES - SINGLE-USER ENVIRONMENT
+================================================================================
+
+For a single-user installation of Elyse (e.g., a personal workstation or
+lab environment), all role privileges must be granted by directly adding
+records into the database after the self-onboarding process.
+
+Step 3a: Find the User's SID ID
+---------------------------------
+
+1. Open SQL Server Management Studio (SSMS).
+2. In the "Connect to Server" dialog, set Server name to .\ (for Default
+   Instance) or .\SQLEXPRESS (for Named Instance), set Authentication to
+   Windows Authentication, and click Connect.
+3. In the Object Explorer panel (left side of SSMS), click the + icon next
+   to Databases to expand it, then click the + next to Elyse_DB, then click
+   the + next to Tables.
+4. Scroll down in the list of tables to find: user_restr.sid_list
+5. Right-click user_restr.sid_list and select "Select Top 1000 Rows".
+6. There should be a record of the onboarded user.
+7. Note the value in the sid_id column (usually 1 for the first user).
+
+Step 3b: Assign All Roles
+---------------------------
+
+1. In the Object Explorer panel (left side of SSMS), scroll through the
+   tables list under Elyse_DB > Tables to find: user_restr.user_role_link
+2. Right-click user_restr.user_role_link and select "Edit Top 200 Rows". A
+   grid editor will open in the centre panel.
+3. Enter the following records (adjust sid_id if different from 1):
+
+       role_name       sid_id
+       ---------       ------
+       Configurator    1
+       Controller      1
+       Editor          1
+       Reader          1
+       Reviewer        1
+
+Step 3c: Grant Authorizer Privileges
+--------------------------------------
+
+1. In the Object Explorer panel, scroll through the tables list under
+   Elyse_DB > Tables to find: user_restr.authorisers
+2. Right-click user_restr.authorisers and select "Edit Top 200 Rows". A
+   grid editor will open.
+3. Click in the first empty cell under the authoriser_sid_id column and
+   type the sid_id value (e.g., 1). Press Enter or click on another row to
+   save.
+
+Step 3d: Verify in the Application
+-------------------------------------
+
+1. Open the Elyse application in a web browser (or press F5 to refresh if
+   already open).
+2. Select the "Select Roles" command on the navigation bar.
+3. All roles should be available for selection.
+4. Select the available roles. Application commands for the selected roles
+   will become visible.
+5. Help instructions for the selected roles will be accessible via the ?
+   button on the right-hand side of the navigation bar.
+
+
+================================================================================
+STEP 4: BOOTSTRAPPING ROLES - MULTI-USER ENVIRONMENT
+================================================================================
+
+In a multi-user server environment, role privileges are granted through the
+application by users with Authorizer privileges. However, the first two
+Authorizer users must be manually bootstrapped in the database.
+
+NOTE: Why two Authorizers? A user can only be granted Authorizer privileges
+by two existing Authorizers. The first two must be seeded manually.
+
+Step 4a: Prepare the Two Initial Authorizers
+----------------------------------------------
+
+1. Ensure both users are members of the Elyse_Users AD group (see
+   01_DOMAIN_SETUP.txt, Step 4).
+
+2. Both users must connect to the Elyse application and self-onboard (see
+   Step 2 above).
+
+Step 4b: Find the Users' SID IDs
+-----------------------------------
+
+1. Open SSMS if it is not already open. In the "Connect to Server" dialog,
+   set Server name to .\ (for Default Instance) or .\SQLEXPRESS (for Named
+   Instance), set Authentication to Windows Authentication, and click
+   Connect.
+2. In the Object Explorer panel (left side), click the + icons to expand:
+   Databases > Elyse_DB > Tables.
+3. Scroll down to find the table: user_restr.sid_list
+4. Right-click user_restr.sid_list and select "Select Top 1000 Rows".
+5. There should be records for both onboarded users.
+6. Note the sid_id values (usually 1 and 2 for the first two users).
+
+Step 4c: Grant Authorizer Privileges
+--------------------------------------
+
+1. In the Object Explorer panel, scroll through the tables list to find:
+   user_restr.authorisers
+2. Right-click user_restr.authorisers and select "Edit Top 200 Rows". A
+   grid editor will open.
+3. Enter both sid_id values in the authoriser_sid_id column:
+
+       authoriser_sid_id
+       -----------------
+       1
+       2
+
+Step 4d: Verify in the Application
+-------------------------------------
+
+1. Each Authorizer user opens the Elyse application in their web browser
+   (or presses F5 to refresh if already open).
+2. Select the "Select Roles" command on the navigation bar.
+3. Check the checkbox next to "Authorizer".
+4. The Authorizer-level commands should now be visible in the application.
+5. Authorizer-level help instructions will be accessible via the ? button.
+
+Step 4e: Granting Roles to Other Users (Ongoing)
+---------------------------------------------------
+
+Once the two initial Authorizers are established:
+
+1. Other users self-onboard (Step 2).
+2. An Authorizer can grant roles to onboarded users through the application
+   interface (no direct database access required).
+3. Authorizer privileges specifically require approval from two existing
+   Authorizers.
+
+
+================================================================================
+GLOBAL SETTINGS REFERENCE
+================================================================================
+
+The table base.global_settings_groups contains sets of global settings used
+by the stored procedures. The current values can be listed by opening the
+Elyse application and selecting Information > Global Settings.
+
+How Settings Groups Work
+-------------------------
+
+The stored procedures use the settings group record with a setting_group_name
+of "Master". Any number of settings groups can be created so that global
+settings can be easily switched between pre-configured profiles.
+
+There must always be one record with the name "Master". To switch to a
+different pre-configured settings group:
+
+1. Rename the current "Master" record to something else (e.g., "Previous").
+2. Rename the desired settings group record to "Master".
+
+IMPORTANT: For reasons of database integrity, other than date_style there
+are no stored procedures for updating global settings. Global settings can
+only be changed with direct DBA access to the table.
+
+Settings Reference
+-------------------
+
+Column                              Description
+------                              -----------
+language_id                         Selected language for visible text
+                                    messages. Must match an entry in
+                                    messaging.language_list.
+
+is_register_code_applied            'Yes' or 'No'. Whether the register code
+                                    prefix is applied to auto-generated
+                                    document IDs.
+
+register_code                       Optional namespace prefix appended to
+                                    auto-generated document IDs. Used to
+                                    differentiate distinct registers within
+                                    an organisation. Should not encode
+                                    metadata. Can use the organisation's
+                                    stock ticker to prevent ID clashes if
+                                    organisations merge.
+
+auto_gen_doc_id_length              4, 6, or 8. Number of characters in
+                                    auto-generated document IDs.
+                                    Use 4 for < 100,000 documents.
+                                    Use 6 for < 25,000,000 documents.
+                                    Use 8 for billions.
+                                    See internal.usp_SEL_random_doc_id.
+
+auto_gen_doc_id_on_null             'Yes' or 'No'. Whether to auto-generate
+                                    a document ID if none is supplied to
+                                    usp_INS_document_id.
+
+doc_id_format                       'Alpha' or 'Integer'. Whether auto-
+                                    generated IDs are alphabetic strings
+                                    (e.g., BCDF) or integers (e.g., 12345).
+
+doc_id_last_integer                 Record of the last integer-type document
+                                    ID used.
+
+date_style                          Default date style for date values. Must
+                                    match an entry in base.datetime_styles.
+
+culture_code                        Culture code for localisation (ISO 639-1
+                                    language + ISO 3166-1 country code).
+
+doc_autogen_max_tries               Maximum attempts for generating an
+                                    auto-generated document ID.
+
+default_filter_group                Default filter group used by stored
+                                    procedures for common functions. Avoids
+                                    hard-coding filter configuration in the
+                                    application layer.
+
+default_form_id                     Default form ID used when no form ID is
+                                    supplied. Cannot be NULL. Controls which
+                                    fields are returned for file and document
+                                    data.
+
+default_doc_free_text_name_id       Default free text name ID (e.g., can
+                                    point to document 'Title').
+
+default_tag_tree_id                 Default tag tree ID if none supplied.
+
+default_tag_browsing_tree_id        Default browsing tree ID if none
+                                    supplied.
+
+duplicate_management                'On', 'Off', or NULL. Whether duplicate
+                                    files are rejected. NULL treated as Off.
+
+created_last_minutes                Integer. Number of minutes used to
+                                    retrieve recently created documents or
+                                    files.
+
+enforced_retention                  'On', 'Off', or NULL. Whether enforced
+                                    retention of files is active. NULL
+                                    treated as Off.
+
+file_read_log                       'On', 'Off', or NULL. Whether file read
+                                    events are logged. NULL treated as Off.
+
+file_delete_log                     'On', 'Off', or NULL. Whether file
+                                    delete events are logged. NULL treated
+                                    as Off.
+
+store_plain_text_content            'On', 'Off', or NULL. Whether plain text
+                                    content is stored. NULL treated as Off.
+
+store_thumbnails                    'On', 'Off', or NULL. Whether file
+                                    thumbnails are stored. NULL treated as
+                                    Off.
+
+default_doc_date_name_id            Default document date name ID (e.g.,
+                                    next review date).
+
+booking_in_time_box                 Integer. Minutes after which a book-in
+                                    record cannot be deleted.
+
+================================================================================

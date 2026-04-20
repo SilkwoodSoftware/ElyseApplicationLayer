@@ -1,0 +1,343 @@
+﻿FRONT END FUNCTIONAL SPECIFICATION
+
+OVERVIEW
+The Elyse document management application comprises a Microsoft SQL Server database, a .Net C# backend and an Angular Typescript frontend.  
+The SQL database contains approximately 780 fully parameterised stored procedures.  Applications can only interact with the database using these stored procedures via application roles.  The stored procedures contain all of the business logic.  Each stored procedure that the backend executes performs either a Create, Read, Update or Delete function.  These are identified by INS, SEL, UPD and DEL in the stored procedure names.
+The backend merely performs a pass-through function and does not contain any business logic.  Each backend API corresponds to one stored procedure.  
+This document is a description of part of the functionality of the front end.
+The front end is primarily a data driven application.  Some code is function-specific, however the majority of the code is generic and is driven by data contained in csv files.  
+The following are the primary entities of the front end.
+* Menus and buttons.  These allow the user to initiate actions. 
+* Forms.  Forms allow the user to enter or select data.
+* Tables.  Tables display data, whether final output data or for intermediate data selection.
+* Custom Views.  Custom views display data in specialized formats including images, cards, or other non-tabular layouts.
+* Dialog Boxes.  Dialog boxes confirm pending actions and display the outcomes of actions. 
+The data files provide the data which is used to construct these entities, how data flows between them and how the user interacts with them. 
+
+MENU FILES
+User actions are initiated through one of the following:
+Selection of a menu item from a navigation bar structure
+Selection of a menu item from a context menu applied to a table
+Selection of a button in the top ribbon
+
+A navigation bar item can initiate one of the following:
+* Directly call an endpoint which does not require input parameters, and display the resulting table or results dialog box
+* Open a form which will in turn perform a create, read, update or delete function
+Navigation bar items are defined in file navigation-bar.csv.  This file defines the following:
+The menu hierarchical structure.
+Whether a menu item is to be visible or not depending on the user roles active.
+The action that is initiated by the menu item.
+
+The file navigation-bar.csv contains the following fields.
+- MenuItemId	# Unique identifier.  Primary key. 
+- Label       	# Display text
+- ParentMenu	# The parent menu of the item
+- Roles    	# Semicolon-separated list of roles.  The menu item is only visible when a listed role is active. Leave blank for any or no role set.
+- ActionType	# READ, DUC, FORM, CHAIN, CUSTOM.  Determines if the action opens a new table directly, opens a form or starts a chain of actions.  If blank, then opens a submenu.
+- Reference   	# Foreign key.  If ActionType is READ, then Reference links to TableName in read-routes.csv.  If ActionType is DUC then Reference links to RouteId in duc-routes.csv.  If ActionType is FORM then Reference links to FormId in forms.csv. If ActionType is CHAIN then Reference links to ChainId in form-chains.csv. If ActionType is CUSTOM then Reference links to ViewId in custom-views.csv.
+ 
+- Shortcut 	# Keyboard shortcut
+- Order    	# Display order
+- Description 	# Tooltip or help text
+- Icon
+
+A context menu item will only perform an action related to the table which is presently displayed.  A context menu item can initiate one of the following:
+* Open a form to insert a new record for the displayed table  
+* Directly call a read endpoint using a selected record as an input parameter
+* Open a form to call an endpoint using a selected record as an input parameter
+* Delete one or more selected records
+Note that if a form has only one parameter and that parameter is a record to be selected from another table, the form itself will not be displayed, giving the appearance that the menu item directly opens the table for selection.  
+The context menus are defined in the file context-menus.csv.  This file defines the following:
+The table to which the menu item applies.
+Whether a menu item is to be visible or not depending on the user roles active.
+What table row selection conditions render the menu item visible. 
+The action that is initiated by the menu item.
+
+The file context-menus.csv contains the following fields:
+- TableName 	# Foreign key.  Table this menu applies to
+- MenuItemId 	# Primary key.  Unique identifier
+- Label         	# Display text
+- ParentMenu  # Parent menu of the menu item.  The root is hard-coded as 'Main' and is not displayed.  All items must link back to 'Main'.  
+- Roles         	# Semicolon-separated list of roles.  Determines when the item is visible. Leave blank for any or no role set.
+- VisibilityConstraint    # ALWAYS, SINGLE_ROW, ANY_ROWS.  ALWAYS means that the menu item will be displayed regardless of whether or not any rows have been selected.  SINGLE_ROW means that the menu item will only be displayed when exactly one row has been selected.  ANY_ROWS means that the menu item will be displayed when one or more rows have been selected. 
+- ActionType  	# READ, DUC, FORM, CHAIN.  Determines if the action calls an endpoint directly, opens a form or a chain of forms.  
+- Reference 	# Links to the TableName in read-routes for ActionType = READ, RouteId in duc-routes.csv for ActionType = DUC, FormId in forms.csv for ActionType = FORM or ChainId in form-chains.csv if ActionType=CHAIN, or ViewId in custom-views.csv if ActionType=CUSTOM.
+
+ 
+- Shortcut    	# Keyboard shortcut
+- Order       	# Display order
+- Description	# Tooltip or help text 
+- Icon		#The base filename (minus ".svg") of the icon.
+
+
+ENDPOINT DATA FILES
+The following files contain the endpoint and related data for different action types.  These are referred to as endpoint data files. 
+read-routes.csv defines all the read type endpoints. [existing]
+duc-routes.csv defines all the delete, update and create endpoints
+input-id-parameter-mapping.csv maps key column name aliases with backend endpoint parameter names
+output-parameter-labels.csv maps the backend output parameter names to a user-friendly message label 
+The endpoint data files contain a list of input parameters named according to the backend names.  However the endpoint data files do not indicate whether input parameters are mandatory or optional.  The code will construct an API call with whatever parameters it is given and ignore parameters it is not supplied with.  Forms however include the option to control whether a parameter on the form is mandatory or optional.  
+The purpose of the file read-routes.csv is to specify the displaying of a data table and facilitate the selection of records from the table.  The following are defined:
+* A unique table name
+* The frontend route URL, the corresponding backend endpoint URL and the input parameters for the endpoint to allow data to be retrieved
+* The column headings of the columns which uniquely define a row in the table, to allow records to be selected
+* Other information governing displaying of the table such as columns to hide, sort order and table heading 
+
+The file read-routes.csv contains the following fields.
+- TableName	# Primary key.  Unique identifier for the table.
+- StoredProcedure	# Stored procedure name.  For reference only.  From the database. 
+- DataField    # The label for the data field from the backend endpoint.  
+- RouteUrl	#  Defines the URL path for routing.  
+- ApiEndpoint	# Backend API endpoint from the backend.  Omits the '/api/' prefix.  
+- KeyColumns	# Semicolon-separated list of columns that contains data IDs which can be passed onto other functions.  Format is:  ID Alias::Name Alias.  Name Alias is optional.  Aliases are from the database.  (See Record ID Management section.)
+- HiddenColumns	# Defines the columns to hide from display
+- DisplayName	# Defines a user-friendly name for the table
+- DefaultSort	# Defines default sort column and direction
+- Role		# Lowest level role that has access. For information only.  This column is not used in the code.  
+- InputParameters	# Semicolon-separated list of backend API input parameters
+- OutputParameters	# Semicolon-separated list of backend API output parameters.  These are the output parameters that are to be displayed by the message label service.  This might be a subset of all available output parameters. 
+- DisplayParameters  # Semicolon-separated list of text which is displayed in addition to the DisplayName.  The format is Text1|ParameterName1;Text2|ParameterName2,..  The parameter is from input parameters.  If a parameter in InputParameters is not found in state variables then a check will be made of the URL to see if it is contained in the URL.    
+- Description		# Description of the data
+
+The file duc-routes.csv is used for all delete, update and create routes.  It contains the following fields.
+- RouteId	# Primary key.  Unique identifier for the endpoint
+- StoredProcedure	# Stored procedure name.  For reference only.
+- HttpMethod   # The Http Method expected by the endpoint.
+- RouteUrl	#  URL path for routing.  Frontend route.
+- ApiEndpoint	# Backend API endpoint.  Omits the '/api/' prefix.
+- InputParameters	# Semicolon-separated list of backend API input parameters
+- OutputParameters	# Semicolon-separated list of backend API output parameters.  These are the output parameters that are to be displayed by the message label service.  This might be a subset of all available output parameters.
+- Description		# Description of the data
+- EntityDisplayName	# Optional. User-friendly name for the entity being operated on (e.g., "Document", "File", "User"). Used in confirmation dialogs and result displays. If blank, generic terms like "Record" or "Files" are used as fallbacks.
+- ConfirmationMessage	# Optional. Custom confirmation message for operations requiring user confirmation (e.g., "Delete the following document"). If blank, a generic confirmation message is constructed using the EntityDisplayName.
+- ResultsTitle	# Optional. Title for the transaction result dialog (e.g., "Document Deletion Results", "File Upload Results"). If blank, defaults to "Operation Result" or a generic title based on the operation type.
+- IdColumnName	# Optional. Column header name for ID fields in result tables (e.g., "Document ID", "File ID", "User ID"). 
+
+If a parameter in InputParameters is not found in state variables then a check will be made of the URL to see if it is contained in the URL.  If a parameter string in InputParameters contains '=' then the string to the left will be taken as the parameter and the string to the right will be taken as the value.  Hence input parameters which are not in state variable or the URL can be hard-coded into duc-routes.csv.  If the parameter is not found in either then an error is raised and the process exits. 
+
+CUSTOM VIEW DATA FILES
+The following files contain the configuration data for custom views that display data in specialized non-tabular formats.
+custom-views.csv defines all custom view configurations
+custom-view-fields.csv defines the fields and their rendering types for each custom view
+
+The purpose of custom views is to display data retrieved from backend endpoints in specialized formats such as image galleries, card layouts, or other custom visualizations that cannot be effectively represented in standard tables.
+
+The file custom-views.csv contains the following fields:
+- ViewId        # Primary key. Unique identifier for the custom view
+- StoredProcedure # Stored procedure name. For reference only. From the database
+- RouteUrl      # Defines the URL path for routing. Frontend route.
+- ApiEndpoint   # Backend API endpoint. Omits the '/api/' prefix
+- ViewType      # Type of custom view: GALLERY, CARDS, DASHBOARD, TIMELINE, etc.
+- TemplateName  # Name of the Angular template component to use for rendering
+- InputParameters # Semicolon-separated list of backend API input parameters
+- OutputParameters # Semicolon-separated list of backend API output parameters to be displayed
+- Title         # Display title for the custom view
+- Width         # View container width. Units to be included. E.g. 800px
+- Height        # View container height. Units to be included. E.g. 600px
+- Description   # Description of the custom view
+
+The file custom-view-fields.csv contains the following fields:
+- ViewId        # Foreign key. Links to ViewId in custom-views.csv
+- FieldId       # Primary key within the view. Unique identifier for the field
+- FieldType     # Type of field rendering: IMAGE, TEXT, RICH_TEXT, LINK, BADGE, DATE, NUMBER
+- DataSource    # Name of the data property from the API response
+- DisplayName   # User-friendly label for the field
+- Order         # Display order within the view
+- Width         # Field width. Units to be included. E.g. 200px
+- Height        # Field height. Units to be included. E.g. 150px
+- CssClass      # Additional CSS classes for styling
+- Properties    # JSON string of additional field-specific properties
+
+Custom views follow the same parameter management rules as tables and forms. Input parameters not found in state variables are checked against the URL, and if still not found, an error is raised.
+
+For IMAGE field types, the DataSource should contain either:
+- A direct URL to the image
+- A base64-encoded image string
+- A file identifier that can be resolved to an image URL
+
+Custom views integrate with the existing menu system and can be opened from navigation bar or context menus using ActionType=CUSTOM.
+ 
+
+RECORD ID MANAGEMENT
+When one or more rows in a table are selected, the key columns corresponding to record IDs are stored by the application.  This is defined in read-routes.csv.  A corresponding ID name is also stored.  
+Apart from Document IDs, the application does not display underlying IDs to the user.  Instead, a corresponding name is displayed.  Each ID type has a unique name.  For example, document group IDs are returned by the stored procedure with a parameter name "Doc Group ID".  The ID is in the form 12345.  Each record in the document groups table has a mandatory name field.  The content of this field is returned by the stored procedure with the parameter name Doc Group Name.  Hence the data structure is:
+ID Type          : ID;        ID Name Alias      : ID Name Value
+Doc Group ID : 12345; Doc Group Name : Standard Specifications
+A form will display "Standard Specifications" to the user.  The ID 12345 is stored in the background.  Hence, when a form requires an ID type parameter to be supplied, the actual ID will be stored in the background while the associated record name is displayed.
+The file input-id-parameter-mapping.csv maps the ID Name Alias from a table to the backend endpoint input parameter.  This only relates to ID type parameters.  The file contains the following fields.
+- InputParameter # The backend input parameter name which corresponds to the ID Alias.
+- IDNameAlias # The name alias that corresponds to the ID Alias in the KeyColumns field of read-routes.csv.
+- NameFieldAlias # The name field alias that corresponds to the Name field returned by dropdown APIs. Used by form-field.service to map dropdown response fields to normalized Id and Name properties.
+- Description
+- IdDataType  # NUMBER or TEXT.
+Some ID Name Alias' map to more than one input parameter.
+The NameFieldAlias column is used by the form-field.service to dynamically map dropdown API responses to standardized Id and Name fields.
+When a context menu item is selected the reference row in read-routes.csv, duc-routes.csv or forms.csv is referred to.  For read-routes.csv or duc-routes.csv the InputParameters column for the corresponding row is read and the input parameters mapped to the aliases given in input-id-parameter-mapping.csv.  Any that don't have a match are ignored.  For any that do match the matching value from IDNameAlias is then compared with the most recent state variable row selection data against the second element of the KeyColumns pair.  Where a match exists the first element of the pair is then used as the value for the corresponding input parameter.  For example:
+1. Displayed table is all-documents.
+2. Context menu ActionType = READ.  Reference = files-for-one-document.
+3. InputParameters from read-routes.csv are documentId;filterGroupId;formId.
+4. Mapping with input-id-parameter-mapping.csv results in a match only for documentId.
+5. The IDNameAlias for documentId is Document ID.
+6. The ID field name of the state variables for the selected row matches Document ID.  The value is BFRY.
+7. Executing the menu item calls /reading/files-for-one-document?documentId=BFRY
+
+OUTPUT PARAMETER MANAGEMENT
+The backend endpoints contain output parameters.  The files read-routes.csv and duc-routes.csv contain a column OutputParameters which lists which of those output parameters are to be displayed.  The file output-parameter-labels.csv maps output parameter names to message labels that are to be displayed against the content of a given output parameter.  The file contains the following fields.
+- OutputParameterName  # The backend output parameter name.  
+- MessageLabel # The message label that corresponds to the output parameter name
+
+ITERATED ACTIONS
+If more than one table row has been selected then the action is iterated over the parameters.   This applies to all delete actions.  This also applies to create actions where a record ID is an input parameter to the action.  Iterating does not apply to read or update actions.  This functionality is custom-implemented for the documents table and files table.  The same functionality applies to other tables but in a generic form.  
+Iterating also applies where more than one record is selected for an input parameter for a form which has only one input parameter.  For example a document may be linked to a number of files.  The document record is selected and then a lookup table of files is opened and a number of file records are selected.  The create API call will be iterated over the selected file records to link each one to the document.  
+
+FORMS
+Forms are defined in the code by a series of tables in a similar manner to a relational database.  
+The following data files contain the data to manage files.
+forms.csv
+form-fields.csv
+form-field-menus.csv
+The file forms.csv defines each form.  The file form-fields.csv defines the form fields.  These form fields are related back to forms via the FormId key.  For some form fields there are several options for how the required data can be selected.  The file form-field-menus.csv lists menu items that can be associated with a form field.  These link back to the form field via the FormFieldId key.  
+Forms are defined in forms.csv.  Form fields are defined in form-fields.csv.  This data file defines various details including how the field is to be populated.  For example, the field may be populated via one of the following options.
+User direct entry
+Date selected from a calendar
+Dropdown list pre-populated from an API call
+The name corresponding to the ID passed from a table row selection
+Data passed back from a table which the user opens by initiating an action 
+Data passed back from a form which the user opens by initiating an action 
+Forms are recursive.  A progressive data selection system is used.  This means that sometimes retrieving the data for a field on a form may require another form.  The process continues until a data item is selected.  The data is then passed back to the previous form.  When the user confirms the action on the previous form, the data is passed back to the earlier form, and so on until the original form is reached.  
+For some parameters there may be more than one endpoint call that can be used for retrieving the value.  In such cases the action to initiate searching for the parameter value presents a menu.  These menus are defined in form-field-menus.csv.  The Reference field in form-field-menus.csv is referenced back to read-routes.csv or forms.csv.  The file form-field-menus.csv defines forms.  The file read-routes.csv defines how data is retrieved and displayed in a table.  The process loops back and proceeds from the beginning following the same rules as before in a progressive data selection pattern.  A chain of interlinked forms can be initiated in a progressive data selection process.  Each new form is initiated by a user action.  The progressive data selection process terminates when the action on a field returns data to populate the field rather than opening another form.  That data is then passed back to the earlier form.  This data being passed back is then used to select another required element of data.  The process cascades back until the original form is reached and the field is filled in using the end result of the progressive data selection.  If the process is cancelled during the progressive data selection process then the user is returned to the original form. 
+A form will be opened from a navigation bar item or a context menu item or from another form.  A form is used to enter input parameter data necessary for an endpoint call.  The data is either entered or selected from a table.  An input parameter may also be pre-populated from a table record selected prior to opening the form.
+
+The file forms.csv contains the following fields.
+- FormId            # Primary key. Unique identifier
+- FormType     # READ, DUC, PASSTHROUGH
+- Reference  # Foreign key.  If FormType is READ then this is the reference to TableName in read-routes.csv.  If FormType is DUC then this is the reference to RouteId in duc-routes.csv.  If FormType is PASSTHROUGH then this field should be blank or contain a descriptive comment (no endpoint is called).
+- Title            # Form title
+- TitleData   # Column names of the data from selected table row or rows to be appended to title.  Format is: Text1|ColumnName1;Text2|ColumnName2..
+- Instructions # A short instruction for the form.
+- Width            # Form width.  Units to be included.  E.g. 200px.
+- Height           # Form height.  Units to be included.  E.g. 200px.
+
+All forms shall have the same behaviour with regards to cancelling.  "Cancel" shall cancel the form and revert to the state prior to the form being opened.
+NOTE that the values from the table row selected before the form was launched must be retained for passing forward to the API call or for passing forward in the progressive data selection process.  This is the TitleData field.
+
+PASSTHROUGH FORMS
+PASSTHROUGH forms are a special form type that collect user input and pass it directly to the next step in the progressive data selection process without calling any backend endpoint.  This is useful for direct entry fields in form field menus where the user types a value that is then used as a parameter for a subsequent action.  PASSTHROUGH forms still apply all form validation rules (mandatory fields, character limits, data type conversions) but do not make API calls.  The form data is mapped to parameters using the ParameterId field from form-fields.csv and returned directly to the calling context.  PASSTHROUGH forms are particularly useful when included in form-field-menus.csv to provide a direct entry option alongside table lookup or other form options.
+
+The file form-formfield-links.csv defines which fields are to be included in a given form.  It allows for a normalised data structure whereby form fields can be re-used across multiple forms.  The file form-formfield-links.csv contains the following fields.
+
+- FormId  # Foreign key.  This is the reference defining the form. 
+- FormFieldId  # Foreign key.  This is the reference defining the form field.  
+- IsMandatory   #Y/N.  Is entering data in the field mandatory? 
+- Order  # Display order.
+
+The file form-fields.csv contains the following fields.
+- FormFieldId           # Primary key. Unique identifier
+- FieldLabel             # Field label
+- Length        # Length of the field.  Units to be included.  No units means number of characters.
+- CharacterLimit        # Maximum number of characters that can be entered into text input fields. When specified and greater than 0, input fields will enforce this limit both in the browser (via maxlength attribute) and through form validation. Blank values are ignored. This limit does not apply to dropdown fields.
+- DataType          # The type of data being stored:
+                    # ID              (stores ID, displays Name)
+                    # TEXT            (displays and stores same value)
+                    # DATE            (displays and stores date)
+                    # NUMBER          (displays and stores number)
+- DefaultValue      # Default value if any
+- PopulationType    # How the field gets its value:
+# DIRECT_ENTRY    (user types)
+# CALENDAR        (date picker)
+# FIXED_DROPDOWN        (hard coded pre-populated list detailed in fixed-dropdowns.csv)
+# API_DROPDOWN      (pre-populated dropdown list from api call.)
+# LOOKUP_TABLE    (opens table for selection)
+# LOOKUP_FORM     (opens another form)
+# MENU  (If there is more than one option for retrieving data, then open a menu.  Refer to form-field-menus.csv.)
+- Reference      # Foreign key.  
+The following table lists the content of PopulationType; the Reference name; and the reference file.
+API_DROPDOWN; TableName; read-routes.csv
+LOOKUP_TABLE; TableName; read-routes.csv
+LOOKUP_FORM; FormId; forms.csv
+FIXED_DROPDOWN; DropdownListID; fixed-dropdowns.csv
+MENU; FormfieldMenuID; form-field-menus.csv
+- ParameterId # This is the corresponding parameter name from the InputParameters column in read-routes.csv or duc-routes.csv.  
+- IdAlias        # For ID type fields this is the column containing the ID, taken from the table from which the data is selected by selecting a row. 
+- NameAlias   # For ID type fields this is the column containing display name, taken from the table from which the data is selected by selecting a row
+- Placeholder       # Placeholder text
+- HelpText         # Help text
+
+If a form:
+contains only one field and
+the PopulationType is LOOKUP_TABLE
+then the form does not appear but rather the lookup table is immediately displayed so that the user does not have to make an unnecessary click.  For example, if a context menu action is to link selected records in one table to one or more selected records in another table then selecting the context menu item will cause the second lookup table to be immediately displayed.  The action is handled by a form but the form is not displayed.  Also under these conditions, if more than one record in the lookup table is selected then the action will be iterated over for each instance of the records selected in the lookup table.  This iterating only applies if there is only one field in the form.  
+
+NOTE that the TitleData field passed forward from the table row selection is not displayed as a data entry field. 
+
+Fixed dropdowns are hard-coded dropdown lists of options.  The file fixed-dropdowns.csv contains the following fields.
+
+- DropdownListID # Primary key.  This is the primary key referenced by form-fields.csv.  This allows different forms to re-use the same dropdown list.  
+- OptionValue # The value for the dropdown option.
+- Order  # The placement order
+
+The file form-field-menus.csv contains the following fields.
+- FormFieldMenuID    # Primary key.  Unique key identifying the menu.  This allows menus to be re-used by different forms.
+- MenuLabel  #Label for the menu item
+- Type    # FORM, TABLE.  Whether the menu item opens another form or directly opens a table.
+- Reference  # Foreign key.  If Type is TABLE, then this is a TableName from read-routes.csv.  If Type is FORM then this must be a FormId from forms.csv.
+- Description  # Tooltip or help text.
+- Order # Display order
+- Icon
+
+Form field menus are single level only.  
+
+Context menus and navigation bar menus support multiple levels of nesting through the ParentMenu field.
+
+
+# Form Chaining Functionality
+
+## Overview
+
+Form chaining allows the automatic transition from one form or dialog to another based on predefined rules. This functionality enables two key workflows:
+
+1. **Automatic Form Transitions**: When a form operation completes, the system can automatically open another form, passing relevant data from the first form to the second.
+
+2. **Dialog-to-Form Transitions**: When a dialog box is closed, the system can automatically open a specific form, creating a guided workflow experience.
+
+## Configuration
+
+Form chaining is configured through a dedicated CSV file (`form-chains.csv) as defined below.  
+
+The file form-chains.csv contains the following fields. 
+- ChainId  # Primary key.  An identifier of the chain.  This is what is called from the menu.  
+- LinkId # A sequence number of the chain link.    
+- ActionType  	# READ, DUC, FORM.  Determines if the action calls a read route, duc route or form.     
+- Reference 	# Foreign key.  Links to the TableName in read-routes for ActionType = READ or  FormId in forms.csv for ActionType = FORM.  
+- Condition # Optional output parameter condition that must be met for chaining to occur (e.g., `transactionStatus=Good`)  
+- InputParameters  # Semicolon separated map of the name of output parameters (passed forward from the previous action) to the input parameter names. The name of the passed parameter and the name of the input parameter are separated by a colon. e.g. 'newRecordId:docGroupId'
+- OutputParameters  # Semicolon separated list of output parameters to be stored in state variables to be passed forward.  
+- ChainType # Determines when the chain executes:
+  - `AUTO`: Chain executes immediately after the source form completes
+  - `DIALOG_CLOSE`: Chain executes after the result dialog is closed.  The chain terminates if cancel is selected rather than close.  
+
+Example 1: Document Creation to Document Editing
+
+When a user creates a new document ID, the system automatically opens the document data editing form:
+  rid-ins-document-id,rid-edit-doc-file-data,documentId:newdocumentid,transactionStatus=Good,AUTO
+
+
+Example 2: Document Count to Document List
+
+When a user views a document count summary and closes the dialog, the system automatically shows the full document list:
+
+number-of-all-docs,all-documents,,,DIALOG_CLOSE
+
+If a user navigates away from the forms then form state is not preserved. 
+
+
+DOC FILE FORM FIELD ROUTING
+The file doc-file-form-field-routing.csv contains data that is used for the forms for managing metadata for documents and files.  The file \elyse_app-frontend\src\app\controlling\edit-doc-file-data\Explanation of edit-doc-file-data page.txt explains how the data contained in doc-file-form-field-routing.csv is applied.
+
+
+ADDING NEW ENDPOINTS
+To add a new endpoint for a stored procedure, carry out the following basic steps.
+1. Populate stored_procedures.csv in the backend with the stored procedure details. 
+2. Create the backend C# endpoint controller file, following existing patterns.
+3. Create a corresponding record in read-routes.csv (for a read type endpoint).  The ApiEndpoint and other fields must match those in the endpoint controller.  The frontend RouteUrl can be anything and is only defined in this field.  
+4.  The endpoint is now ready to be linked to menus and forms.  

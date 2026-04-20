@@ -1,0 +1,59 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+
+<div class="dialog-backdrop">
+  <div class="dialog-container" #dialogContainer
+       (mousedown)="onMouseDown($event)"
+       (mousemove)="onMouseMove($event)"
+       (mouseup)="onMouseUp()">
+    <h2>Add User</h2>
+    <form [formGroup]="addSidForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="sidString">
+          <div class="label-wrapper">
+            <span><span style="color: red;">*</span>SID String:</span>
+            <span class="info-icon red-icon" (click)="openInformationDialog()">i</span>                                                                  
+          </div>
+        </label>
+        <input type="text" id="sidString" formControlName="sidString"
+        placeholder="e.g.: S-1-5-21-2615099539-3206556849-3754824480-1002">
+      </div>
+      <div class="form-group">
+        <label for="sidName">SID Name:</label>
+        <input type="text" id="sidName" formControlName="sidName" 
+        placeholder="A custom name separate from the Windows name">
+      </div>
+      <div class="form-group">
+        <label for="sidDescription">SID Description:</label>
+        <textarea id="sidDescription" formControlName="sidDescription"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="sidIsGroup">SID Is Windows Group:</label>
+        <select id="sidIsGroup" formControlName="sidIsGroup" class="small-select">
+          <option value="" selected>Select an option</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div>
+        <button class="confirmation-buttons" type="submit" [disabled]="!addSidForm.valid">Submit</button>
+        <button class="confirmation-buttons" type="button" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+    

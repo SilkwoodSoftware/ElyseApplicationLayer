@@ -1,0 +1,521 @@
+================================================================================
+02 - SQL SERVER INSTALLATION AND DATABASE SETUP
+================================================================================
+
+OVERVIEW
+========
+
+This document covers the complete SQL Server and database setup for Elyse:
+
+    - SQL Server Express installation
+    - FILESTREAM configuration
+    - TCP/IP protocol and port assignment
+    - Database restore from backup
+    - SQL Server login and permissions for the Elyse AD group
+
+Prerequisites from previous steps (SERVER deployments):
+    - Active Directory configured per 01_DOMAIN_SETUP.txt
+    - Service account svc_sql created in AD
+    - Security group Elyse_Users created in AD
+
+Prerequisites (WORKGROUP deployments):
+    - No Active Directory prerequisites required
+    - SQL Server can run under a local or default service account
+    - Skip Step 7a-7b (AD group login) in this document; the SQL login
+      for the workgroup service account is created in WORKGROUP_README.txt
+
+After completing this document, proceed to:
+    - 03_KCD_CONFIGURATION.txt (SERVER deployments only)
+    - WORKGROUP_README.txt (WORKGROUP deployments)
+
+
+PREREQUISITES
+=============
+
+    [ ] Windows Server 2016 or later (domain-joined for SERVER deployments)
+        or Windows 10/11 (for WORKGROUP deployments)
+    [ ] Domain service account svc_sql created (SERVER only - see
+        01_DOMAIN_SETUP.txt)
+    [ ] AD security group Elyse_Users created (SERVER only - see
+        01_DOMAIN_SETUP.txt)
+    [ ] SQL Server Express 2022 installer media available
+    [ ] SQL Server Management Studio (SSMS) installer available
+    [ ] Elyse database backup file (Elyse_DB_*.zip) available
+    [ ] Administrator access to the SQL Server host
+
+
+================================================================================
+STEP 1: INSTALL SQL SERVER EXPRESS
+================================================================================
+
+Download SQL Server Express 2022 or later. If the target server does not have
+internet access, download the Express Advanced media on a machine that does
+and transfer it to the server (see APPENDIX_A_DOMAIN_IN_A_BOX.txt for
+details on offline installation).
+
+Run the installer and choose "Custom" to access the full installation wizard.
+
+Feature Selection
+-----------------
+Ensure the following features are selected:
+
+    [x] Database Engine Services
+    [x] Full-Text and Semantic Extractions for Search
+
+    IMPORTANT: If Full-Text Search is not installed, the full-text search
+    features of Elyse will not work. If you discover later that it was not
+    installed, you will need to uninstall and reinstall SQL Server with this
+    feature included.
+
+Instance Configuration
+----------------------
+    RECOMMENDED: Select "Default instance" rather than a Named Instance.
+
+    Using a Default Instance means the server address is simply the hostname
+    (e.g., ELYSE-SQL01) which aligns with the SPN registration in
+    03_KCD_CONFIGURATION.txt. If you must use a Named Instance, ensure your
+    application connects using the hostname and port (e.g., ELYSE-SQL01,1433)
+    rather than the backslash instance name format.
+
+Server Configuration (Service Accounts)
+----------------------------------------
+    CRITICAL: On the Server Configuration page, change the SQL Server
+    Database Engine service account:
+
+        Account Name:   YOURDOMAIN\svc_sql
+        Password:       (the password set in 01_DOMAIN_SETUP.txt)
+
+    Do NOT leave this as the default NT Service account. The domain service
+    account is required for Kerberos authentication to work. If the SQL
+    Server engine runs under a local service account, the SPNs registered
+    in 03_KCD_CONFIGURATION.txt will not match and KCD will fail.
+
+FILESTREAM Configuration
+------------------------
+    During installation, on the Database Engine Configuration page, select
+    the FILESTREAM tab and check:
+
+        [x] Enable FILESTREAM for Transact-SQL access
+
+    Ensure the following are UNCHECKED:
+
+        [ ] Enable FILESTREAM for file I/O access
+        [ ] Allow remote clients access to FILESTREAM data
+
+    IMPORTANT: File I/O access and remote client access must remain disabled.
+    Otherwise the exclusive access that the database stored procedures have
+    to the files can be bypassed.
+
+Security Configuration
+----------------------
+    Under the Security section of Database Engine Configuration:
+
+    1. Select "Mixed Mode (SQL Server authentication and Windows
+       authentication)".
+    2. Set a password for the sa account and record it securely.
+    3. Click "Add Current User" to provide database access to the current
+       administrator.
+
+Complete the installation wizard and allow the installation to finish.
+
+
+================================================================================
+STEP 2: INSTALL SQL SERVER MANAGEMENT STUDIO
+================================================================================
+
+Download and install the current release of SQL Server Management Studio
+(SSMS). No special configuration is required during installation.
+
+
+================================================================================
+STEP 3: ENABLE AND CONFIGURE FILESTREAM
+================================================================================
+
+Step 3a: Enable FILESTREAM in SQL Server Configuration Manager
+--------------------------------------------------------------
+
+1. Open SQL Server Configuration Manager.
+   (Start > All Programs > Microsoft SQL Server 2022 > SQL Server 2022
+   Configuration Manager. Run as Administrator.)
+
+2. In the left pane, click SQL Server Services.
+
+3. Right-click the SQL Server instance (e.g., "SQL Server (MSSQLSERVER)"
+   for a Default Instance, or "SQL Server (SQLEXPRESS)" for a Named
+   Instance) and select Properties.
+
+4. Select the FILESTREAM tab.
+
+5. Check: "Enable FILESTREAM for Transact-SQL access"
+   Leave "Enable FILESTREAM for file I/O access" UNCHECKED.
+
+6. Click Apply, then OK.
+
+7. Leave SQL Server Configuration Manager open. You will return to it to
+   restart the service after the next step.
+
+Step 3b: Enable FILESTREAM via T-SQL
+-------------------------------------
+
+1. Open SQL Server Management Studio (SSMS).
+
+2. In the Connect to Server dialog:
+       Server name:            .\  (for Default Instance)
+                               or  .\SQLEXPRESS  (for Named Instance)
+       Authentication:         Windows Authentication
+       Encrypt:                Optional
+       Trust Server Certificate: Checked
+
+3. Click Connect.
+
+4. Click New Query and execute:
+
+       EXEC sp_configure 'filestream_access_level', 1;
+       RECONFIGURE;
+
+   Expected result: "Configuration option 'filestream access level' changed
+   from 0 to 1" (or from 1 to 1 if already enabled).
+
+5. Open a new query and verify Full-Text Search is installed:
+
+       SELECT FULLTEXTSERVICEPROPERTY('IsFullTextInstalled');
+
+   Expected result: 1
+   If the result is 0, Full-Text Search was not installed. You will need to
+   reinstall SQL Server with this feature.
+
+Step 3c: Restart the SQL Server Service
+----------------------------------------
+
+1. Return to SQL Server Configuration Manager.
+2. In the left pane, click SQL Server Services.
+3. Right-click the SQL Server instance and select Restart.
+
+
+================================================================================
+STEP 4: CREATE THE FILESTREAM CONTAINER FOLDER
+================================================================================
+
+Create the folder where the FILESTREAM container will reside on the server.
+
+Considerations for choosing the location:
+
+    - Separate physical drive: Store FILESTREAM data on a different drive
+      from the OS and SQL Server system databases to reduce I/O contention.
+    - Storage capacity: Choose a location with ample space for projected
+      BLOB data growth.
+    - Performance: Use fast storage (SSD recommended) for frequently
+      accessed data.
+    - Backup and recovery: Include the location in regular backup routines.
+    - Security: Restrict access to the SQL Server service account and
+      administrators.
+    - Redundancy: Consider RAID or SAN for high-availability requirements.
+    - Compliance: Ensure the location meets any data residency or
+      regulatory requirements.
+
+Example location: D:\FILESTREAMData\Elyse_DB\
+
+Create the folder:
+
+    mkdir D:\FILESTREAMData\Elyse_DB
+
+Set NTFS Permissions
+--------------------
+    CRITICAL: After creating the folder, grant the SQL Server service account
+    full control. Without this, the SQL Server engine will not be able to
+    initialise the FILESTREAM container.
+
+    1. Right-click the folder > Properties > Security tab.
+    2. Click Edit > Add.
+    3. Enter: YOURDOMAIN\svc_sql
+    4. Click Check Names, then OK.
+    5. Select svc_sql in the list and check "Full control" under Allow.
+    6. Click Apply, then OK.
+
+    Replace YOURDOMAIN with your actual domain name.
+
+
+================================================================================
+STEP 5: CONFIGURE TCP/IP PROTOCOL AND PORT ASSIGNMENT
+================================================================================
+
+Step 5a: Enable the TCP/IP Protocol
+-------------------------------------
+
+1. Open SQL Server Configuration Manager.
+2. In the left pane, expand SQL Server Network Configuration.
+3. Click "Protocols for MSSQLSERVER" (Default Instance) or
+   "Protocols for SQLEXPRESS" (Named Instance).
+4. In the right pane, right-click TCP/IP and select Enable.
+5. Click OK on the warning about restarting the service.
+
+Step 5b: Set the Port to 1433
+-------------------------------
+
+1. Right-click TCP/IP and select Properties.
+2. Click the IP Addresses tab.
+3. Scroll to the IPAll section at the bottom.
+4. Clear the TCP Dynamic Ports field (leave it blank).
+5. In TCP Port, enter: 1433
+6. Click OK.
+
+NOTE: Also verify that for the specific IP address assigned to this server,
+the "Enabled" property is set to "Yes" in the IP Addresses list. Sometimes
+only the IPAll section is enabled by default.
+
+Step 5c: Restart the SQL Server Service
+-----------------------------------------
+
+1. In the left pane, click SQL Server Services.
+2. Right-click the SQL Server instance and select Restart.
+
+Step 5d: Configure the Windows Firewall
+-----------------------------------------
+
+Open an elevated Command Prompt and run:
+
+    netsh advfirewall firewall add rule name="SQL Port 1433" dir=in action=allow protocol=TCP localport=1433
+
+This allows inbound TCP connections on port 1433 from the backend server.
+
+
+================================================================================
+STEP 6: RESTORE THE DATABASE
+================================================================================
+
+The Elyse database contains graph tables and preconfigured data. The initial
+deployment is performed by restoring from a database backup file. For
+subsequent upgrades, use Visual Studio SQL Server Data Tools.
+
+NOTE: SSMS must be run with permissions to access the folder containing the
+backup file.
+
+Step 6a: Extract the Backup File
+----------------------------------
+
+Extract the database backup file from the Elyse_DB_*.zip package to a
+location accessible from SSMS (e.g., C:\Temp\).
+
+Step 6b: Restore the Database
+-------------------------------
+
+1. In SSMS, connect to the SQL Server instance.
+
+2. In Object Explorer, right-click Databases and select
+   "Restore Database..."
+
+3. In the Restore Database dialog:
+   a. Select "Device:" and click the [...] button.
+   b. Click Add and browse to the backup file.
+   c. Select the file and click OK to load the backup contents.
+
+4. Switch to the Files page (Select a page panel on the left).
+   a. In the Database files grid, locate the FILESTREAM file
+      (identified by File Type = FILESTREAM).
+   b. If the path in the "Restore As" column does not match your
+      FILESTREAM container folder (created in Step 4), change it:
+      - Type the new path directly into the "Restore As" field, or
+      - Click [...] to browse to the FILESTREAM directory.
+      - The parent folder must already exist.
+   c. You may also adjust the paths for the data (.mdf) and log (.ldf)
+      files if needed.
+
+5. Switch to the Options page (Select a page panel on the left).
+   a. Check "Overwrite the existing database (WITH REPLACE)" if
+      restoring over an existing database.
+   b. Verify all file paths are correct and accessible.
+
+6. Click OK to start the restore.
+
+The script CleanDatabaseRestore.sql may also be used to restore a database
+as an alternative to the SSMS GUI.
+
+Step 6c: Verify the Database
+------------------------------
+
+1. In Object Explorer, expand:
+   Databases > Elyse_DB > Programmability > Stored Procedures
+
+2. Scroll to: reading.usp_SEL_files_contains
+
+3. Right-click and select "Execute Stored Procedure".
+
+4. In the Execute Procedure dialog, enter the word "structure" into the
+   Value column of the first row (@containsstring).
+
+5. Click OK.
+
+6. Expected result: A table of data and the message "Transaction
+   successful".
+
+If you see an error about full-text indexing not being installed, you will
+need to uninstall and reinstall SQL Server with Full-Text Search included
+(see Step 1).
+
+Step 6d: Ownership Chain Password
+-----------------------------------
+
+IMPORTANT: The Ownership Chain password must never be stored outside of the
+database. It is used only internally by the database and there is no need
+for any external process to know this password.
+
+It is recommended that the Ownership Chain password be reset to a long
+random string which is not recorded anywhere. This can be done after the
+database restore is verified.
+
+
+================================================================================
+STEP 7: CONFIGURE SQL SERVER LOGIN AND PERMISSIONS
+================================================================================
+
+This step creates the SQL Server login that maps to the Active Directory
+security group, allowing Elyse users to connect to the database.
+
+Step 7a: Create the Windows Login for the AD Group
+----------------------------------------------------
+
+1. In SSMS, connect to the SQL Server instance.
+2. Click New Query and execute:
+
+       CREATE LOGIN [YOURDOMAIN\Elyse_Users] FROM WINDOWS;
+
+   Replace YOURDOMAIN with your actual domain name.
+
+Step 7b: Create the Database User and Grant CONNECT
+-----------------------------------------------------
+
+1. Execute the following:
+
+       USE [Elyse_DB];
+       CREATE USER [YOURDOMAIN\Elyse_Users]
+           FOR LOGIN [YOURDOMAIN\Elyse_Users];
+       GRANT CONNECT TO [YOURDOMAIN\Elyse_Users];
+
+   Replace YOURDOMAIN with your actual domain name.
+
+IMPORTANT: Grant ONLY the CONNECT permission. Do not grant any other
+permissions. All data access in Elyse is controlled through application
+roles (CONFIGURATOR, READER, REVIEWER, CONTROLLER, EDITOR, AUTHORISER)
+which are activated by the backend using sp_setapprole. Individual users
+have no direct data permissions.
+
+Step 7c: Verify Application Roles and Set Passwords
+----------------------------------------------------
+
+The database backup includes seven application roles. Verify they exist and
+set their passwords.
+
+Verify the Roles
+----------------
+
+1. In Object Explorer, expand:
+   Databases > Elyse_DB > Security > Roles > Application Roles
+
+2. Confirm the following roles are present:
+       CONFIGURATOR
+       READER
+       REVIEWER
+       CONTROLLER
+       EDITOR
+       AUTHORISER
+       OWNERSHIP_CHAIN
+
+Set the Application Role Passwords
+-----------------------------------
+
+Each application role has a password that the backend uses to activate the
+role via sp_setapprole. The passwords set here must match the passwords
+later configured in the backend .env file. Set or change each role's
+password as follows:
+
+1. In Object Explorer, under Elyse_DB > Security > Roles > Application Roles,
+   double-click the first role (e.g., CONFIGURATOR) to open its properties.
+
+2. In the "Application Role Properties" dialog, clear the Password field and
+   type a new strong password. Re-enter the same password in the Confirm
+   password field.
+
+3. Click OK.
+
+4. Record the password securely — you will need to enter it in the backend
+   .env file during backend installation.
+
+5. Repeat for each of the remaining roles: READER, REVIEWER, CONTROLLER,
+   EDITOR, and AUTHORISER.
+
+See SERVER_README.txt or WORKGROUP_README.txt in the backend deployment
+package for where these passwords are entered.
+
+Set the OWNERSHIP_CHAIN Password
+---------------------------------
+
+IMPORTANT: The OWNERSHIP_CHAIN role is used only internally by the database's
+stored procedures. Its password must never be stored outside of the database
+and there is no need for any external process or person to know it.
+
+1. In the Application Roles list, double-click OWNERSHIP_CHAIN to open its
+   properties.
+
+2. Clear the Password field and type a long random string. Re-enter the same
+   string in the Confirm password field.
+
+3. Click OK.
+
+4. Do NOT record this password anywhere. Do NOT add it to the backend .env
+   file.
+
+Step 7d: Service Account Restrictions (SERVER Only)
+----------------------------------------------------
+
+CRITICAL: Do NOT create a SQL Server login for svc_elyse_be. The SERVER
+backend service account (svc_elyse_be) must never connect to SQL Server
+directly. It must not have a SQL Server login and must not be a member of
+the Elyse_Users AD group. The SERVER backend connects to SQL Server
+exclusively through KCD impersonation of the authenticated user. If
+svc_elyse_be has its own SQL Server login, KCD impersonation will not be
+used and the security model will be bypassed.
+
+NOTE: If you are also deploying a WORKGROUP READ ONLY backend, that variant
+uses a separate, dedicated service account (e.g., svc_elyse_ro) which does
+require its own SQL Server login. This is a different account from
+svc_elyse_be and is configured separately. See READ-ONLY_BACKEND_README.txt
+in the WORKGROUP READ ONLY deployment package for those instructions.
+
+
+================================================================================
+STEP 8: RESTART AFTER DATABASE INSTALLATION
+================================================================================
+
+If a new copy of the database is installed by restoring over an existing one,
+restart the backend application pool and the web server (e.g., IIS) to clear
+any cached connections.
+
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+SERVER deployments:
+
+1. Proceed to 03_KCD_CONFIGURATION.txt to register Service Principal Names
+   (SPNs) and configure Kerberos Constrained Delegation.
+
+2. After KCD is configured, install the backend (SERVER_README.txt) and
+   frontend (FRONTEND_README.txt) application layers.
+
+3. After the application layers are installed, proceed to
+   04_BOOTSTRAPPING_AND_CONFIGURATION.txt to onboard users and configure
+   the system.
+
+WORKGROUP deployments:
+
+1. Skip KCD. Proceed to WORKGROUP_README.txt for backend installation.
+
+2. After the backend is installed, install the frontend
+   (FRONTEND_README.txt).
+
+3. After both layers are installed, proceed to
+   04_BOOTSTRAPPING_AND_CONFIGURATION.txt to onboard the user and configure
+   the system.
+
+================================================================================

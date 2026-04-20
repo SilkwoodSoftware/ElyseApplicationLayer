@@ -1,0 +1,258 @@
+================================================================================
+01 - ACTIVE DIRECTORY DOMAIN SETUP FOR ELYSE
+================================================================================
+
+OVERVIEW
+========
+
+This document describes the Active Directory (AD) configuration required for
+an Elyse server deployment. It covers:
+
+    - Organisational Unit (OU) structure
+    - Service account creation
+    - Security group for Elyse users
+    - DNS records
+
+These instructions are written for a production environment. If you are
+building a lab or test environment from scratch, refer to
+APPENDIX_A_DOMAIN_IN_A_BOX.txt first to create the domain infrastructure,
+then return to this document to configure AD for Elyse.
+
+After completing this document, proceed to:
+    - 02_SQL_SERVER_AND_DATABASE.txt  (SQL Server installation)
+    - 03_KCD_CONFIGURATION.txt        (Kerberos Constrained Delegation)
+
+
+PREREQUISITES
+=============
+
+    [ ] An Active Directory domain at Windows Server 2016 functional level
+        or later
+    [ ] Domain Administrator credentials (or delegated OU admin rights)
+    [ ] Access to Active Directory Users and Computers (ADUC). To open ADUC:
+        log on to the Domain Controller, open Server Manager (it opens
+        automatically on login; if not, click Start and type Server Manager),
+        then click Tools (top-right) > Active Directory Users and Computers.
+    [ ] The following server hostnames identified and DNS-resolvable:
+        - SQL Server host (e.g., ELYSE-SQL01)
+        - Backend application host (e.g., ELYSE-BE01)
+        - Frontend web server host (e.g., ELYSE-FE01)
+
+
+NOTE ON NAMING CONVENTIONS
+==========================
+
+This document uses prescribed names for service accounts and groups. These
+are recommended defaults and may be replaced with names that conform to your
+organisation's naming standards. If you change them, apply the change
+consistently across all Elyse deployment documents and configuration files.
+
+    Prescribed Name         Purpose
+    ---------------         -------
+    svc_sql                 SQL Server service account
+    svc_elyse_be            Backend application service account
+    Elyse_Users             Security group for Elyse users
+
+
+================================================================================
+STEP 1: CREATE THE ORGANISATIONAL UNIT (OPTIONAL)
+================================================================================
+
+Creating a dedicated OU for Elyse service accounts and groups is recommended
+for organisational clarity and to allow targeted Group Policy application.
+
+1. Log on to the Domain Controller and open Active Directory Users and
+   Computers (ADUC). ADUC is found in Server Manager > Tools > Active
+   Directory Users and Computers.
+2. In the left panel of ADUC, right-click your domain name (e.g.,
+   yourdomain.com) and select New > Organizational Unit.
+3. In the "New Object - Organizational Unit" dialog, type the name: Elyse
+4. Click OK.
+
+If your organisation has an existing OU structure for service accounts, you
+may use that instead. Adjust the instructions below accordingly.
+
+
+================================================================================
+STEP 2: CREATE THE SQL SERVER SERVICE ACCOUNT
+================================================================================
+
+This account will be used as the Log On identity for the SQL Server database
+engine service. It must be a domain account so that Kerberos authentication
+works correctly.
+
+1. Open ADUC if it is not already open (Server Manager > Tools > Active
+   Directory Users and Computers).
+2. In the left panel of ADUC, expand your domain name (e.g., yourdomain.com)
+   by clicking the arrow next to it.
+3. Click on the Elyse OU (or your chosen OU) to select it.
+4. Right-click the OU and select New > User.
+5. In the "New Object - User" dialog, enter the following:
+       Full Name:          SQL Service Account
+       User logon name:    svc_sql
+6. Click Next.
+7. Set a strong password and record it securely (you will need this password
+   later during SQL Server installation).
+8. Password options:
+       [ ] User must change password at next logon   <-- UNCHECK
+       [x] Password never expires                    <-- CHECK
+9. Click Next, review the summary, then click Finish.
+
+IMPORTANT: This account will be specified during SQL Server installation
+(see 02_SQL_SERVER_AND_DATABASE.txt). If you use a different account name,
+note it for use in that document.
+
+
+================================================================================
+STEP 3: CREATE THE BACKEND SERVICE ACCOUNT
+================================================================================
+
+This account will be used as the IIS Application Pool identity for the Elyse
+backend. It is the account that Kerberos Constrained Delegation (KCD) will
+be configured on, allowing it to impersonate authenticated users when
+connecting to SQL Server.
+
+1. In the ADUC window (still open from Step 2), ensure the Elyse OU (or your
+   chosen OU) is selected in the left panel.
+2. Right-click the OU and select New > User.
+3. In the "New Object - User" dialog, enter the following:
+       Full Name:          Backend Service Account
+       User logon name:    svc_elyse_be
+4. Click Next.
+5. Set a strong password and record it securely (you will need this password
+   later when configuring the IIS Application Pool).
+6. Password options:
+       [ ] User must change password at next logon   <-- UNCHECK
+       [x] Password never expires                    <-- CHECK
+7. Click Next, review the summary, then click Finish.
+
+IMPORTANT: This account must NOT be a member of the Elyse_Users security
+group (created in Step 4). It must NOT have a SQL Server login. The backend
+must always connect to SQL Server by impersonating the authenticated user
+via KCD, never as itself. See SERVER_README.txt for details.
+
+
+================================================================================
+STEP 4: CREATE THE ELYSE USERS SECURITY GROUP
+================================================================================
+
+This Active Directory security group controls which domain users are
+permitted to connect to the Elyse database. Users are granted access to
+Elyse by being added to this group.
+
+1. In the ADUC window (still open from Step 3), ensure the Elyse OU (or your
+   chosen OU) is selected in the left panel.
+2. Right-click the OU and select New > Group.
+3. In the "New Object - Group" dialog, enter the following:
+       Group name:     Elyse_Users
+       Group scope:    Global
+       Group type:     Security
+4. Click OK.
+
+After the group is created, add the domain users who should have access to
+Elyse:
+
+1. In the right panel of ADUC, you should see the newly created Elyse_Users
+   group. Double-click it to open its properties (or right-click it and
+   select Properties).
+2. In the Properties dialog, click the Members tab.
+3. Click the Add... button.
+4. In the "Select Users, Contacts, Computers, Service Accounts, or Groups"
+   dialog, type the username of an Elyse user (e.g., jsmith). To add
+   multiple users at once, separate them with semicolons (e.g.,
+   jsmith; jdoe; ablock).
+5. Click Check Names to verify the names resolve correctly (they will become
+   underlined if found).
+6. Click OK to add the users.
+7. Click OK again to close the Properties dialog.
+
+IMPORTANT: Do NOT add the service accounts (svc_sql or svc_elyse_be) to
+this group. The service accounts must not have direct database access.
+
+
+================================================================================
+STEP 5: DNS RECORDS
+================================================================================
+
+DNS (Domain Name System) is what allows computers to find each other by name
+instead of by IP address. We need to ensure that DNS records exist for each
+server that will host an Elyse component. In most environments, these records
+are created automatically when the servers are joined to the domain.
+
+Verify the following records resolve correctly:
+
+    Hostname                        Expected IP
+    --------                        -----------
+    ELYSE-SQL01.yourdomain.com      (IP of SQL Server host)
+    ELYSE-BE01.yourdomain.com       (IP of backend host)
+    ELYSE-FE01.yourdomain.com       (IP of frontend host)
+
+To verify, open a Command Prompt on the Domain Controller. To do this: click
+the Start button, type cmd, and click Command Prompt in the results. Then
+type each of the following commands (pressing Enter after each one):
+
+    nslookup ELYSE-SQL01.yourdomain.com
+    nslookup ELYSE-BE01.yourdomain.com
+    nslookup ELYSE-FE01.yourdomain.com
+
+Each command should return the correct IP address.
+
+NOTE - Timeout messages: If nslookup returns the correct IP address but also
+displays a message about a "2 second timeout" or "DNS request timed out",
+this is normal in isolated or lab environments. It means the DNS server has
+forwarders configured (e.g. 8.8.8.8) that are unreachable because the network
+has no internet access. The local DNS lookup still succeeds. You can safely
+ignore the timeout as long as the correct IP address is returned.
+
+If a record is missing (no IP address returned), create it in DNS Manager:
+
+1. Open DNS Manager: in Server Manager, click Tools (top-right) > DNS. A new
+   window opens.
+2. In the left pane, click the arrow next to your server name to expand it.
+   Then expand Forward Lookup Zones. Click on your domain name (e.g.,
+   yourdomain.com).
+3. Right-click your domain name > New Host (A or AAAA)...
+4. In the Name field, enter the hostname only (e.g., ELYSE-SQL01 - without
+   the domain suffix). In the IP address field, enter the server's IP address.
+5. Click Add Host. Click OK on the confirmation. Repeat for each missing
+   record.
+
+Replace the hostnames and domain name above with your actual server names
+and domain.
+
+
+================================================================================
+STEP 6: VERIFY CONFIGURATION
+================================================================================
+
+Before proceeding to SQL Server installation, verify the following:
+
+    [x] svc_sql account exists in AD
+    [x] svc_elyse_be account exists in AD
+    [x] Elyse_Users security group exists in AD
+    [x] Elyse users are members of Elyse_Users
+    [x] svc_sql is NOT a member of Elyse_Users
+    [x] svc_elyse_be is NOT a member of Elyse_Users
+    [x] DNS records resolve for all Elyse server hostnames
+
+To verify the accounts and group, open a Command Prompt on the Domain
+Controller (click Start, type cmd, click Command Prompt) and type each of
+the following commands, pressing Enter after each:
+
+    net user svc_sql /domain
+    net user svc_elyse_be /domain
+    net group Elyse_Users /domain
+
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Proceed to 02_SQL_SERVER_AND_DATABASE.txt to install SQL Server and
+   restore the Elyse database.
+
+2. After SQL Server is installed, proceed to 03_KCD_CONFIGURATION.txt to
+   register Service Principal Names (SPNs) and configure Kerberos Constrained
+   Delegation.
+
+================================================================================

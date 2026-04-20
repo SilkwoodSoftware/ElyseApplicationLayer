@@ -1,0 +1,184 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.navigation-menu {
+  display: flex;
+  align-items: center;
+  background-color: #bac5cf;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 100;
+  min-height: 29px; /* Fixed height to prevent jitter */
+}
+
+.favicon-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: #000000;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-top: 7px;
+  font-size: 0.7rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap; /* Prevent text wrapping */
+
+  &:hover {
+    background-color: #9cc6f6;
+    color: #000000;
+    border-color: #a5a5a5;
+  }
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  font-size: 0.7rem;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 101;
+
+  a {
+    color: #000000;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
+  }
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+.dynamic-buttons {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 4px;
+  padding-right: 6px;
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  color: #000000;
+  transition: color 0.3s ease;
+  margin-left: 0px;
+  white-space: nowrap; /* Prevent text wrapping */
+
+  &:hover {
+    background-color: #9cc6f6;
+    color: #ffffff;
+    padding-left: 3px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border:1px solid #a5a5a5;
+  }
+
+  &.selected {
+    color: #000000;
+    .icons {
+      circle,
+      line, path
+       {
+        stroke: #000000;
+      }
+    }
+  }
+
+  &:not(.selected) {
+    color: #999999;
+    .icons {
+      circle,
+      line,
+      path {
+        stroke: #999999;
+      }
+      }
+  }
+  
+}
+
+.static-buttons {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  color: #000000;
+  transition: color 0.3s ease;
+  margin-left: 4px;
+  padding-left: 4px;
+  padding-right: 6px;
+  white-space: nowrap; /* Prevent text wrapping */
+  
+    &:hover {
+    background-color: #9cc6f6;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border:1px solid #a5a5a5;
+    padding-left: 3px;
+    padding-right: 6px;
+  }
+
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  transition: filter 0.3s ease;
+  margin-left: 0px;
+  margin-right: 3px;
+  width: 15px;
+  height: 15px;
+  transition: filter 0.3s ease, color 0.3s ease; 
+  
+ }

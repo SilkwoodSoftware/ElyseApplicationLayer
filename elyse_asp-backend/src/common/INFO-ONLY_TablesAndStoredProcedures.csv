@@ -1,0 +1,503 @@
+TABLE,CREATE,READ,UPDATE,DELETE,PROCESS
+[base].[booked_in_files],editing.usp_INS_book_in_file,editing.usp_SEL_book_in_files,NA,NA,
+[base].[booking_log],"editing.usp_INS_book_out
+editing.usp_INS_book_in","editing.usp_SEL_all_user_booking_ids
+controlling.usp_SEL_booking_ids_by_date
+controlling.usp_SEL_booking_ids_by_docid
+controlling.usp_SEL_booking_ids_by_sidid",NA,editing.usp_DEL_book_in_id,
+[base].[date_formats],NA,"reading.usp_SEL_date_styles
+reading.usp_SEL_default_date_format",configuring.usp_UPD_default_date_style,NA,
+[base].[document_id_list],"controlling.usp_INS_document_id
+editing.usp_INS_document_id_restr","reading.usp_SEL_all_documents (doesn't retrieve files, doesn't apply filter group)
+reading.usp_SEL_docs_by_trans_group (doesn't retrieve files, doesn't apply filter group)
+reading.usp_SEL_one_document_data (applies filter group to docs and files, includes files)
+reading.usp_SEL_doc_id_contains (applies filter group to docs and files, includes files)
+reading.usp_SEL_all_doc_id_contains Does not apply a filter group. 
+reading.usp_SEL_one_doc_all_data (unfiltered, includes files)
+reading.usp_SEL_docs_by_file  (no filter group)
+reading.usp_SEL_docs_by_filter_group (includes files)
+reading.usp_SEL_number_of_all_docs
+reading.usp_SEL_validate_doc_id
+reading.usp_SEL_all_docs_with_ed_perm
+reading.usp_SEL_all_recent_documents (doesn't apply filter group)
+reading.usp_SEL_all_docs_by_file (doesn't apply filter group)
+reading.usp_SEL_docs_created_between (doesn't apply filter group)
+reading.usp_SEL_document_details
+reading.usp_SEL_doc_id_equals (applies filter group to doc and files, includes files)","editing.usp_UPD_document_id
+editing.usp_DEL_doc_transaction_group 
+controlling.usp_UPD_lock_document_id 
+configuring.usp_UPD_unlock_document_id 
+editing.usp_UPD_doc_transaction_group",editing.usp_DEL_document_id,"internal.usp_SEL_random_doc_id
+internal.usp_AUTHENTICATE_user_doc_id
+internal.ufn_SEL_one_dc_data_by_frm_ITVF
+internal.ufn_SEL_data_for_edit_form_ITVF
+internal.ufn_CHK_filter_doc_id_SVF
+internal.ufn_SEL_docs_permission_filtr_ITVF "
+[base].[eula],,reading.usp_SEL_eula,,,
+"[base].[file_storage]
+[base].[file_metadata]
+[base].[file_plain_text_content]
+[base].[file_thumbnails]","editing.usp_INS_file_binary_input
+internal.usp_INS_file","reading.usp_SEL_file
+reading.usp_SEL_all_files (doesn't apply filter group)
+reading.usp_SEL_files_by_trans_group (doesn't apply filter group)
+reading.usp_SEL_files_for_one_document (applies filter group)
+See also: reading.usp_SEL_all_files_for_one_doc
+reading.usp_SEL_all_files_by_filename (doesn't apply filter group)
+reading.usp_SEL_files_by_filename (applies a filter group)
+reading.usp_SEL_files_by_filter_group
+reading.usp_SEL_number_of_all_files
+reading.usp_SEL_all_files_with_ed_perm
+reading.usp_SEL_all_recent_files (doesn't apply filter group)
+reading.usp_SEL_files_contains
+reading.usp_SEL_files_freetext
+reading.usp_SEL_files_containstable
+reading.usp_SEL_files_freetexttable
+reading.usp_SEL_all_files_contains (doesn't apply filter group)
+reading.usp_SEL_all_files_freetext (doesn't apply filter group)
+reading.usp_SEL_all_files_containstabl (doesn't apply filter group)
+reading.usp_SEL_all_files_freetexttabl (doesn't apply filter group)
+reading.usp_SEL_one_file_data (includes thumbnail)
+reading.usp_SEL_files_created_between (doesn't apply filter group)
+reading.usp_SEL_file_details","NA  Policy is to avoid updating files.  This provides a more robust historical record.
+editing.usp_UPD_file_transaction_group 
+editing.usp_UPD_filename",editing.usp_DEL_file,"internal.ufn_SEL_file_by_doc_fgroup_TVF 
+internal.ufn_CHK_filter_file_id_SVF
+internal.ufn_SEL_one_fl_data_by_frm_TVF
+internal.ufn_CHK_sanitise_file_text_SVF
+internal.ufn_SEL_files_permission_filtr_ITVF"
+[base].[file_delete_log],NA,"controlling.usp_SEL_del_log_by_sid_id
+controlling.usp_SEL_del_log_by_filename
+controlling.usp_SEL_del_log_date_between
+controlling.usp_SEL_del_log_by_file_id
+controlling.usp_SEL_del_log_by_username",NA,NA,
+[base].[file_read_log],NA,"controlling.usp_SEL_read_log_by_sid_id
+controlling.usp_SEL_read_log_by_filename
+controlling.usp_SEL_read_log_date_between
+controlling.usp_SEL_read_log_by_file_id
+controlling.usp_SEL_read_log_by_username",NA,NA,
+[base].[global_settings_groups],NA,reading.usp_SEL_global_settings,,NA,
+[base].[transaction_groups],controllingusp_INS_transaction_group,"reading.usp_SEL_transaction_group
+reading.usp_SEL_all_transaction_groups
+reading.usp_SEL_transaction_grp_cont",controlling.usp_UPD_transaction_group,controlling.usp_DEL_transaction_group,
+[base].[units_of_measure],configuring.usp_INS_unit_of_measure,reading.usp_SEL_all_units_of_measure,configuring.usp_UPD_unit_of_measure,configuring.usp_DEL_unit_of_measure,
+[com_obj].[common_object_attributes],configuring.usp_INS_com_obj_attribute,reading.usp_SEL_com_obj_attributes,configuring.usp_UPD_com_obj_attribute,configuring.usp_DEL_com_obj_attribute,
+[com_obj].[common_object_list_names],configuring.usp_INS_com_obj_list_name,reading.usp_SEL_com_obj_list_names,configuring.usp_UPD_com_obj_list_name,configuring.usp_DEL_com_obj_list_name,
+[com_obj].[common_object_lists],controlling.usp_INS_common_object_lst_item,reading.usp_SEL_all_common_obj_lists,controlling.usp_UPD_common_object_lIst_item,controlling.usp_DEL_common_object_lIst_item,
+[com_obj].[common_objects],controlling.usp_INS_common_object,"reading.usp_SEL_all_common_objects
+reading.usp_SEL_com_obj_by_list",controlling.usp_UPD_common_object,controlling.usp_DEL_common_object,
+[com_obj].[doc_to_com_obj_ms_list_links],editing.usp_INS_doc_to_com_obj_ms_link ,"reading.usp_SEL_dc_cm_obj_ms_lnk_by_dc
+reading.usp_SEL_all_doc_com_obj_ms_lnk
+reading.usp_SEL_docs_by_co_ms_attr (applies filter group, includes files)
+reading.usp_SEL_all_docs_by_co_ms_attr (no filter group, no files)",editing.usp_UPD_doc_to_com_obj_ms_link ,editing.usp_DEL_doc_to_com_obj_ms_link ,
+[com_obj].[doc_to_com_obj_radiob_links],editing.usp_INS_doc_to_com_obj_rb_link ,"reading.usp_SEL_dc_cm_obj_rb_lnk_by_dc
+reading.usp_SEL_all_doc_com_obj_rb_lnk
+reading.usp_SEL_docs_by_co_rb_attr (applies filter group, includes files)
+reading.usp_SEL_all_docs_by_co_rb_attr (no filter group, no files",editing.usp_UPD_doc_to_com_obj_rb_link,editing.usp_DEL_doc_to_com_obj_rb_link,
+[com_obj].[file_to_com_obj_ms_list_links],editing.usp_INS_file_to_com_obj_ms_lnk,"reading.usp_SEL_fl_cm_obj_ms_lnk_by_fl
+reading.usp_SEL_all_file_cm_obj_ms_lnk
+reading.usp_SEL_files_by_co_ms_attr (applies filter group)
+reading.usp_SEL_all_fls_by_co_ms_attr (no filter group)",editing.usp_UPD_file_to_cm_obj_ms_link,editing.usp_DEL_file_to_cm_obj_ms_link,
+[com_obj].[file_to_com_obj_radiob_links],editing.usp_INS_file_to_com_obj_radiob_lnk,"reading.usp_SEL_fl_cm_obj_ms_lnk_by_fl
+reading.usp_SEL_all_file_cm_obj_rb_lnk
+reading.usp_SEL_files_by_co_rb_attr (applies filter group)
+reading.usp_SEL_all_fls_by_co_rb_attr (no filter group)",editing.usp_UPD_file_to_com_obj_rb_lnk,editing.usp_DEL_file_to_com_obj_rb_link,
+[doc_attr].[doc_date_field_names],configuring.usp_INS_doc_date_field_name,reading.usp_SEL_all_doc_date_fields,configuring.usp_UPD_doc_date_field_name,configuring.usp_DEL_doc_date_field_name,
+[doc_attr].[doc_date_values],editing.usp_INS_doc_date_value,"reading.usp_SEL_doc_date_values_by_doc
+reading.usp_SEL_docs_date_equals (filter group applied, retrieves files)
+reading.usp_SEL_docs_date_after (filter group applied, retrieves files)
+reading.usp_SEL_docs_date_before (filter group applied, retrieves files)
+reading.usp_SEL_docs_date_between (filter group applied, retrieves files)
+reading.usp_SEL_all_docs_date_equals (no filter group, no files)
+reading.usp_SEL_all_docs_date_before (no filter group, no files)
+reading.usp_SEL_all_docs_date_after (no filter group, no files)
+reading.usp_SEL_all_docs_date_between (no filter group, not files)
+reading.usp_SEL_docs_date_expired",editing.usp_UPD_doc_date_value,editing.usp_DEL_doc_date_value,
+[doc_attr].[doc_free_text_field_names],configuring.usp_INS_doc_text_field_name,reading.usp_SEL_all_doc_text_fields,configuring.usp_UPD_doc_text_field_name,configuring.usp_DEL_doc_text_field_name,
+[doc_attr].[doc_free_text_values],editing.usp_INS_doc_text_value,"reading.usp_SEL_all_dcs_by_txt_fld_any
+reading.usp_SEL_docs_by_text_field (applies filter group, includes files)*
+reading.usp_SEL_all_docs_by_text_field (no filter group, no files)
+reading.usp_SEL_doc_text_values_by_doc",editing.usp_UPD_doc_text_value,editing.usp_DEL_doc_text_value,
+[doc_attr].[doc_int_values],editing.usp_INS_doc_int_value,"reading.usp_SEL_all_docs_int_any
+reading.usp_SEL_doc_int_values_by_doc
+reading.usp_SEL_docs_int_equals (applies filter group, retrieves files)
+reading.usp_SEL_docs_int_less_than (applies filter group, retrieves files)
+reading.usp_SEL_docs_int_greater_than (applies filter group, retrieves files)
+reading.usp_SEL_docs_int_between (applies filter group, retrieves files)
+reading.usp_SEL_all_docs_int_equals (does not apply filter group, no files)
+reading.usp_SEL_all_docs_int_less_than (does not apply filter group, no files)
+reading.usp_SEL_all_docs_int_grtr_than (does not apply filter group, no files)
+reading.usp_SEL_all_docs_int_between (does not apply filter group, no files)",editing.usp_UPD_doc_int_value,editing.usp_DEL_doc_int_value,
+[doc_attr].[doc_integer_field_names],configuring.usp_INS_doc_int_field_name,reading.usp_SEL_all_doc_int_fields,configuring.usp_UPD_doc_int_field_name,configuring.usp_DEL_doc_int_field_name,
+[doc_attr].[doc_multi_select_attributes],configuring.usp_INS_doc_ms_attribute,"reading.usp_SEL_all_doc_ms_attributes
+reading.usp_SEL_doc_ms_attr_by_list","configuring.usp_UPD_doc_ms_attr_text
+configuring.usp_UPD_doc_ms_attr_posn
+configuring.usp_UPD_doc_ms_attr_list",configuring.usp_DEL_doc_ms_attribute,
+[doc_attr].[doc_multi_select_links],editing.usp_INS_doc_multi_select_link,"reading.usp_SEL_doc_ms_attr_by_doc
+reading.usp_SEL_doc_ms_list_not_linkd
+reading.usp_SEL_docs_multi_sel_attr (applies filter group, retrieves files)
+reading.usp_SEL_all_docs_multi_sel_atr (applies filter group, retrieves files)",editing.usp_UPD_doc_multi_select_link,editing.usp_DEL_doc_multi_select_link,
+[doc_attr].[doc_multi_select_lists],configuring.usp_INS_doc_multi_select_list,reading.usp_SEL_all_doc_ms_lists,"configuring.usp_UPD_doc_ms_list_text
+configuring.usp_UPD_doc_ms_list_posn",configuring.usp_DEL_doc_ms_list,
+[doc_attr].[doc_radio_button_links],editing.usp_INS_doc_radiob_link,"reading.usp_SEL_docs_by_radio_button (applies filter group, includes files)
+reading.usp_SEL_all_docs_by_radio_btn (doesn't apply filter group, doesn't include files)
+reading.usp_SEL_doc_rb_attr_by_doc 
+reading.usp_SEL_doc_rb_list_not_linkd",editing.usp_UPD_doc_radiob_link ,editing.usp_DEL_doc_radiob_link,
+[doc_attr].[doc_radio_button_list_names],configuring.usp_INS_doc_radiob_list,reading.usp_SEL_all_doc_radiob_lists,"configuring.usp_UPD_doc_rb_list_text 
+configuring.usp_UPD_doc_rb_list_posn
+configuring.usp_UPD_doc_rb_restriction",configuring.usp_DEL_doc_radiob_list,
+[doc_attr].[doc_radiob_attributes],configuring.usp_INS_doc_radiob_attr,"reading.usp_SEL_all_doc_radiob_attr*
+reading.usp_SEL_doc_radiob_attr_by_list*","configuring.usp_UPD_doc_radiob_attr
+configuring.usp_UPD_doc_rb_attr_posn
+configuring.usp_UPD_doc_rb_attr_list",configuring.usp_DEL_doc_radiob_attr,
+[doc_attr].[doc_radiob_fgroup_links],configuring.usp_INS_doc_rb_attr_fg_link,reading.usp_SEL_doc_rb_attr_fg_links,configuring.usp_UPD_doc_rb_attr_fg_link,configuring.usp_DEL_doc_rb_attr_fg_link,
+[doc_attr].[doc_real_number_field_names],configuring.usp_INS_doc_real_field_name,reading.usp_SEL_all_doc_real_fields,configuring.usp_UPD_doc_real_field_name,configuring.usp_DEL_doc_real_field_name,
+[doc_attr].[doc_real_number_values],editing.usp_INS_doc_real_value,"reading.usp_SEL_all_docs_real_any
+reading.usp_SEL_doc_real_values_by_doc
+reading.usp_SEL_docs_real_equals (applies filter group, includes files)
+reading.usp_SEL_docs_real_less_than (applies filter group, includes files)
+reading.usp_SEL_docs_real_greater_than (applies filter group, includes files.)
+reading.usp_SEL_docs_real_between (applies filter group, includes files.)
+reading.usp_SEL_all_docs_real_equals (doesn't apply filter group, no files)
+reading.usp_SEL_all_docs_real_greater (doesn't apply filter group, no files)
+reading.usp_SEL_all_docs_real_less (doesn't apply filter groups, no files.)
+reading.usp_SEL_all_docs_real_between (doesn't apply filter groups, no files.)",editing.usp_UPD_doc_real_value,editing.usp_DEL_doc_real_value,
+[file_attr].[doc_ms_attr_fgroup_links],configuring.usp_INS_doc_ms_attr_fg_link,reading.usp_SEL_doc_ms_attr_fg_links,configuring.usp_UPD_doc_ms_attr_fg_link,configuring.usp_DEL_doc_ms_attr_fg_link,
+[file_attr].[file_date_field_names],configuring.usp_INS_file_date_field_name,reading.usp_SEL_all_file_date_fields,configuring.usp_UPD_file_date_field_name,configuring.usp_DEL_file_date_field_name,
+[file_attr].[file_date_values],editing.usp_INS_file_date_value ,"reading.usp_SEL_all_files_date_any
+reading.usp_SEL_file_date_values_by_file
+reading.usp_SEL_files_date_equals (filter group applied, retrieves files)
+reading.usp_SEL_files_date_after (filter group applied, retrieves files)
+reading.usp_SEL_files_date_before (filter group applied, retrieves files)
+reading.usp_SEL_files_date_between (filter group applied, retrieves files)
+reading.usp_SEL_all_files_date_equals (no filter group, no files)
+reading.usp_SEL_all_files_date_before (no filter group, no files)
+reading.usp_SEL_all_files_date_after (no filter group, no files)
+reading.usp_SEL_all_files_date_between (no filter group, not files)",editing.usp_UPD_file_date_value ,editing.usp_DEL_file_date_value,
+[file_attr].[file_free_text_values],editing.usp_INS_file_text_value ,"reading.usp_SEL_all_fls_by_txt_fld_any
+reading.usp_SEL_file_text_values_by_file
+reading.usp_SEL_files_by_text_field (applies filter group)
+reading.usp_SEL_all_files_by_txt_field (no filter group)",editing.usp_UPD_file_text_value,editing.usp_DEL_file_text_value,
+[file_attr].[file_int_values],editing.usp_INS_file_int_value ,"reading.usp_SEL_all_files_int_any
+reading.usp_SEL_file_int_values_by_file
+reading.usp_SEL_files_int_equals (applies filter group, retrieves files)
+reading.usp_SEL_files_int_less_than (applies filter group, retrieves files)
+reading.usp_SEL_files_int_greater_than (applies filter group, retrieves files)
+reading.usp_SEL_files_int_between (applies filter group, retrieves files)
+reading.usp_SEL_all_files_int_equals (does not apply filter group, no files)
+reading.usp_SEL_all_files_int_less_than (does not apply filter group, no files)
+reading.usp_SEL_all_files_int_grtr_than (does not apply filter group, no files)
+reading.usp_SEL_all_files_int_between (does not apply filter group, no files)",editing.usp_UPD_file_int_value,editing.usp_DEL_file_int_value,
+[file_attr].[file_integer_field_names],configuring.usp_INS_file_int_field_name,reading.usp_SEL_all_file_int_fields,configuring.usp_UPD_file_int_field_name,configuring.usp_DEL_file_int_field_name,
+[file_attr].[file_ms_attr_fgroup_links],configuring.usp_INS_file_ms_attr_fg_link,reading.usp_SEL_file_ms_attr_fg_links,configuring.usp_UPD_file_ms_attr_fg_link,configuring.usp_DEL_file_ms_attr_fg_link,
+[file_attr].[file_multi_select_attributes],configuring.usp_INS_file_ms_attribute,"reading.usp_SEL_all_file_ms_attributes
+reading.usp_SEL_file_ms_attr_by_list","configuring.usp_UPD_file_ms_attr_text
+configuring.usp_UPD_file_ms_attr_posn
+configuring.usp_UPD_file_ms_attr_list",configuring.usp_DEL_file_ms_attribute,
+[file_attr].[file_multi_select_links],editing.usp_INS_file_multi_select_link,"reading.usp_SEL_file_ms_attr_by_file
+reading.usp_SEL_file_ms_list_not_linkd
+reading.usp_SEL_files_by_ms_list (applies filter group)
+reading.usp_SEL_all_files_by_ms_list (no filter group)",editing.usp_UPD_file_multi_select_link,editing.usp_DEL_file_multi_select_link,
+[file_attr].[file_multi_select_lists],configuring.usp_INS_file_multi_select_list,reading.usp_SEL_all_file_ms_lists,"configuring.usp_UPD_file_ms_list_text
+configuring.usp_UPD_file_ms_list_posn",configuring.usp_DEL_file_ms_list,
+[file_attr].[file_radio_button_links],editing.usp_INS_file_radiob_link,"reading.usp_SEL_file_rb_attr_by_file 
+reading.usp_SEL_file_rb_list_not_linkd 
+reading.usp_SEL_files_by_doc_by_radiob
+reading.usp_SEL_all_files_by_radio_btn
+reading.usp_SEL_files_by_radio_button",editing.usp_UPD_file_radiob_link ,editing.usp_DEL_file_radiob_link,
+[file_attr].[file_radiob_attr_fgroup_links],configuring.usp_INS_file_rb_attr_fg_link,reading.usp_SEL_file_rb_attr_fg_links,configuring.usp_UPD_file_rb_attr_fg_link,configuring.usp_DEL_file_rb_attr_fg_link,
+[file_attr].[file_radiob_attribute],configuring.usp_INS_file_radiob_attr,"reading.usp_SEL_all_file_radiob_attr 
+reading.usp_SEL_file_radiob_attr_by_list","configuring.usp_UPD_file_rb_attr_text
+configuring.usp_UPD_file_rb_attr_posn
+configuring.usp_UPD_file_rb_attr_list",configuring.usp_DEL_file_radiob_attr,
+[file_attr].[file_radiob_list_names],configuring.usp_INS_file_radiob_list,reading.usp_SEL_all_file_radiob_lists,"configuring.usp_UPD_file_rb_list_text
+configuring.usp_UPD_file_rb_list_posn
+configuring.usp_UPD_file_rb_restriction",configuring.usp_DEL_file_radiob_list,
+[file_attr].[file_real_number_field_names],configuring.usp_INS_file_real_field_name,reading.usp_SEL_all_file_real_fields,configuring.usp_UPD_file_real_field_name,configuring.usp_DEL_file_real_field_name,
+[file_attr].[file_real_number_values],editing.usp_INS_file_real_value ,"reading.usp_SEL_all_files_real_any
+reading.usp_SEL_file_real_vals_by_file
+reading.usp_SEL_files_real_equals (applies filter group)
+reading.usp_SEL_files_real_less_than (applies filter group)
+reading.usp_SEL_files_real_greater (applies filter group)
+reading.usp_SEL_files_real_between (applies filter group)
+reading.usp_SEL_all_files_real_equals (doesn't apply filter group)
+reading.usp_SEL_all_files_real_greater (doesn't apply filter group)
+reading.usp_SEL_all_files_real_less (doesn't apply filter groups)
+reading.usp_SEL_all_files_real_between (doesn't apply filter group).",editing.usp_UPD_file_real_value,editing.usp_DEL_file_real_value,
+[file_attr].[file_text_field_names],configuring.usp_INS_file_text_field_name,reading.usp_SEL_all_file_text_fields,configuring.usp_UPD_file_text_field_name,configuring.usp_DEL_file_text_field_name,
+[forms].[filter_groups],configuring.usp_INS_filter_group,"reading.usp_SEL_all_filter_groups
+reading.usp_SEL_filter_group
+reading.usp_SEL_all_filter_group_attr","configuring.usp_UPD_filter_group_text
+configuring.usp_UPD_filter_group_posn",configuring.usp_DEL_filter_group,
+[forms].[form_doc_booking_status_links],controlling.usp_INS_fm_doc_bk_stat_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bk_stat_link,controlling.usp_DEL_fm_doc_bk_stat_link,
+[forms].[form_doc_booking_id_links],controlling.usp_INS_fm_doc_bk_id_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bk_id_link,controlling.usp_DEL_fm_doc_bk_id_link,
+[forms].[form_doc_booking_user_id_links],controlling.usp_INS_fm_doc_bk_usrid_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bk_usrid_link,controlling.usp_DEL_fm_doc_bk_usrid_link,
+[forms].[form_doc_booking_usernm_links],controlling.usp_INS_fm_doc_bk_usrnm_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bk_usrnm_link,controlling.usp_DEL_fm_doc_bk_usrnm_link,
+[forms].[form_doc_booking_date_links],controlling.usp_INS_fm_doc_bkg_date_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bkg_date_link,controlling.usp_DEL_fm_doc_bkg_date_link,
+[forms].[form_doc_booking_comnts_links],controlling.usp_INS_fm_doc_bkg_cmts_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bkg_cmts_link,controlling.usp_DEL_fm_doc_bkg_cmts_link,
+[forms].[form_doc_booking_release_links],controlling.usp_INS_fm_doc_bkg_rel_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_bkg_rel_link,controlling.usp_DEL_fm_doc_bkg_rel_link,
+[forms].[form_doc_com_obj_ms_default],controlling.usp_INS_fm_dc_c_ob_ms_def,"
+See: [reading].[usp_SEL_all_form_defaults]",controlling.usp_UPD_fm_dc_c_ob_ms_def,controlling.usp_DEL_fm_dc_c_ob_ms_def,
+[forms].[form_doc_com_obj_ms_lst_links],controlling.usp_INS_fm_dc_c_ob_ms_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_dc_c_ob_ms_lnk,controlling.usp_DEL_fm_dc_c_ob_ms_lnk,
+[forms].[form_doc_com_obj_rb_lst_links],controlling.usp_INS_fm_dc_c_ob_rb_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_dc_c_ob_rb_lnk,controlling.usp_DEL_fm_dc_c_ob_rb_lnk,
+[forms].[form_doc_created_links],controlling.usp_INS_form_doc_created_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_created_link,controlling.usp_DEL_form_doc_created_link,
+[forms].[form_doc_date_field_links],controlling.usp_INS_form_doc_date_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_date_link,controlling.usp_DEL_form_doc_date_link,
+[forms].[form_doc_free_text_field_links],controlling.usp_INS_form_doc_free_text_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_free_text_lnk,controlling.usp_DEL_frm_doc_free_txt_link,
+[forms].[form_doc_function_links],controlling.usp_INS_frm_doc_funct_links,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_frm_doc_funct_links,controlling.usp_DEL_frm_doc_funct_links,
+[forms].[form_doc_function_list_links],controlling.usp_INS_fm_doc_funct_lst_links,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_funct_lst_links,controlling.usp_DEL_fm_doc_funct_lst_links,
+[forms].[form_doc_integer_field_links],controlling.usp_INS_form_doc_int_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_int_lnk,controlling.usp_DEL_form_doc_int_link,
+[forms].[form_doc_lock_status_links],controlling.usp_INS_form_doc_lock_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_lock_link,controlling.usp_DEL_form_doc_lock_link,
+[forms].[form_doc_multi_sel_defaults],controlling.usp_INS_form_doc_multi_sel_def,"
+See: [reading].[usp_SEL_all_form_defaults]",controlling.usp_UPD_form_doc_multi_sel_def,controlling.usp_DEL_form_doc_multi_sel_def,
+[forms].[form_doc_multi_sel_list_links],controlling.usp_INS_form_doc_ms_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_ms_link,controlling.usp_DEL_form_doc_ms_link,
+[forms].[form_doc_people_list_links],controlling.usp_INS_frm_doc_ppl_lst_lnks,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_frm_doc_ppl_lst_lnks,controlling.usp_DEL_frm_doc_ppl_lst_lnks,
+[forms].[form_doc_user_links],controlling.usp_INS_frm_doc_user_lnks,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_frm_doc_user_lnks,controlling.usp_DEL_frm_doc_user_lnks,
+[forms].[form_doc_radio_button_links],controlling.usp_INS_form_doc_radiob_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_radiob_link,controlling.usp_DEL_form_doc_radiob_link,
+[forms].[form_doc_real_number_links],controlling.usp_INS_form_doc_real_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_real_lnk,controlling.usp_DEL_form_doc_real_link,
+[forms].[form_doc_transaction_grp_links],controlling.usp_INS_form_doc_tr_grp_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_doc_tr_grp_link,controlling.usp_DEL_form_doc_tr_grp_link,
+[forms].[form_file_com_obj_ms_defaults],controlling.usp_INS_fm_fl_com_obj_ms_def,"
+See: [reading].[usp_SEL_all_form_defaults]",controlling.usp_UPD_fm_fl_com_obj_ms_def,controlling.usp_DEL_fm_fl_com_obj_ms_def,
+[forms].[form_file_com_obj_ms_lst_links],controlling.usp_INS_fm_fl_c_ob_ms_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_fl_c_ob_ms_lnk,controlling.usp_DEL_fm_fl_c_ob_ms_lnk,
+[forms].[form_file_com_obj_rb_lst_links],controlling.usp_INS_fm_fl_c_ob_rb_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_fl_c_ob_rb_lnk,controlling.usp_DEL_fm_fl_c_ob_rb_lnk,
+[forms].[form_file_content_hash_links],controlling.usp_INS_form_file_hash_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_hash_link,controlling.usp_DEL_form_file_hash_link,
+[forms].[form_file_created_links],controlling.usp_INS_form_file_created_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_created_link,controlling.usp_DEL_form_file_created_link,
+[forms].[form_file_created_by_nm_links],controlling.usp_INS_fm_fl_crtd_by_nm_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_fl_crtd_by_nm_link,controlling.usp_DEL_fm_fl_crtd_by_nm_link,
+[forms].[form_file_created_by_id_links],controlling.usp_INS_fm_fl_crtd_by_id_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_fl_crtd_by_id_link,controlling.usp_DEL_fm_fl_crtd_by_id_link,
+[forms].[form_doc_created_by_nm_links],controlling.usp_INS_fm_doc_crtd_by_nm_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_crtd_by_nm_link,controlling.usp_DEL_fm_doc_crtd_by_nm_link,
+[forms].[form_doc_created_by_id_links],controlling.usp_INS_fm_doc_crtd_by_id_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_doc_crtd_by_id_link,controlling.usp_DEL_fm_doc_crtd_by_id_link,
+[forms].[form_file_date_field_links],controlling.usp_INS_form_file_date_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_date_link,controlling.usp_DEL_form_file_date_link,
+[forms].[form_file_free_text_links],controlling.usp_INS_form_file_free_txt_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_free_txt_lnk,controlling.usp_DEL_frm_file_free_txt_link,
+[forms].[form_file_function_links],controlling.usp_INS_frm_file_funct_links,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_frm_file_funct_links,controlling.usp_DEL_frm_file_funct_links,
+[forms].[form_file_function_list_links],controlling.usp_INS_fm_fl_funct_lst_links,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_fm_fl_funct_lst_links,controlling.usp_DEL_fm_fl_funct_lst_links,
+[forms].[form_file_integer_field_links],configuring.usp_INS_form_file_int_lnk,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_int_link,controlling.usp_DEL_form_file_int_link,
+[forms].[form_file_multi_sel_defaults],controlling.usp_INS_frm_file_multi_sel_def,"
+See: [reading].[usp_SEL_all_form_defaults]",controlling.usp_UPD_frm_file_multi_sel_def,controlling.usp_DEL_frm_file_multi_sel_def,
+[forms].[form_file_multi_sel_list_links],controlling.usp_INS_form_file_ms_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_ms_link,controlling.usp_DEL_form_file_ms_link,
+[forms].[form_file_name_links],controlling.usp_INS_form_file_name_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_name_link,controlling.usp_DEL_form_file_name_link,
+[forms].[form_file_people_list_links],controlling.usp_INS_form_file_plist_links,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_plist_links,controlling.usp_DEL_form_file_plist_links,
+[forms].[form_file_user_links],controlling.usp_INS_frm_file_user_lnks,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_frm_file_user_lnks,controlling.usp_DEL_frm_file_user_lnks,
+[forms].[form_file_radiob_links],controlling.usp_INS_form_file_radiob_link,"
+See: [reading].[usp_SEL_all_form_defaults]",controlling.usp_UPD_form_file_radiob_link,controlling.usp_DEL_form_file_radiob_link,
+[forms].[form_file_real_links],controlling.usp_INS_form_file_real_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_real_link,controlling.usp_DEL_form_file_real_link,
+[forms].[form_file_size_links],controlling.usp_INS_form_file_size_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_size_link,controlling.usp_DEL_form_file_size_link,
+[forms].[form_file_transactn_grp_links],controlling.usp_INS_form_file_tr_grp_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_tr_grp_link,controlling.usp_DEL_form_file_tr_grp_link,
+[forms].[form_file_retention_date_links],controlling.usp_INS_form_file_retentn_link,See: [reading].[usp_SEL_all_form_fields],controlling.usp_UPD_form_file_retentn_link,controlling.usp_DEL_form_file_retentn_link,
+[forms].[form_group_names],configuring.usp_INS_form_group_name,"reading.usp_SEL_all_form_groups
+reading.usp_SEL_form_group
+controlling.usp_SEL_controllers_form_groups ","configuring.usp_UPD_form_group_text
+configuring.usp_UPD_form_group_posn",configuring.usp_DEL_form_group_name,
+[forms].[form_identifier_names],controlling.usp_INS_form_id_name,"reading.usp_SEL_all_form_names
+reading.usp_SEL_form_name
+controlling.usp_SEL_controllers_forms
+reading.usp_SEL_all_form_fields
+reading.usp_SEL_all_form_defaults
+reading.usp_SEL_doc_file_form_values
+reading.usp_SEL_forms_by_form_group","controlling.usp_UPD_form_id_text
+controlling.usp_UPD_form_id_posn","configuring.usp_DEL_any_form_id
+controlling.usp_DEL_restricted_form_id",internal.usp_AUTHENTICATE_user_form
+[messaging].[language_list],NA,Internal,NA,NA,
+[messaging].[message_details],NA,internal.usp_SEL_message,NA,NA,
+[messaging].[message_id_list],NA,Internal,NA,NA,
+[people].[doc_to_function_links],editing.usp_INS_doc_function_link,"reading.usp_SEL_functions_by_doc
+reading.usp_SEL_docs_by_duty_function (filter group applies, files retrieved)
+reading.usp_SEL_all_docs_by_dty_funct (no filter group applied, no files retrieved)
+reading.usp_SEL_docs_by_funct_fld_name (filter group applies, files retrieved)
+reading.usp_SEL_all_dc_by_funct_fld_nm (no filter group applied, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_doc_to_function_link,
+[people].[doc_to_function_list_links],editing.usp_INS_doc_funct_list_link,"reading.usp_SEL_function_lists_by_doc
+reading.usp_SEL_docs_by_function_list (filter group applied)
+reading.usp_SEL_all_docs_by_funct_lst (no filter group)
+reading.usp_SEL_dc_by_fnct_list_name (filter group applies, files retrieved)
+reading.usp_SEL_all_dc_by_fnct_lst_nm (no filter group applies, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_doc_funct_list_link,
+[people].[doc_to_people_list_links],editing.usp_INS_doc_people_list_link,"reading.usp_SEL_people_lists_by_doc
+reading.usp_SEL_docs_by_people_list (filter group applied)
+reading.usp_SEL_all_docs_by_people_lst (no filter group applied)
+reading.usp_SEL_dc_by_ppl_list_name (filter group applies, files retrieved)
+reading.usp_SEL_all_dc_by_ppl_lst_nm (no filter group applies, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_doc_people_list_link,
+[people].[doc_to_user_links],editing.usp_INS_doc_user_link,"reading.usp_SEL_users_by_doc
+reading.usp_SEL_docs_by_user (filter group applied)
+reading.usp_SEL_all_docs_by_user (no filter group applied)
+reading.usp_SEL_all_docs_for_user (no filter group applied)
+reading.usp_SEL_docs_by_user_fgn (filter group applies, files retrieved)
+reading.usp_SEL_all_docs_by_user_fgn (no filter group applies, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_doc_user_link,
+[people].[duty_function_sid_links],controlling.usp_INS_duty_function_sid_link,"reading.usp_SEL_all_duty_fnct_sid_lnks
+reading.usp_SEL_duty_functions_by_sid
+reading.usp_SEL_sids_by_duty_function",controlling.usp_UPD_duty_function_sid_link,controlling.usp_DEL_duty_function_sid_link,
+[people].[duty_functions],controlling.usp_INS_duty_function,"reading.usp_SEL_all_duty_functions
+reading.usp_SEL_duty_fnctns_for_user",controlling.usp_UPD_duty_function,controlling.usp_DEL_duty_function,
+[people].[file_to_function_links],editing.usp_INS_file_function_link,"reading.usp_SEL_functions_by_file
+reading.usp_SEL_files_by_duty_function (filter group applies, files retrieved)
+reading.usp_SEL_all_files_by_dty_funct (no filter group applied, no files retrieved)
+reading.usp_SEL_files_by_fnct_fld_name (filter group applies, files retrieved)
+reading.usp_SEL_all_fl_by_funct_fld_nm (no filter group applied, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_file_to_function_link,
+[people].[file_to_function_list_links],editing.usp_INS_file_funct_list_link ,"reading.usp_SEL_function_lists_by_file
+reading.usp_SEL_files_by_function_list (filter group applied)
+reading.usp_SEL_all_files_by_funct_lst (no filter group)
+reading.usp_SEL_fl_by_fnct_list_name (filter group applies, files retrieved)
+reading.usp_SEL_all_fl_by_fnct_lst_nm (no filter group applies, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_file_funct_list_link,
+[people].[file_to_people_list_links],editing.usp_INS_file_people_list_link,"reading.usp_SEL_people_lists_by_file
+reading.usp_SEL_files_by_people_list (filter group applied)
+reading.usp_SEL_all_files_by_pple_list (no filter group applied)
+reading.usp_SEL_fl_by_ppl_list_name (filter group applies, files retrieved)
+reading.usp_SEL_all_fl_by_ppl_lst_nm (no filter group applies, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_file_people_list_link,
+[people].[file_to_user_links],editing.usp_INS_file_user_link,"reading.usp_SEL_users_by_file
+reading.usp_SEL_files_by_user (filter group applied)
+reading.usp_SEL_all_files_by_user (no filter group applied)
+reading.usp_SEL_all_files_for_user (no filter group applied)
+reading.usp_SEL_files_by_user_fgn (filter group applies, files retrieved)
+reading.usp_SEL_all_fl_by_user_fgn (no filter group applies, no files retrieved)",NA.  Insert and delete only.,editing.usp_DEL_file_user_link,
+[people].[function_list_names],controlling.usp_INS_function_list_name,reading.usp_SEL_all_function_lst_names,controlling.usp_UPD_function_list_name,controlling.usp_DEL_function_list_name,
+[people].[function_lists],controlling.usp_INS_function_list ,"reading.usp_SEL_all_function_lists
+reading.usp_SEL_fnct_lists_by_function
+reading.usp_SEL_functions_by_f_lists
+reading.usp_SEL_fnct_lists_for_user",controlling.usp_UPD_function_list ,controlling.usp_DEL_function_list ,
+[people].[general_field_names],configuring.usp_INS_general_field_name,reading.usp_SEL_general_field_names,"configuring.usp_UPD_general_field_name
+configuring.usp_UPD_gen_field_name_posn",configuring.usp_DEL_general_field_name,
+[people].[people_list_names],"controlling.usp_INS_people_list_name
+editing.usp_INS_personal_people_list","controlling.usp_SEL_all_people_list_names
+reading.usp_SEL_non_pers_pple_lst_nms
+reading.usp_SEL_people_lists_for_user",controlling.usp_UPD_people_list_name,controlling.usp_DEL_people_list_name,
+[people].[people_lists],controlling.usp_INS_people_list ,"controlling.usp_SEL_all_people_lists
+reading.usp_SEL_persons_by_people_list
+reading.usp_SEL_people_lists_by_person",controlling.usp_UPD_people_list ,controlling.usp_DEL_people_list ,
+[tagging].[doc_tags],editing.usp_INS_doc_tag,"reading.usp_SEL_all_tags
+reading.usp_SEL_tags_with_ed_perm
+reading.usp_SEL_tag_by_tag_id
+reading.usp_SEL_tags_by_string
+reading.usp_SEL_tags_by_tag_group",editing.usp_UPD_doc_tag,editing.usp_DEL_doc_tag,internal.usp_AUTHENTICATE_tag_edit
+[tagging].[tag_browsing_tree_names],"controlling.usp_INS_tag_browsing_tree_name
+reading.usp_INS_tag_br_tree_nm_indiv","reading.usp_SEL_browsing_tree_names
+reading.usp_SEL_brsng_trees_wth_ed_prm
+reading.usp_SEL_indiv_browsing_trees
+reading.usp_SEL_brsng_trees_by_tag","controlling.usp_UPD_tag_browsing_tree_name
+reading.usp_UPD_tag_br_tree_nm_indiv","controlling.usp_DEL_tag_browsing_tree
+reading.usp_DEL_indiv_browsing_tree",
+[tagging].[tag_browsing_tree_nodes],reading.usp_INS_tag_browsing_tree_node,"reading.usp_SEL_browsing_tree_by_id
+reading.usp_SEL_docs_by_br_tree_node (includes relationship tree on/off option.  Includes files and filter group.)
+reading.usp_SEL_all_docs_by_br_tr_node (no filter group. No files)","reading.usp_UPD_tag_browsing_tree_node
+reading.usp_UPD_tag_br_tree_tag","reading.usp_DEL_tag_br_tree_node
+reading.usp_DEL_tag_br_tree_branch",
+[tagging].[tag_group_identifier_names],controlling.usp_INS_tag_group_id_name,"reading.usp_SEL_all_tag_group_id_names
+reading.usp_SEL_tag_groups_with_ed_perm",controlling.usp_UPD_tag_group_id_name,controlling.usp_DEL_tag_group_id_name,internal.usp_AUTHENTICATE_tag_group
+[tagging].[tag_to_document_links],editing.usp_INS_tag_doc_link,"reading.usp_SEL_docs_by_tag (include relationship tree on/off option.  Includes files and filter group.)
+reading.usp_SEL_all_docs_by_tag (no filter group. No files)
+reading.usp_SEL_tags_by_doc","
+editing.usp_UPD_tag_doc_link",editing.usp_DEL_tag_doc_link,
+[tagging].[tag_to_tag_group_link],editing.usp_INS_tag_group_link,"reading.usp_SEL_tag_groups_by_tag
+reading.usp_SEL_all_tag_group_links",editing.usp_UPD_tag_group_link,editing.usp_DEL_tag_group_link,
+[tagging].[tag_tree_names],controlling.usp_INS_tag_tree_name,"reading.usp_SEL_all_tag_tree_names
+reading.usp_SEL_tag_trees_with_ed_perm",controlling.usp_UPD_tag_tree_name,controlling.usp_DEL_tag_tree,
+[tagging].[tag_tree_nodes],editing.usp_INS_tag_tree_node ,"reading.usp_SEL_tag_tree_by_tree_id
+reading.usp_SEL_tag_get_descendants
+reading.usp_SEL_tag_get_root
+reading.usp_SEL_trees_by_tag
+reading.usp_SEL_tree_node
+reading.usp_SEL_tag_get_ancestors","editing.usp_UPD_tag_tree_node
+editing.usp_UPD_tag_tree_tag","editing.usp_DEL_tag_tree_node
+editing.usp_DEL_tag_tree_branch",
+[user_restr].[authoriser_privilege_requests],"authorising.usp_INS_grant_authoriser
+authorising.usp_INS_revoke_authoriser","authorising.usp_SEL_authoriser_requests
+authorising.usp_SEL_privileges_by_user",authorising.usp_UPD_cancel_authoriser_requ,NA,
+[user_restr].[authorisers],NA,authorising.usp_SEL_authorisers,NA,NA,"internal.usp_AUTHORISE_authoriser
+internal.usp_REVOKE_authoriser"
+[user_restr].[controller_doc_group_sid_links],authorising.usp_AUTHORISE_contr_dc_grp_usr,authorising.usp_SEL_contr_doc_group_sids,authorising.usp_UPD_contr_doc_group_sid,authorising.usp_DEL_contr_doc_group_sid,
+[user_restr].[controller_file_grp_sid_links],authorising.usp_AUTHORISE_contr_fl_grp_usr,authorising.usp_SEL_contr_file_group_sids,authorising.usp_UPD_contr_file_group_sid,authorising.usp_DEL_contr_file_group_sid,
+[user_restr].[doc_group_edit_perm_funct_lst],controlling.usp_INS_doc_gp_ed_perm_funct,"controlling.usp_SEL_f_list_by_doc_group
+controlling.usp_SEL_doc_groups_by_f_list
+controlling.usp_SEL_dg_ed_perm_funct_list",controlling.usp_UPD_dc_gp_ed_prm_fct_notes,controlling.usp_DEL_doc_gp_ed_perm_funct,"internal.usp_AUTHENTICATE_doc_ed_perm
+reading.usp_CHECK_doc_ed_permission"
+[user_restr].[doc_group_edit_perm_people_lst],controlling.usp_INS_doc_gp_ed_perm_people,"controlling.usp_SEL_p_lists_by_doc_group
+controlling.usp_SEL_doc_groups_by_p_list
+controlling.usp_SEL_dg_ed_perm_people_list",controlling.usp_UPD_dc_gp_ed_prm_ppl_notes,controlling.usp_DEL_doc_gp_ed_perm_people,
+[user_restr].[doc_group_view_permissions],authorising.usp_AUTHORISE_doc_group_viewer,authorising.usp_SEL_all_doc_group_viewers,authorising.usp_UPD_doc_grp_viewer_notes,authorising.usp_DEL_doc_group_viewer_perm,internal.usp_AUTHENTICATE_user_file_id
+[user_restr].[file_group_edit_perm_funct_lst],controlling.usp_INS_file_gp_ed_perm_funct,"controlling.usp_SEL_fgepfl_by_file_group
+controlling.usp_SEL_file_groups_by_fgepfl
+controlling.usp_SEL_file_grp_ed_prm_f_lsts",controlling.usp_UPD_fl_gp_ed_prm_fct_notes,controlling.usp_DEL_file_gp_ed_perm_funct,"internal.usp_AUTHENTICATE_file_ed_perm
+reading.usp_CHECK_file_ed_permission"
+[user_restr].[file_group_edit_perm_ppl_lst],controlling.usp_INS_file_gp_ed_perm_people,"controlling.usp_SEL_fgeppl_by_file_group
+controlling.usp_SEL_file_grp_ed_prm_p_lsts
+controlling.usp_SEL_file_groups_by_fgeppl",controlling.usp_UPD_fl_gp_ed_prm_ppl_notes,controlling.usp_DEL_file_gp_ed_perm_people,
+[user_restr].[form_group_owners],authorising.usp_AUTHORISE_form_group_owner ,authorising.usp_SEL_all_form_group_owners,authorising.usp_UPD_form_group_owner,authorising.usp_DEL_form_group_owner,
+[user_restr].[role_list],NA,reading.usp_SEL_privileges,NA,NA,
+[user_restr].[sid_list],reading.usp_INS_self_onboard_sid,"controlling.usp_SEL_all_sid_list
+controlling.usp_SEL_all_recent_sids
+controlling.usp_SEL_sid_by_username","
+controlling.usp_UPD_sid
+authorising.usp_UPD_restore_sid",authorising.usp_DEL_sid,
+[user_restr].[tag_br_tree_permissions_flist],controlling.usp_INS_tag_br_tr_perm_flist,reading.usp_SEL_tag_br_tr_perm_flists,controlling.usp_UPD_tag_br_tr_perm_flist,controlling.usp_DEL_tag_br_tr_perm_flist,internal.usp_AUTHENTICATE_tag_br_tree
+[user_restr].[tag_br_tree_permissions_plist],controlling.usp_INS_tag_br_tr_perm_plist,reading.usp_SEL_tag_br_tr_perm_plists,controlling.usp_UPD_tag_br_tr_perm_plist,controlling.usp_DEL_tag_br_tr_perm_plist,
+[user_restr].[tag_group_permissions_flist],controlling.usp_INS_tag_group_perm_flist,reading.usp_SEL_tag_group_perm_flists,controlling.usp_UPD_tag_group_perm_flist,controlling.usp_DEL_tag_group_perm_flist,
+[user_restr].[tag_group_permissions_plist],controlling.usp_INS_tag_group_perm_plist,reading.usp_SEL_tag_group_perm_plists,controlling.usp_UPD_tag_group_perm_plist,controlling.usp_DEL_tag_group_perm_plist,
+[user_restr].[tag_link_permissions_flist],controlling.usp_INS_tag_link_perm_flist,reading.usp_SEL_tag_link_perm_flists,controlling.usp_UPD_tag_link_perm_flist,controlling.usp_DEL_tag_link_perm_flist,
+[user_restr].[tag_link_permissions_plist],controlling.usp_INS_tag_link_perm_plist,reading.usp_SEL_tag_link_perm_plists,controlling.usp_UPD_tag_link_perm_plist,controlling.usp_DEL_tag_link_perm_plist,
+[user_restr].[tag_tree_permissions_flist],controlling.usp_INS_tag_tree_perm_flist,reading.usp_SEL_tag_tree_perm_flists,controlling.usp_UPD_tag_tree_perm_flist,controlling.usp_DEL_tag_tree_perm_flist,internal.usp_AUTHENTICATE_tag_tree
+[user_restr].[tag_tree_permissions_plist],controlling.usp_INS_tag_tree_perm_plist,reading.usp_SEL_tag_tree_perm_plists,controlling.usp_UPD_tag_tree_perm_plist,controlling.usp_DEL_tag_tree_perm_plist,
+[user_restr].[user_role_link],authorising.usp_AUTHORISE_user_role,"authorising.usp_SEL_all_user_roles
+authorising.usp_SEL_users_by_role
+authorising.usp_SEL_roles_by_user
+reading.usp_SEL_user_roles",authorising.usp_UPD_user_role_link_notes,authorising.usp_DEL_user_role*,"internal.usp_AUTHENTICATE_authoriser
+internal.usp_AUTHENTICATE_user_role"
+[user_restr].[user_privilege_revoke_log],NA  See authorising.usp_DEL_* stored procedures,authorising.usp_SEL_revoke_log,NA,NA,NA
+[workflow_instance].[workflow_step_input_files],editing.usp_INS_wf_input_step_file,"reading.usp_SEL_wf_input_step_files
+reading.usp_SEL_wf_input_files_by_step",editing.usp_UPD_wf_input_step_file,editing.usp_DEL_wf_input_step_file,
+[workflow_instances].[step_status_definitions],configuring.usp_INS_step_status_definition,reading.usp_SEL_wf_step_status_defs,"configuring.usp_UPD_wf_step_status_def_psn
+configuring.usp_UPD_wf_step_status_defn",configuring.usp_DEL_wf_step_status_defn,
+[workflow_instances].[workflow_function_output_files],reviewing.usp_INS_wf_funct_output_file,"reading.usp_SEL_wf_funct_output_files
+reading.usp_SEL_wf_funct_files_by_step",reviewing.usp_UPD_wf_funct_output_file,editing.usp_DEL_wf_funct_output_file,
+[workflow_instances].[workflow_instance_definitions],controlling.usp_INS_workflow_instance_def,"reading.usp_SEL_wf_inst_def_by_doc
+reading.usp_SEL_wf_inst_def_by_model
+reading.usp_SEL_workflow_instance_defs","controlling.usp_UPD_workflow_instance_def
+controlling.usp_UPD_wf_inst_def_pres_step",controlling.usp_DEL_workflow_instance_def,internal.usp_AUTHENTICATE_wf_instance
+[workflow_instances].[workflow_instance_steps],controlling.usp_INS_workflow_instance_step,"reading.usp_SEL_wf_inst_steps_by_inst
+reading.usp_SEL_wf_step_get_descendts
+reading.usp_SEL_wf_step_get_parents
+reading.usp_SEL_wf_step_get_siblings
+reading.usp_SEL_wf_step_get_step_data
+reading.usp_SEL_wf_step_get_ancestors",controlling.usp_UPD_workflow_instance_step,controlling.usp_DEL_workflow_instance_step,"internal.ufn_SEL_wf_inst_step_data_ITVF
+internal.usp_AUTHENTICATE_wf_inst_step"
+[workflow_instances].[workflow_output_definitions],configuring.usp_INS_workflow_output_def,reading.usp_SEL_workflow_output_defs,"configuring.usp_UPD_workflow_output_def
+configuring.usp_UPD_workflow_output_posn",configuring.usp_DEL_workflow_output_def,
+[workflow_instances].[workflow_person_output_files],reviewing.usp_INS_wf_people_output_file,"reading.usp_SEL_wf_people_output_files
+reading.usp_SEL_wf_people_files_by_step",reviewing.usp_UPD_wf_people_output_file,editing.usp_DEL_wf_people_output_file,
+[workflow_instances].[workflow_step_duty_functions],controlling.usp_INS_wf_step_duty_funct,"reading.usp_SEL_wf_step_duty_functs
+reading.usp_SEL_wf_funct_by_step_id
+reading.usp_SEL_wf_steps_by_duty_funct",controlling.usp_UPD_wf_step_duty_funct,controlling.usp_DEL_wf_step_duty_funct,
+[workflow_instances].[workflow_step_participants],controlling.usp_INS_workflow_participant,"reading.usp_SEL_wf_step_participants
+reading.usp_SEL_wf_people_by_step_id
+reading.usp_SEL_wf_steps_by_person",controlling.usp_UPD_workflow_participant,controlling.usp_DEL_workflow_participant,
+[workflow_instances].[workflow_track_log],,reading.usp_SEL_wf_track_log_by_id,,,
+[workflow_instances].[workflow_track_log_index],internal.usp_INS_workflow_track_log,reading.usp_SEL_wf_tr_log_index_by_doc,,,
+[workflow_model].[workflow_actions],configuring.usp_INS_workflow_action,reading.usp_SEL_workflow_actions,"configuring.usp_UPD_workflow_action
+configuring.usp_UPD_workflow_action_posn",configuring.usp_DEL_workflow_action,
+[workflow_model].[workflow_model_names],configuring.usp_INS_workflow_model_name,reading.usp_SEL_workflow_model_names,"configuring.usp_UPD_workflow_model_name
+configuring.usp_UPD_workflow_model_nm_posn",configuring.usp_DEL_workflow_model_name,
+[workflow_model].[workflow_rule_links],configuring.usp_INS_workflow_rule_link,reading.usp_SEL_wf_rules_by_model_step,configuring.usp_UPD_workflow_rule_link,configuring.usp_DEL_workflow_rule_link,
+[workflow_model].[workflow_rules],configuring.usp_INS_workflow_rule,reading.usp_SEL_workflow_rules,"configuring.usp_UPD_workflow_rule
+configuring.usp_UPD_workflow_rule_posn",configuring.usp_DEL_workflow_rule,
+[workflow_model].[workflow_step_definitions],configuring.usp_INS_workflow_step_def,reading.usp_SEL_wf_steps_by_model_name,configuring.usp_UPD_workflow_step_def,configuring.usp_DEL_workflow_step_def,[internal].[ufn_SEL_wf_mod_step_data_ITVF]
+[workflow_model].[workflow_step_transitions],configuring.usp_INS_workflow_step_transn,reading.usp_SEL_workflow_step_transn,configuring.usp_UPD_workflow_step_transn,configuring.usp_DEL_workflow_step_transn,
+[xref].[controller_doc_group_links],controlling.usp_INS_contr_doc_group_link,"controlling.usp_SEL_docs_by_contr_doc_grp
+controlling.usp_SEL_contr_dc_grp_lnks_rstr",controlling.usp_UPD_contr_doc_group_link,controlling.usp_DEL_contr_doc_group_link,
+[xref].[controller_doc_group_names],authorising.usp_INS_contr_doc_group_name,"authorising.usp_SEL_contr_doc_group_names
+controlling.usp_SEL_contr_doc_groups_restr",authorising.usp_UPD_contr_doc_group_name,authorising.usp_DEL_contr_doc_group_name,internal.usp_AUTHENTICATE_cont_doc_grp
+[xref].[controller_file_group_links],controlling.usp_INS_contr_file_group_link,"controlling.usp_SEL_files_by_contr_file_grp
+controlling.usp_SEL_contr_fl_grp_lnks_rstr",controlling.usp_UPD_contr_file_group_link,controlling.usp_DEL_contr_file_group_link,
+[xref].[controller_file_group_names],authorising.usp_INS_contr_file_group_name,"authorising.usp_SEL_contr_file_group_names
+controlling.usp_SEL_contr_file_groups_rstr ",authorising.usp_UPD_contr_file_group_name,authorising.usp_DEL_contr_file_group_name,internal.usp_AUTHENTICATE_cont_file_grp
+[xref].[cross_reference_types],configuring.usp_INS_xref_type,reading.usp_SEL_xref_types,"configuring.usp_UPD_xref_type_text
+configuring.usp_UPD_xref_type_list_posn",configuring.usp_DEL_xref_type,
+[xref].[doc_cross_references],editing.usp_INS_doc_xref,"reading.usp_SEL_docs_by_doc_xref
+reading.usp_SEL_all_doc_xrefs_by_doc",editing.usp_UPD_doc_xref_text,editing.usp_DEL_doc_xref,
+[xref].[doc_group_links],editing.usp_INS_doc_group_link_restr ,"reading.usp_SEL_doc_groups_by_doc_rstr 
+reading.usp_SEL_all_docs_by_doc_group",editing.usp_UPD_doc_grp_lnk_notes_rstr,editing.usp_DEL_doc_group_link_restr,
+[xref].[doc_group_names],controlling.usp_INS_doc_group_name ,"reading.usp_SEL_restr_doc_group_names
+authorising.usp_SEL_all_doc_group_names
+reading.usp_SEL_doc_group_names_rstr 
+editing.usp_SEL_ed_doc_group_ed_perms",controlling.usp_UPD_doc_group_name_rstr,controlling.usp_DEL_doc_group_name_rstr,"internal.usp_AUTHENTICATE_user_doc_grp
+internal.usp_AUTHENTICATE_doc_grp_ed_pm"
+[xref].[file_group_links],editing.usp_INS_file_group_link,"reading.usp_SEL_file_groups_by_file
+reading.usp_SEL_all_files_by_file_grp",editing.usp_UPD_file_group_link,editing.usp_DEL_file_group_link,
+[xref].[file_group_names],controlling.usp_INS_file_group_name,"reading.usp_SEL_file_group_names
+reading.usp_SEL_file_group_names_rstr",controlling.usp_UPD_file_group_name,controlling.usp_DEL_file_group_name ,"internal.usp_AUTHENTICATE_fl_grp_ed_pm (Check if a user has edit permission for the file group.)
+internal.usp_AUTHENTICATE_file_ed_free (Check if the the file is not currently linked to a file group which has edit permissions which the connected user is not a member of.)"
+[xref].[file_to_document_links],editing.usp_INS_file_doc_link,reading.usp_SEL_all_files_for_one_doc* (no filter group),editing.usp_UPD_file_doc_link,editing.usp_DEL_file_doc_link,internal.ufn_SEL_files_by_doc_TVF
+,,,,,

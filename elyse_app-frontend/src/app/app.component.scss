@@ -1,0 +1,112 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Disable context menu for the entire application */
+:host {
+  /* This targets the host component */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Disable context menu for all elements */
+:host ::ng-deep * {
+  /* This will disable the context menu for all elements */
+  -webkit-context-menu: none;
+  -moz-context-menu: none;
+  -ms-context-menu: none;
+  context-menu: none;
+}
+
+.navigation-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #bac5cf;
+  width: 100%;
+}
+
+.help-btn {
+  background: none;
+  border: none;
+  color: #333;
+  padding: 6px 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+/* Excel button - green color like Excel logo */
+.excel-btn {
+  color: #217346;
+  font-size: 0.7rem;
+  
+  /* Style the SVG icon */
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+  }
+}
+
+.excel-btn:hover {
+  color: #185c37;
+  
+  svg {
+    transform: translateY(1px);
+  }
+}
+
+.excel-btn:active {
+  color: #0e3b24;
+  
+  svg {
+    transform: translateY(2px);
+  }
+}
+
+/* First help button (Excel) pushes to the right */
+.help-btn:first-of-type {
+  margin-left: auto;
+  margin-right: 2px;
+}
+
+/* Help button (?) has minimal left margin and right padding for spacing from edge */
+.help-btn:last-of-type {
+  margin-left: 0;
+  padding-right: 12px;
+}
+
+.help-btn:hover {
+  color: #007bff;
+}
+
+.help-btn:active {
+  color: #0056b3;
+}
+
+.content {
+  margin-top: 20px; /* Adjust this value as needed */
+}
+
+.content.help-content {
+  margin-top: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}

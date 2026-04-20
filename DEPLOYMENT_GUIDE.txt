@@ -1,0 +1,231 @@
+================================================================================
+ELYSE DEPLOYMENT GUIDE
+================================================================================
+
+OVERVIEW
+========
+
+Elyse is a three-layer application:
+
+    +-------------------+
+    |   Angular Frontend |  <-- Static files served by IIS or other web server
+    +-------------------+
+             |
+             | HTTP (REST API)
+             v
+    +-------------------+
+    |   .NET Backend     |  <-- ASP.NET Core application hosted in IIS
+    +-------------------+
+             |
+             | Windows Authentication (KCD)
+             v
+    +-------------------+
+    |   SQL Server DB    |  <-- SQL Server Express with FILESTREAM
+    +-------------------+
+
+Each layer is deployed from a separate deployment package:
+
+    Package                         Contents
+    -------                         --------
+    Elyse_DB_*.zip                  Database backup file (manually produced)
+    Elyse-Backend-*-SERVER-*.zip    .NET backend (domain/KCD) + SERVER_README.txt
+    Elyse-Backend-*-WORKGROUP-*.zip .NET backend (workgroup) + WORKGROUP_README.txt
+    Elyse-Frontend-*-Deploy-*.zip   Angular frontend + FRONTEND_README.txt
+
+There are two backend variants:
+    - SERVER: For domain-joined multi-user environments with KCD
+    - WORKGROUP: For single-user workstation environments without a domain
+
+In a server deployment, the backend uses Kerberos Constrained Delegation (KCD)
+to impersonate the connected user when accessing SQL Server. This ensures that
+every database connection is made under the authenticated user's Windows
+identity, not the application service account.
+
+In a workgroup deployment, the backend connects to SQL Server directly as the
+service account (the user's own Windows account). KCD is not used.
+
+
+DOCUMENT DISTRIBUTION
+=====================
+
+The instruction documents are distributed across three locations:
+
+1. Database Deployment Package (Elyse_DB_*.zip)
+   The following Elyse Installation Guide documents are included with the
+   database package:
+
+    Document                                Purpose
+    --------                                -------
+    DEPLOYMENT_GUIDE.txt                    This file. Master index and overview.
+    01_DOMAIN_SETUP.txt                     Active Directory configuration for Elyse.
+    02_SQL_SERVER_AND_DATABASE.txt           SQL Server installation and database setup.
+    03_KCD_CONFIGURATION.txt                Kerberos Constrained Delegation setup.
+    04_BOOTSTRAPPING_AND_CONFIGURATION.txt  Post-deployment user and system configuration.
+    APPENDIX_A_DOMAIN_IN_A_BOX.txt          Lab/test environment setup using Hyper-V.
+
+2. Application Deployment Packages
+   Each application layer zip contains a self-contained README for that layer:
+
+    Document                                Location
+    --------                                --------
+    SERVER_README.txt                       Inside the SERVER backend deployment zip
+    WORKGROUP_README.txt                    Inside the WORKGROUP backend deployment zip
+    FRONTEND_README.txt                     Inside the frontend deployment zip
+
+3. Elyse Website
+   All documents are also available on the Elyse documentation page.
+
+The README files in the application packages are self-contained for their
+layer. They reference the Installation Guide documents by name for detailed
+setup of the database, domain, and KCD components.
+
+
+DEPLOYMENT SCENARIOS
+====================
+
+Choose the scenario that matches your environment and follow the documents
+in the order listed.
+
+Scenario 1: Production Server, Existing Domain
+-----------------------------------------------
+The organisation already has an Active Directory domain. Elyse is being
+deployed onto domain-joined servers.
+
+    Step  Document                              Action
+    ----  --------                              ------
+     1    01_DOMAIN_SETUP.txt                   Review and verify that all AD
+                                                prerequisites are met. Create any
+                                                missing service accounts, groups,
+                                                or DNS records.
+
+     2    02_SQL_SERVER_AND_DATABASE.txt         Install SQL Server Express, configure
+                                                FILESTREAM, restore the database,
+                                                create logins and permissions.
+
+     3    03_KCD_CONFIGURATION.txt              Register SPNs and configure Kerberos
+                                                Constrained Delegation in AD.
+
+     4    SERVER_README.txt                     Install the .NET backend on IIS.
+          (in backend deployment zip)            Configure the .env file and
+                                                application pool.
+
+     5    FRONTEND_README.txt                   Install the Angular frontend on a
+          (in frontend deployment zip)           web server. Configure the backend
+                                                API URL.
+
+     6    04_BOOTSTRAPPING_AND_CONFIGURATION.txt Onboard users, assign roles, and
+                                                configure global settings.
+
+Scenario 2: Production Server, New Domain
+------------------------------------------
+A new Active Directory domain is being created for Elyse.
+
+    Follow the same steps as Scenario 1, but execute 01_DOMAIN_SETUP.txt in
+    full rather than reviewing it for an existing domain.
+
+Scenario 3: Lab / Test Environment from Scratch
+-------------------------------------------------
+A self-contained test environment is being built using Hyper-V virtual
+machines on a single host.
+
+    Step  Document                              Action
+    ----  --------                              ------
+     1    APPENDIX_A_DOMAIN_IN_A_BOX.txt        Build the Hyper-V environment,
+                                                create VMs, install Windows Server,
+                                                promote the Domain Controller, and
+                                                join all servers to the domain.
+                                                This document cross-references
+                                                01, 02, and 03 at the appropriate
+                                                points.
+
+     2    SERVER_README.txt                     Install the .NET backend on the
+          (in backend deployment zip)            backend VM (ELYSE-BE01).
+
+     3    FRONTEND_README.txt                   Install the Angular frontend on the
+          (in frontend deployment zip)           frontend VM (ELYSE-FE01).
+
+     4    04_BOOTSTRAPPING_AND_CONFIGURATION.txt Onboard users, assign roles, and
+                                                configure global settings.
+
+Scenario 4: Single-User Workgroup (No Domain)
+-----------------------------------------------
+A single user on a Windows 10/11 workstation, not joined to a domain.
+No Active Directory, no KCD. The backend connects to SQL Server directly
+as the user's Windows account.
+
+    Step  Document                              Action
+    ----  --------                              ------
+     1    02_SQL_SERVER_AND_DATABASE.txt         Install SQL Server Express, configure
+                                                FILESTREAM, restore the database.
+                                                Skip the AD group login steps
+                                                (Step 7a-7b); instead follow the
+                                                SQL login instructions in the
+                                                WORKGROUP_README.txt.
+
+     2    WORKGROUP_README.txt                   Install the self-contained backend
+          (in workgroup backend deployment zip)  executable as a Windows Service.
+                                                Configure the .env file.
+
+     3    FRONTEND_README.txt                    Install the Angular frontend.
+          (in frontend deployment zip)           Configure the backend API URL
+                                                (typically http://localhost:5000/api).
+
+     4    04_BOOTSTRAPPING_AND_CONFIGURATION.txt Onboard the user, assign all roles
+                                                (follow the single-user path).
+
+    NOTE: Steps 01_DOMAIN_SETUP.txt and 03_KCD_CONFIGURATION.txt are not
+    required for workgroup deployments.
+
+
+PREREQUISITES SUMMARY
+=====================
+
+The following prerequisites apply across all scenarios:
+
+    Software / Component                    Minimum Version
+    --------------------                    ---------------
+    Windows Server                          2016 or later
+    SQL Server Express                      2022 or later
+    SQL Server Management Studio (SSMS)     Current release
+    .NET Runtime (ASP.NET Core Hosting)     8.0
+    IIS                                     10.0
+    IIS URL Rewrite Module                  2.1
+    IIS Application Request Routing (ARR)   3.0
+
+    Active Directory Requirements           Details
+    -----------------------------           -------
+    Domain functional level                 Windows Server 2016 or later
+    Service accounts                        See 01_DOMAIN_SETUP.txt
+    Security group for Elyse users          See 01_DOMAIN_SETUP.txt
+    SPNs and KCD delegation                 See 03_KCD_CONFIGURATION.txt
+
+
+NAMING CONVENTIONS
+==================
+
+These documents use the following prescribed names. These are recommended
+defaults and may be replaced with names that conform to your organisation's
+naming standards. If you change them, apply the change consistently across
+all documents and configuration files.
+
+    Prescribed Name         Purpose
+    ---------------         -------
+    svc_sql                 SQL Server service account (domain account)
+    svc_elyse_be            Backend application service account (domain account)
+    Elyse_Users             Active Directory security group for Elyse users
+    Elyse_DB                Database name
+    ElyseAppPool            IIS application pool name for the backend
+
+
+SUPPORT
+=======
+
+For the application source code and developer build instructions, refer to
+the repository at:
+
+    https://github.com/SilkwoodSoftware/ElyseApplicationLayer.git
+
+The developer build guide is located in the file DEVELOPER_BUILD_GUIDE.md
+within that repository.
+
+================================================================================

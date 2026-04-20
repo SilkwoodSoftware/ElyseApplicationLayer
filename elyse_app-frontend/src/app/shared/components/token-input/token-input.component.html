@@ -1,0 +1,94 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="token-input-container">
+  <div class="token-input-wrapper">
+    <!-- Tokens -->
+    <div class="tokens">
+      <span
+        *ngFor="let token of tokens; let i = index"
+        class="token"
+        [class.selected]="i === selectedTokenIndex"
+        tabindex="0"
+        (click)="onTokenClick(i)"
+        (keydown)="onTokenKeyDown($event, i)"
+        role="button"
+        [attr.aria-label]="token.displayName + ', field token'"
+      >
+        <span class="token-text">{{ token.displayName }}</span>
+        <button
+          class="token-remove"
+          (click)="removeToken(i); $event.stopPropagation()"
+          [attr.aria-label]="'Remove ' + token.displayName"
+          type="button"
+        >
+          ×
+        </button>
+      </span>
+      
+      <!-- Invalid text indicator -->
+      <span
+        *ngIf="invalidText"
+        class="invalid-text"
+        [title]="'Unknown field name'"
+        (click)="clearInvalidText()"
+      >
+        {{ invalidText }}
+        <button
+          class="token-remove"
+          (click)="clearInvalidText(); $event.stopPropagation()"
+          aria-label="Clear invalid text"
+          type="button"
+        >
+          ×
+        </button>
+      </span>
+    </div>
+    
+    <!-- Input field -->
+    <input
+      #inputElement
+      type="text"
+      class="token-input"
+      [(ngModel)]="inputValue"
+      (input)="onInputChange($event)"
+      (blur)="onInputBlur()"
+      (focus)="onInputFocus()"
+      [placeholder]="tokens.length === 0 ? placeholder : ''"
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </div>
+  
+  <!-- Dropdown suggestions -->
+  <div
+    *ngIf="showSuggestions && suggestions.length > 0"
+    class="suggestions-dropdown"
+    role="listbox"
+  >
+    <div
+      *ngFor="let suggestion of suggestions; let i = index"
+      class="suggestion-item"
+      [class.selected]="i === selectedSuggestionIndex"
+      (click)="selectSuggestion(suggestion)"
+      (mouseenter)="selectedSuggestionIndex = i"
+      role="option"
+      [attr.aria-selected]="i === selectedSuggestionIndex"
+    >
+      {{ getSuggestionDisplay(suggestion) }}
+    </div>
+  </div>
+</div>

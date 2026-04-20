@@ -1,0 +1,283 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.help-menu-container {
+  width: 800px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: hsl(191, 16%, 81%);
+  border-bottom: 1px solid #ddd;
+  border-radius: 4px 4px 0 0;
+
+  h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+  }
+}
+
+.search-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: white;
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+      }
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      padding: 4px;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+.help-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: white;
+}
+
+.topics-view {
+  .topics-list {
+    padding: 16px 0;
+  }
+}
+
+.topic-item {
+  border-bottom: 1px solid #eee;
+
+  .topic-content {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    .topic-icon {
+      margin-right: 8px;
+      font-size: 12px;
+      color: #666;
+      width: 12px;
+    }
+
+    .topic-title {
+      font-weight: 500;
+      margin-right: 12px;
+    }
+
+    .topic-description {
+      font-size: 13px;
+      color: #666;
+    }
+  }
+
+  &.has-children {
+    .topic-content:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+  }
+}
+
+.child-topics {
+  background-color: #fafafa;
+}
+
+.search-results-view {
+  padding: 16px 20px;
+
+  .no-results {
+    text-align: center;
+    color: #666;
+    padding: 40px;
+    font-style: italic;
+  }
+
+  .search-result-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    color: black;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    .result-title {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .result-description {
+      font-size: 13px;
+      color: #666;
+    }
+  }
+}
+
+.content-view {
+  .content-navigation {
+    padding: 16px 20px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f9fa;
+
+    .back-button {
+      background: none;
+      border: 1px solid #ccc;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #333;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+      }
+    }
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+
+  .help-content-display {
+    padding: 20px;
+    line-height: 1.6;
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #333;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    
+    p {
+      margin-bottom: 12px;
+      color: #555;
+    }
+
+    ul, ol {
+      margin: 12px 0;
+      padding-left: 24px;
+
+      li {
+        margin-bottom: 4px;
+      }
+    }
+
+    code {
+      background-color: #f8f9fa;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background-color: #f8f9fa;
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      
+      code {
+        background: none;
+        padding: 0;
+      }
+    }
+
+    blockquote {
+      border-left: 4px solid #ddd;
+      margin: 16px 0;
+      padding-left: 16px;
+      color: #666;
+    }
+  }
+}
+
+// Override Angular Material dialog styles
+:host ::ng-deep {
+  .mat-dialog-container {
+    padding: 0 !important;
+  }
+}

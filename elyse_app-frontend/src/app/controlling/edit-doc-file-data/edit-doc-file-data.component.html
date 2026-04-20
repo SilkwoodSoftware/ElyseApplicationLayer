@@ -1,0 +1,55 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+
+<div class="container">
+  <div *ngIf="documentId || fileId" class="form-container two-column-layout">
+    <div class="column-left">
+      <div class="table-heading">Edit data for {{ documentId ? '&nbsp;&nbsp;' + 'Document ID: ' + documentId + '&nbsp;&nbsp;&nbsp;' : '' }}{{ fileId ?
+'File ID: ' + fileId : '' }}</div>
+
+<div class="two-column-layout">
+  <div class="column-left">
+    <app-dynamic-form
+    [fields]="leftColumnFields"
+    [documentId]="documentId"
+    [fileId]="fileId"
+    (fieldAction)="onFieldAction($event)">
+    </app-dynamic-form>
+  </div>
+
+  <div class="column-right">
+    <app-dynamic-form
+    [fields]="rightColumnFields"
+    [documentId]="documentId"
+    [fileId]="fileId"
+    (fieldAction)="onFieldAction($event)">
+    </app-dynamic-form>
+  </div>
+</div>
+<div class="form-actions">
+  <button [disabled]="!hasChanges()" (click)="onSaveChanges()">Save Changes</button>
+</div>
+</div>
+
+<div class="messages-container">
+  <span *ngFor="let item of messageItems" class="result-item" [ngClass]="{'error': item.label ===
+  'Transaction Status' && item.value !== 'Good'}">
+      {{ item.label }}: <span class="result-value">{{ item.value }}</span>
+    </span>
+</div>
+</div>
+    

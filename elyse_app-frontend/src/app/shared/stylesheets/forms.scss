@@ -1,0 +1,406 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+// Form styles
+
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.column-left, .column-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-heading {
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.form-field {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 2px !important;
+  padding: 1px 0;
+
+  label {
+    flex: 0 0 auto;    
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    color: #22203a;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #9f9f9f;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-family: Arial, sans-serif;
+  }
+
+  select {
+    // Ensure dropdown maintains height even with placeholder only
+    min-height: 22px;
+    
+    // Ensure dropdown options panel has minimum height
+    option {
+      min-height: 1.2em;
+      padding: 2px 4px;
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  button {
+    flex: 0 0 auto;
+    margin-top: 5px;
+    padding: 5px 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #9f9f9f;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+
+    &:hover {
+      background-color: #bbb;
+      border-color: #73b3c4;
+    }
+  }
+
+  &.document-field {
+    background-color: #f0f8ff; 
+    border-left: 3px solid #4682b4; 
+  }
+
+  &.file-field {
+    background-color: #f0fff0; 
+    border-left: 3px solid #228b22; 
+  }
+
+
+}
+.form-container {
+  margin-top: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  position: relative;
+  width: calc(100% - 50px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 5px);
+  overflow-y: auto;
+  scrollbar-width: thick;
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  background-color: #f5f5f5;
+  border: 1px solid #9f9f9f;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.form-heading {
+  font-size: 0.8rem;
+  margin-top: 2px;
+  font-weight: normal;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #22203a;
+}
+
+.form-actions {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center !important;  
+  text-align: center;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    padding: 5px 5px;
+    background-color: #22203a;
+    color: #ededef;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+
+    &:hover {
+      background-color: #3a3865;
+    }
+  }
+}
+
+.form-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.form-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.form-container::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+  border-bottom: 1px solid #9f9f9f;
+
+  &:nth-child(even) {
+    background-color: #bfcfdd;
+  }
+
+  label {
+    flex: 0 0 30%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #22203a;
+    padding: 0 5px;
+  }
+
+  input, textarea, select {
+    flex: 1;
+    font-size: 0.6rem;
+    padding: 3px;
+    border: 1px solid #9f9f9f;
+    border-radius: 4px;
+  }
+}
+
+.form-parameter {
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.table-heading {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.icon-buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-buttons {
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent;
+  border: none !important;
+  cursor: pointer;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  color: #000000;
+  transition: color 0.3s ease;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  outline: none !important;
+
+  &:hover {
+    background-color: #9cc6f6;
+    color: #ffffff;
+    padding-left: 3px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border:1px solid #a5a5a5;
+  }
+
+  &.active {
+    color: #000000;
+    .icons {
+      circle,
+      line, path
+       {
+        stroke: #000000;
+      }
+    }
+  }
+
+  &:not(.active) {
+    color: #999999;
+    .icons {
+      circle,
+      line,
+      path {
+        stroke: #999999;
+      }    
+      }
+  }
+  
+}
+
+.static-action-buttons {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  color: #000000;
+  transition: color 0.3s ease;
+  margin-left: 4px;
+  padding-left: 4px;
+  padding-right: 6px;
+  
+    &:hover {
+    background-color: #9cc6f6;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border:1px solid #a5a5a5;
+    padding-left: 3px;
+    padding-right: 6px;
+  }
+
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  transition: filter 0.3s ease;
+  margin-left: 0px;
+  margin-right: 3px;
+  width: 15px;
+  height: 15px;
+  transition: filter 0.3s ease, color 0.3s ease; 
+  
+ }
+.mat-form-field {
+  width: 100%;
+}
+
+// Multi-select field styles
+.multi-select-container {
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+ width: 100%;
+}
+
+.selected-tags {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 4px;
+ margin-bottom: 5px;
+}
+
+.selected-tag {
+ display: inline-flex;
+ align-items: center;
+ background-color: #e3f2fd;
+ border: 1px solid #90caf9;
+ border-radius: 12px;
+ padding: 2px 8px;
+ font-size: 0.7rem;
+ color: #1976d2;
+ white-space: nowrap;
+ 
+ .tag-remove {
+   background: none;
+   border: none;
+   color: #1976d2;
+   cursor: pointer;
+   font-size: 0.8rem;
+   margin-left: 4px;
+   padding: 0;
+   line-height: 1;
+   font-weight: bold;
+   
+   &:hover {
+     color: #d32f2f;
+     background-color: transparent;
+   }
+ }
+}
+
+.add-item-dropdown {
+ width: 100%;
+ max-width: 200px;
+ font-size: 0.7rem !important;
+ padding: 3px !important;
+ border: 1px solid #9f9f9f !important;
+ border-radius: 4px !important;
+}
+
+// Multi-select field type coloring
+.form-field.document-field .multi-select-container {
+ .selected-tag {
+   background-color: #e8f4fd;
+   border-color: #4682b4;
+   color: #2c5282;
+ }
+}
+
+.form-field.file-field .multi-select-container {
+ .selected-tag {
+   background-color: #e8f5e8;
+   border-color: #228b22;
+   color: #2d5016;
+ }
+}
+
+

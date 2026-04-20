@@ -1,0 +1,79 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div>
+  <div class="table-heading">All Users and Roles<br><br></div>
+</div>
+<div class="table-container" #tableContainer>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <div class="column-heading">
+            <span class="column-title" (click)="onColumnSelect('roleName')">Role</span>
+            <span class="sort-icon" *ngIf="sortColumn === 'roleName'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+          </div>
+          <img class="resize-handle" src="assets/icons/column-resize.svg" alt="Resize Icon" appColumnResize>
+        </th>
+        <th>
+          <div class="column-heading">
+            <span class="column-title" (click)="onColumnSelect('databaseUserName')">Name</span>
+            <span class="sort-icon" *ngIf="sortColumn === 'databaseUserName'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+          </div>
+          <img class="resize-handle" src="assets/icons/column-resize.svg" alt="Resize Icon" appColumnResize>
+        </th>
+        <th>
+          <div class="column-heading">
+            <span class="column-title" (click)="onColumnSelect('description')">Description</span>
+            <span class="sort-icon" *ngIf="sortColumn === 'description'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+          </div>
+          <img class="resize-handle" src="assets/icons/column-resize.svg" alt="Resize Icon" appColumnResize>
+        </th>
+        <th>
+          <div class="column-heading">
+            <span class="column-title" (click)="onColumnSelect('systemUserName')">Username</span>
+            <span class="sort-icon" *ngIf="sortColumn === 'systemUserName'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+          </div>
+          <img class="resize-handle" src="assets/icons/column-resize.svg" alt="Resize Icon" appColumnResize>
+        </th>
+        <th>
+          <div class="column-heading">
+            <span class="column-title" (click)="onColumnSelect('isGroup')">Group</span>
+            <span class="sort-icon" *ngIf="sortColumn === 'isGroup'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+          </div>
+          <img class="resize-handle" src="assets/icons/column-resize.svg" alt="Resize Icon" appColumnResize [initialWidth]="'5%'">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let userRole of usersRoles; let i = index"
+          [class.selected]="selectedRows.includes(userRole)"
+          (click)="onRowMultiSelect($event, userRole)">
+        <td>{{ userRole.roleName }}</td>
+        <td>{{ userRole.databaseUserName }}</td>
+        <td>{{ userRole.description }}</td>
+        <td>{{ userRole.systemUserName }}</td>
+        <td>{{ userRole.isGroup }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="messages-container">
+  <span *ngFor="let item of messageItems" class="result-item">
+    {{ item.label }}: <span class="result-value">{{ item.value }}</span>
+  </span>
+</div>

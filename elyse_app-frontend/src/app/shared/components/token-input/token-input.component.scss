@@ -1,0 +1,171 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../../stylesheets/forms.scss';
+
+.token-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.token-input-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid #9f9f9f;
+  border-radius: 4px;
+  background-color: white;
+  min-height: 22px;
+  cursor: text;
+  
+  &:focus-within {
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 1px rgba(63, 81, 181, 0.2);
+  }
+}
+
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+// Use the same styling as multi-select tags from forms.scss
+.token {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  color: #1976d2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #bbdefb;
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px rgba(25, 118, 210, 0.3);
+  }
+  
+  &.selected {
+    background-color: #90caf9;
+    border-color: #42a5f5;
+  }
+}
+
+.token-text {
+  user-select: none;
+}
+
+// Use the same styling as tag-remove from forms.scss
+.token-remove {
+  background: none;
+  border: none;
+  color: #1976d2;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 4px;
+  padding: 0;
+  line-height: 1;
+  font-weight: bold;
+  
+  &:hover {
+    color: #d32f2f;
+    background-color: transparent;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.invalid-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background-color: #ffebee;
+  border: 1px solid #ef5350;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  color: #c62828;
+  text-decoration: underline;
+  cursor: pointer;
+  
+  .token-remove {
+    color: #c62828;
+  }
+}
+
+// Use the same styling as form inputs
+.token-input {
+  flex: 1;
+  min-width: 80px;
+  border: none;
+  outline: none;
+  font-size: 0.6rem;
+  font-family: Arial, sans-serif;
+  padding: 3px;
+  background: transparent;
+  
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.15s ease;
+  
+  &:hover,
+  &.selected {
+    background-color: #f5f5f5;
+  }
+  
+  &.selected {
+    background-color: #e3f2fd;
+  }
+  
+  &:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
+}

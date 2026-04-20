@@ -1,0 +1,108 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.messages-container {
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    // margin-right: 20px;
+    display: inline-block;
+    padding: 5px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+  }
+
+.message-heading {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: Arial;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.error {
+  color: red;
+}
+  .message-text1 {
+    font-size: 0.6rem;
+    margin-bottom: 5px;
+    font-family: Arial;
+    color:#000000;
+    margin-top: 5px;
+    white-space: pre-wrap;
+    user-select: text;
+    max-width: 30em;
+
+    p {
+      white-space: pre-wrap;
+      margin: 0;
+    }
+  }
+  
+  .message-text2 {
+    font-size: 0.6rem;
+    margin-bottom: 5px;
+    font-family: Arial;
+    color:#000000;
+    margin-top: 5px;
+    white-space: pre-wrap;
+    user-select: text;
+    max-width: 20em;
+
+    p {
+      white-space: pre-wrap;
+      margin: 0;
+    }
+  }
+  
+  .message-text3 {
+    font-size: 0.6rem;
+    margin-bottom: 5px;
+    font-family: Arial;
+    color:#000000;
+    margin-top: 5px;
+    white-space: pre-wrap;
+    user-select: text;
+    max-width: 20em;
+
+    p {
+      white-space: pre-wrap;
+      margin: 0;
+    }
+  }
+
+  .result-item {
+    margin-bottom: 5px;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .result-item:last-child::after {
+    content: none; /* Remove the characters or space after the last item */
+  }
+  
+  .result-item::after {
+    content: "|"; 
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .result-value {
+    font-weight: normal;
+    white-space: pre-wrap;
+  }

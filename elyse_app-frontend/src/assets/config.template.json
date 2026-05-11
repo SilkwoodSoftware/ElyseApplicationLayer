@@ -1,0 +1,7 @@
+{
+  "apiUrl": "http://localhost:5000/api",
+  "apiUrl": "/api"
+  "_comment": "Edit this file and save as config.json to configure the backend API URL without rebuilding the application"
+  "_comment": "Choose the first line for local and the second for other instances."
+
+}

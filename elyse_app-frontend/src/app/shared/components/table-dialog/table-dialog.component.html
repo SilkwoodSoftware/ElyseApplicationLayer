@@ -1,0 +1,77 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="dialog-backdrop">
+  <div class="dialog-container results-dialog" #dialogContainer
+       style="width: 80%; max-width: 1200px; height: auto; max-height: 80vh; display: flex; flex-direction: column;"
+       (mousedown)="onMouseDown($event)"
+       (mousemove)="onMouseMove($event)"
+       (mouseup)="onMouseUp()">
+    <h2>{{title}}</h2>
+    <div class="dialog-content" style="width: 100%; max-width: 100%; overflow: auto; max-height: calc(70vh - 60px); flex: 1;">
+      <!-- Table content -->
+      <div class="table-container" style="max-height: 100%; overflow: visible;">
+        <div class="table-wrapper">
+          <table class="resizable-table">
+            <thead>
+              <tr>
+                <th *ngFor="let column of columns; let i = index">
+                  <div class="column-heading"
+                       [matTooltip]="getTooltip(column)"
+                       matTooltipPosition="above">
+                    <span class="column-title">{{ getColumnLabel(column) }}</span>
+                  </div>
+                  <div class="resize-handle" (mousedown)="onColumnResize($event, i)"></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of data"
+                  [class.selected]="row === selectedRow"
+                  (click)="onRowSelect(row)">
+                <td *ngFor="let column of columns">
+                  <ng-container *ngIf="row[column] !== undefined && row[column] !== null">
+                    {{ formatDisplayValue(row[column]) }}
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Message items - moved outside of scrollable area, above buttons -->
+    <div style="text-align: left;">
+      <div class="messages-container" *ngIf="messageItems.length > 0">
+        <span *ngFor="let item of messageItems" class="result-item"
+              [ngClass]="{
+                'error': item.label === 'Transaction Status' && item.value !== 'Good'
+              }">
+          {{ item.label }}: <span class="result-value">{{ item.value }}</span>
+        </span>
+      </div>
+    </div>
+    
+    <!-- Buttons -->
+    <div class="dialog-buttons" style="padding: 10px; border-top: 1px solid #ddd; margin-top: 10px;">
+      <button class="dialog-button confirm-button"
+              [disabled]="!selectedRow"
+              (click)="onConfirm()">Confirm</button>
+      <button class="dialog-button cancel-button" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+InputParameter,IDNameAlias,NameFieldAlias,Description,IdDataType
+commonObjAttrId,Common Object Attribute ID,Common Object Attribute Name,,NUMBER
+commonObjectId,Common Object ID,Common Object Name,,NUMBER
+newCommonObjectId,Common Object ID,Common Object Name,,NUMBER
+commonObjectListId,Common Object List ID,Common Object List Name,,NUMBER
+controllerDocEditGroupNameId,Controller Doc Group ID,Controller Doc Group Name,,NUMBER
+controllerFileEditGroupNameId,Controller File Group ID,Controller File Group Name,,NUMBER
+crossReferenceTypeId,Cross-Reference ID,Cross-Reference Name,,NUMBER
+dateTimeStyle,Date Style,Date Style Format,,NUMBER
+docGroupId,Doc Group ID,Doc Group Name,,NUMBER
+docMultiSelectAttributeId,Doc Multi-Select Attribute ID,Doc Multi-Select Attribute Name,,NUMBER
+newDocMultiSelectAttributeId,Doc Multi-Select Attribute ID,Doc Multi-Select Attribute Name,,NUMBER
+docMultiSelectListId,Doc Multi-Select List ID,Doc Multi-Select List Name,,NUMBER
+defaultDocRadioButtonAttributeId,Doc Radio Button Attribute ID,Doc Radio Button Attribute Name,,NUMBER
+docRadioButtonAttributeId,Doc Radio Button Attribute ID,Doc Radio Button Attribute Name,,NUMBER
+newDocRadioButtonAttributeId,Doc Radio Button Attribute ID,Doc Radio Button Attribute Name,,NUMBER
+docRadioButtonListId,Doc Radio Button List ID,Doc Radio Button List Name,,NUMBER
+docDateNameId,Document Date Field Name ID,Document Date Name,,NUMBER
+docTextNameId,Document Free Text Field Name ID,Document Free Text Name,,NUMBER
+crossReferenceDocId,Document ID,Document ID,,TEXT
+documentId,Document ID,Document ID,,TEXT
+newDocumentId,Document ID,Document ID,,TEXT
+sourceDocId,Document ID,Document ID,,TEXT
+docIntNameId,Document Integer Field Name ID,Document Integer Name,,NUMBER
+docRealNameId,Document Real Number Field Name ID,Document Real Number Name,,NUMBER
+functionId,Duty Function ID,Duty Function Name,,NUMBER
+newFunctionId,Duty Function ID,Duty Function Name,,NUMBER
+fileDateNameId,File Date Field Name ID,File Date Name,,NUMBER
+fileFreeTextNameId,File Free Text Field Name ID,File Free Text Name,,NUMBER
+fileTextNameId,File Free Text Field Name ID,File Free Text Name,,NUMBER
+fileGroupId,File Group ID,File Group Name,,NUMBER
+fileId,File ID,File ID,,NUMBER
+newFileId,File ID,File ID,,NUMBER
+fileIntNameId,File Integer Field Name ID,File Integer Name,,NUMBER
+fileMultiSelectAttributeId,File Multi-Select Attribute ID,File Multi-Select Attribute Name,,NUMBER
+newFileMultiSelectAttributeId,File Multi-Select Attribute ID,File Multi-Select Attribute Name,,NUMBER
+fileMultiSelectListId,File Multi-Select List ID,File Multi-Select List Name,,NUMBER
+defaultFileRadioButtonAttributeId,File Radio Button Attribute ID,File Radio Button Attribute Name,,NUMBER
+fileRadioButtonAttributeId,File Radio Button Attribute ID,File Radio Button Attribute Name,,NUMBER
+newFileRadioButtonAttributeId,File Radio Button Attribute ID,File Radio Button Attribute Name,,NUMBER
+fileRadioButtonListId,File Radio Button List ID,File Radio Button List Name,,NUMBER
+fileRealNumberFieldNameId,File Real Number Field Name ID,File Real Number Name,,NUMBER
+filterGroupId,Filter Group ID,Filter Group Name,,NUMBER
+formGroupId,Form Group ID,Form Group Name,,NUMBER
+formId,Form ID,Form Name,,NUMBER
+functionListId,Function List ID,Function List Name,,NUMBER
+newFunctionListId,Function List ID,Function List Name,,NUMBER
+generalFieldNameId,General Field Name ID,General Field Name,,NUMBER
+newInputStepId,Instance Step ID,Instance Step Name,,NUMBER
+logIndexId,Log Index ID,Log Index Name,,NUMBER
+newOutputId,Output Definition ID,Output Definition Name,,NUMBER
+outputId,Output Definition ID,Output Definition Name,,NUMBER
+newPeopleListId,People List ID,People List Name,,NUMBER
+peopleListId,People List ID,People List Name,,NUMBER
+presentStepId,Present Step ID,Present Step Name,,NUMBER
+requestId,Request ID,Request Name,,NUMBER
+roleName,Role Name,Role Name,,TEXT
+roleToDelete,Role Name,Role Name,,TEXT
+stepStatusDefinitionId,Step Status Definition ID,Step Status Definition Name,,NUMBER
+stepStatusId,Step Status ID,Step Status Name,,NUMBER
+stepTransitionId,Step Transition ID,Step Transition Name,,NUMBER
+newTagBrowsingTreeId,Tag Browsing Tree ID,Tag Browsing Tree Name,,NUMBER
+tagBrowsingTreeId,Tag Browsing Tree ID,Tag Browsing Tree Name,,NUMBER
+newParentId,Tag Browsing Tree Node ID,Tag Browsing Tree Node Name,,NUMBER
+tagBrowsingTreeNodeId,Tag Browsing Tree Node ID,Tag Browsing Tree Node Name,,NUMBER
+newTagGroupId,Tag Group ID,Tag Group Name,,NUMBER
+tagGroupId,Tag Group ID,Tag Group Name,,NUMBER
+newTagId,Tag ID,Tag Name,,NUMBER
+parentId,Tag Tree Node ID,Tag Name,,NUMBER
+tagId,Tag ID,Tag Name,,NUMBER
+newTagTreeId,Tag Tree ID,Tag Tree Name,,NUMBER
+tagTreeId,Tag Tree ID,Tag Tree Name,,NUMBER
+tagTreeNodeId,Tag Tree Node ID,Tag Tree Node Name,,NUMBER
+transactionGroupId,Transaction Group ID,Transaction Group Note,,NUMBER
+unitOfMeasure,Units,Units,,TEXT
+unitsId,Units ID,Units Name,,NUMBER
+newPersonId,User ID,System Username,,NUMBER
+newUserId,User ID,System Username,,NUMBER
+personId,User ID,System Username,,NUMBER
+userId,User ID,System Username,,NUMBER
+workflowActionId,Workflow Action ID,Workflow Action Name,,NUMBER
+instanceId,Workflow Instance ID,Workflow Instance Name,,NUMBER
+workflowInstanceId,Workflow Instance ID,Workflow Instance Name,,NUMBER
+fromStepId,Workflow Instance Step ID,Workflow Instance Step ID,,NUMBER
+inputStepId,Workflow Instance Step ID,Workflow Instance Step ID,,NUMBER
+instanceStepId,Workflow Instance Step ID,Workflow Instance Step ID,,NUMBER
+newInstanceStepId,Workflow Instance Step ID,Workflow Instance Step ID,,NUMBER
+workflowModelId,Workflow Model ID,Workflow Model Name,,NUMBER
+modelStepId,Workflow Model Step ID,Workflow Model Step Name,,NUMBER
+toStepId,Workflow Model Step ID,Workflow Model Step Name,,NUMBER
+workflowStepId,Workflow Model Step ID,Workflow Model Step Name,,NUMBER
+workflowOutputId,Workflow Output ID,Output Definition Name,,NUMBER
+workflowRuleId,Workflow Rule ID,Workflow Rule Name,,NUMBER
+newStepTransitionId,Step Transition ID,Step Transition ID,,NUMBER
+newWorkflowRuleId,Step Transition ID,Step Transition ID,,NUMBER
+bookingId,Booking ID,Booking ID,,NUMBER

@@ -1,0 +1,39 @@
+FieldType,ReadRoute,FieldKeys
+CommonObjectAttributes,com-obj-attributes,Common Object Attribute ID::Common Object Attribute Name
+CommonObjectListName,common-object-list-names,Common Object List ID::Common Object List Name
+ControllerDocumentGroups,contr-doc-group-names,Controller Doc Group ID::Controller Doc Group Name
+ControllerDocumentGroups,contr-doc-groups-restr,Controller Doc Group ID::Controller Doc Group Name
+ControllerFileGroups,contr-file-group-names,Controller File Group ID::Controller File Group Name
+ControllerFileGroups,contr-file-groups-rstr,Controller File Group ID::Controller File Group Name
+CrossReference,xref-types,Cross-Reference ID::Cross-Reference Name
+DocDateField,all-doc-date-fields,Document Date Field Name ID::Date Field Name
+DocFreeTextField,all-doc-text-fields,Document Free Text Field Name ID::Document Free Text Field Name
+DocIntegerField,all-doc-int-fields,Document Integer Field Name ID::Document Integer Field Name
+DocMultiSelectList,all-doc-ms-lists,Doc Multi-Select List ID::Doc Multi-Select List Name
+DocRadioButtonList,all-doc-radiob-lists,Doc Radio Button List ID::Doc Radio Button List Name
+DocRadioButtonAttribute,all-doc-radiob-attr,Doc Radio Button Attribute ID::Doc Radio Button Attribute Name
+DocRealNumberField,all-doc-real-fields,Document Real Number Field Name ID::Document Real Number Field Name
+DocumentGroups,all-doc-group-names,Doc Group ID::Doc Group Name
+DocumentGroups,doc-group-names-rstr,Doc Group ID::Doc Group Name
+DutyFunctionField,all-duty-functions,Duty Function ID::Duty Function Name
+DutyFunctionList,all-function-lst-names,Function List ID::Function List Name
+FileDateField,all-file-date-fields,File Date Field Name ID::File Date Field Name
+FileFreeTextField,all-file-text-fields,File Free Text Field Name ID::File Free Text Field Name
+FileGroups,file-group-names,File Group ID::File Group Name
+FileIntegerField,all-file-int-fields,File Integer Field Name ID::File Integer Field Name
+FileMultiSelectList,all-file-ms-lists,File Multi-Select List ID::File Multi-Select List Name
+FileRadioButtonList,all-file-radiob-lists,File Radio Button List ID::File Radio Button List Name
+FileRadioButtonAttribute,all-file-radiob-attr,File Radio Button Attribute ID::File Radio Button Attribute Name
+FileRealNumberField,all-file-real-fields,File Real Number Field Name ID::File Real Number Field Name
+FilterGroups,all-filter-groups,Filter Group ID::Filter Group Name
+FormGroups,all-form-groups,Form Group ID::Form Group Name
+Forms,all-form-names,Form ID::Form Name
+GeneralFieldName,general-field-names,General Field Name ID::General Field Name
+PeopleList,all-people-list-names,People List ID::People List Name
+TagBrowsingTrees,browsing-tree-names,Tag Browsing Tree ID::Tag Browsing Tree Name
+TagGroups,all-tag-group-id-names,Tag Group ID::Tag Group Name
+TagRelationshipTrees,all-tag-tree-names,Tag Tree ID::Tag Tree Name
+WorkflowModels,workflow-model-names,Workflow Model ID::Workflow Model Name
+WorkflowStepStatus,wf-step-status-defs,Step Status Definition ID::Step Status Definition Name
+WorkflowRule,wf-rules-by-model-step,Workflow Rule ID::Workflow Rule Name
+WorkflowActions,workflow-actions,Workflow Action ID::Workflow Action Name

@@ -1,0 +1,26 @@
+OutputParameterName,MessageLabel 
+action,Action
+eulaText,End User License Agreement for the Elyse Relational Database (not the application software)
+filterGroupName,Filter Group Name
+formName,Form Name
+newFileId,New File ID
+newRecordId,New Record ID
+newUserId,New User ID
+numberOfDocs,Number of Documents
+numberOfFiles,Number of Files
+numberOfRecords,Number of Records
+numberOfRows,Number of Cells
+numDocs,Number of Documents
+numFiles,Number of Files
+numNodes,Number of Nodes
+numRecords,Number of Records
+numRows,Number of Cells
+numSteps,Number of Steps
+outputFilterGroupId,Filter Group ID
+outputFormId,Output Form ID
+role,Role
+transactionMessage,Message
+transactionStatus,Transaction Status
+username,Username
+validationResult,Connected User Data Edit Rights
+bookingId,Document Booking Transaction ID

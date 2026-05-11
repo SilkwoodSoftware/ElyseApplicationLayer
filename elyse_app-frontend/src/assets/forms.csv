@@ -1,0 +1,788 @@
+FormId,FormType,Reference,Title,TitleData,Instructions,Width,Height
+all-doc-id-contains-form,READ,all-doc-id-contains,Document ID Contains - Unfiltered,,,45%,10%
+all-docs-by-br-tr-node-form,READ,all-docs-by-br-tr-node,Documents by Browsing Tree Node -- Unfiltered,,,45%,25%
+all-docs-by-co-ms-attr-form,READ,all-docs-by-co-ms-attr,All Documents for Common Object Multi-Select Attribute,,,45%,20%
+all-docs-by-co-rb-attr-form,READ,all-docs-by-co-rb-attr,Documents for Common Object Radio Button Attribute,,,45%,20%
+all-docs-by-date-any-form,READ,all-docs-by-date-any,All Documents Linked to Date Field,,,45%,10%
+all-docs-by-dty-funct-form,READ,all-docs-by-dty-funct,Documents by Duty Function -- Unfiltered,,,45%,15%
+all-docs-by-file-form,READ,all-docs-by-file,Documents for File -- Unfiltered,,,45%,15%
+all-docs-by-fnct-list-name-form,READ,all-docs-by-fnct-list-name,Documents by Function List General Field Name -- Unfiltered,,,45%,15%
+all-docs-by-funct-fld-name-form,READ,all-docs-by-funct-fld-name,Documents by Duty Function General Field Name -- Unfiltered,,,45%,15%
+all-docs-by-funct-lst-form,READ,all-docs-by-funct-lst,Documents by Function List -- Unfiltered,,,45%,15%
+all-docs-by-people-lst-form,READ,all-docs-by-people-lst,Documents by People List -- Unfiltered,,,45%,15%
+all-docs-by-ppl-list-name-form,READ,all-docs-by-ppl-list-name,Documents by People List General Field Name -- Unfiltered,,,45%,15%
+all-docs-by-radio-btn-form,READ,all-docs-by-radio-btn,Documents by Radio Button Attribute -- Unfiltered,,,45%,15%
+all-docs-by-tag-form,READ,all-docs-by-tag,Documents by Tag -- Unfiltered,,,45%,25%
+all-docs-by-text-field-any-form,READ,all-docs-by-text-field-any,All Documents Linked to Text Field,,,45%,10%
+all-docs-by-text-field-form,READ,all-docs-by-text-field,Documents by Text Field -- Unfiltered,,,45%,20%
+all-docs-date-after-form,READ,all-docs-date-after,Documents Date After -- Unfiltered,,,45%,20%
+all-docs-date-before-form,READ,all-docs-date-before,Documents Date Before -- Unfiltered,,,45%,20%
+all-docs-date-between-form,READ,all-docs-date-between,Documents Date Between -- Unfiltered,,,45%,25%
+all-docs-date-equals-form,READ,all-docs-date-equals,Documents Date Equals -- Unfiltered,,,45%,20%
+all-docs-int-any-form,READ,all-docs-int-any,All Documents Linked to Integer Field,,,45%,10%
+all-docs-int-between-form,READ,all-docs-int-between,Documents Integer Between -- Unfiltered,,,45%,25%
+all-docs-int-equals-form,READ,all-docs-int-equals,Documents Integer Equals -- Unfiltered,,,45%,20%
+all-docs-int-grtr-than-form,READ,all-docs-int-grtr-than,Documents Integer Greater -- Unfiltered,,,45%,20%
+all-docs-int-less-than-form,READ,all-docs-int-less-than,Documents Integer Less Than -- Unfiltered,,,45%,20%
+all-docs-multi-sel-atr-form,READ,all-docs-multi-sel-atr,Documents by Multi-Select Attribute -- Unfiltered,,,45%,20%
+all-docs-real-any-form,READ,all-docs-real-any,All Documents Linked to Real Number Field,,,45%,10%
+all-docs-real-between-form,READ,all-docs-real-between,Documents Real Number Between -- Unfiltered,,,45%,25%
+all-docs-real-equals-form,READ,all-docs-real-equals,Documents Real Number Equals -- Unfiltered,,,45%,20%
+all-docs-real-greater-form,READ,all-docs-real-greater,Documents Real Number Greater Than -- Unfiltered,,,45%,20%
+all-docs-real-less-form,READ,all-docs-real-less,Documents Real Number Less Than -- Unfiltered,,,45%,25%
+all-docs-with-ed-perm-form,READ,all-docs-with-ed-perm,Metadata Editable Documents for User,,,45%,10%
+all-documents-form,READ,all-documents,All Documents,,,45%,10%
+all-doc-xrefs-by-doc-form,READ,all-doc-xrefs-by-doc,Documents by Document and Cross Reference -- Unfiltered,,,45%,20%
+all-file-contains-search,READ,all-files-contains,Uses SQL CONTAINS,,,45%,10%
+all-file-contains-search-with-docs,READ,all-files-contains-with-docs,Uses SQL CONTAINS,,,45%,10%
+all-file-contains-table-search,READ,all-files-containstabl,Uses SQL CONTAINSTABLE,,,45%,10%
+all-file-contains-table-search-with-docs,READ,all-files-containstabl-with-docs,Uses SQL CONTAINSTABLE,,,45%,10%
+all-file-freetext-search,READ,all-files-freetext,Uses SQL FREETEXT,,,45%,10%
+all-file-freetext-search-with-docs,READ,all-files-freetext-with-docs,Uses SQL FREETEXT,,,45%,10%
+all-file-freetext-table-search,READ,all-files-freetexttabl,Uses SQL FREETEXTTABLE,,,45%,10%
+all-file-freetext-table-search-with-docs,READ,all-files-freetexttabl-with-docs,Uses SQL FREETEXTTABLE,,,45%,10%
+all-files-by-date-any-form,READ,all-files-by-date-any,All Files Linked to Date Field,,,45%,10%
+all-files-by-dty-funct-form,READ,all-files-by-dty-funct,Files by Duty Function -- Unfiltered,,,45%,15%
+all-files-by-file-grp-form,READ,all-files-by-file-grp,Files for File Group,,,45%,15%
+all-files-by-fnct-list-name-form,READ,all-files-by-fnct-list-name,Files by Function List General Field Name -- Unfiltered,,,45%,15%
+all-files-by-funct-fld-name-form,READ,all-files-by-funct-fld-name,Files by Duty Function General Field Name -- Unfiltered,,,45%,15%
+all-files-by-funct-lst-form,READ,all-files-by-funct-lst,Files by Function List -- Unfiltered,,,45%,15%
+all-files-by-ms-list-form,READ,all-files-by-ms-list,Files for Multi-Select List -- Unfiltered,,,45%,20%
+all-files-by-pple-list-field-name-form,READ,all-files-by-pple-list-field-name,Files by People List General Field Name -- Unfiltered,,,45%,15%
+all-files-by-pple-list-form,READ,all-files-by-pple-list,Files by People List -- Unfiltered,,,45%,15%
+all-files-by-radio-btn-form,READ,all-files-by-radio-btn,Files by Radio Button -- Unfiltered,,,45%,15%
+all-files-by-text-field-any-form,READ,all-files-by-text-field-any,All Files Linked to Text Field,,,45%,10%
+all-files-by-txt-field-form,READ,all-files-by-txt-field,Files by Text Field -- Unfiltered,,,45%,20%
+all-files-date-after-form,READ,all-files-date-after,Files Date After -- Unfiltered,,,45%,20%
+all-files-date-before-form,READ,all-files-date-before,Files Date Before -- Unfiltered,,,45%,20%
+all-files-date-between-form,READ,all-files-date-between,Files Date Between -- Unfiltered,,,45%,25%
+all-files-date-equals-form,READ,all-files-date-equals,Files Date Equals -- Unfiltered,,,45%,20%
+all-files-for-one-doc-form,READ,all-files-for-one-doc,All Files for Document,,,45%,15%
+all-files-int-any-form,READ,all-files-int-any,All Files Linked to Integer Field,,,45%,10%
+all-files-int-between-form,READ,all-files-int-between,Files integer between -- Unfiltered,,,45%,25%
+all-files-int-equals-form,READ,all-files-int-equals,Files Integer Equals -- Unfiltered,,,45%,20%
+all-files-int-grtr-than-form,READ,all-files-int-grtr-than,Files Integer Greater Than -- Unfiltered,,,45%,20%
+all-files-int-less-than-form,READ,all-files-int-less-than,Files integer Less Than -- Unfiltered,,,45%,20%
+all-files-real-any-form,READ,all-files-real-any,All Files Linked to Real Number Field,,,45%,10%
+all-files-real-between-form,READ,all-files-real-between,Files Real Number Between -- Unfiltered,,,45%,25%
+all-files-real-equals-form,READ,all-files-real-equals,Files Real Number Equals -- Unfiltered,,,45%,20%
+all-files-real-greater-form,READ,all-files-real-greater,Files Real Number Greater Than -- Unfiltered,,,45%,20%
+all-files-real-less-form,READ,all-files-real-less,Files Real Number Less Than -- Unfiltered,,,45%,20%
+all-files-with-ed-perm-form,READ,all-files-with-ed-perm,Metadata Editable Files for User,,,45%,10%
+all-filter-group-attr-form,READ,all-filter-group-attr,Filter Group Attributes,,,45%,10%
+all-fls-by-co-ms-attr-form,READ,all-fls-by-co-ms-attr,All Files for Common Object Multi-Select Attribute,,,45%,20%
+all-fls-by-co-rb-attr-form,READ,all-fls-by-co-rb-attr,All Files for Common Object Radio Button Attribute,,,45%,20%
+all-form-defaults-form,READ,all-form-defaults,Form Defaults,,,45%,10%
+all-form-fields-form,READ,all-form-fields,Form Fields,,,45%,10%
+all-recent-sids-form,READ,all-recent-sids,Recent Users,,,45%,10%
+browsing-tree-by-id-form,READ,browsing-tree-by-id,Browsing Tree Details,,,45%,10%
+check-doc-ed-permission-form,READ,check-doc-ed-permission,Check Edit Permission for Document,,,45%,10%
+check-file-ed-permission-form,READ,check-file-ed-permission,Check Edit Permission for File,,,45%,10%
+com-obj-by-list-form,READ,com-obj-by-list,Common Objects by List,,,45%,10%
+contr-doc-group-sids-form,READ,contr-doc-group-sids,Users for Controller Doc Group,,,45%,10%
+contr-file-group-sids-form,READ,contr-file-group-sids,Users for Controller File Group,,,45%,10%
+controller-documents-form,READ,controller-documents,Controller Documents for User,,,45%,10%
+controller-files-form,READ,controller-files,Controller Files for User,,,45%,10%
+create-doc-radio-button-list,DUC,rid-ins-doc-radiob-list,Create Document Radio Button List,,,45%,25%
+create-document-id,DUC,rid-ins-document-id,Create Document ID,,If Document ID is left blank and auto-generation is on in global settings then a document ID will be automatically generated.,45%,10%
+create-document-id-restr,DUC,rid-ins-document-id-restr,Create Document ID (Editor Level),,If Document ID is left blank and auto-generation is on in global settings then a document ID will be automatically generated.,45%,10%
+dc-cm-obj-ms-lnk-by-dc-form,READ,dc-cm-obj-ms-lnk-by-dc,Common Object Multi-Select Lists for Document,,,45%,10%
+dc-cm-obj-rb-lnk-by-dc-form,READ,dc-cm-obj-rb-lnk-by-dc,Common Object Radio Button Lists for Document,,,45%,10%
+del-log-by-file-id-form,READ,del-log-by-file-id,Delete Log Entries for File,,,45%,10%
+del-log-by-filename-form,READ,del-log-by-filename,Delete Log Entries by Filename,,,45%,10%
+del-log-by-sid-id-form,READ,del-log-by-sid-id,Delete Log by User,,,45%,10%
+del-log-by-username-form,READ,del-log-by-username,Delete Log Entries by Username,,,45%,10%
+del-log-date-between-form,READ,del-log-date-between,Delete Log Entries Date Between,,,45%,15%
+doc-date-values-by-doc-form,READ,doc-date-values-by-doc,Date Values for Document,,,45%,10%
+doc-file-form-values-form,READ,doc-file-form-values,Doc-File Form Values,,,45%,20%
+doc-groups-by-doc-rstr-form,READ,doc-groups-by-doc-rstr,Doc Group Names for Document for Connected User,,,45%,10%
+doc-groups-by-f-list-form,READ,doc-groups-by-f-list,Doc Groups by Function List,,,45%,10%
+doc-groups-by-p-list-form,READ,doc-groups-by-p-list,Doc Groups by People List for Connected User,,,45%,10%
+doc-int-values-by-doc-form,READ,doc-int-values-by-doc,Integer Values for Document,,,45%,10%
+doc-ms-attr-by-doc-form,READ,doc-ms-attr-by-doc,Multi-Select Attributes Linked to Document,,,45%,10%
+doc-ms-attr-by-list-form,READ,doc-ms-attr-by-list,Select a Document Multi-Select Attribute,,,45%,10%
+doc-ms-list-not-linkd-form,READ,doc-ms-list-not-linkd,Multi-Select Lists Not Already Linked to Document,,,45%,10%
+doc-rb-list-not-linkd-form,READ,doc-rb-list-not-linkd,Radio Button Lists Not Already Linked to Document,,,45%,10%
+doc-real-values-by-doc-form,READ,doc-real-values-by-doc,Real Number Values for Document,,,45%,10%
+docs-by-br-tree-node-form,READ,docs-by-br-tree-node,Documents by Browsing Tree Node,,,45%,30%
+docs-by-co-ms-attr-form,READ,docs-by-co-ms-attr,Documents and Files for Common Object Multi-Select Attribute,,,45%,25%
+docs-by-contr-doc-grp-form,READ,docs-by-contr-doc-grp,Documents for Controller Doc Group,,,45%,15%
+docs-by-co-rb-attr-form,READ,docs-by-co-rb-attr,Documents and Files for Common Object Radio Button Attribute,,,45%,25%
+docs-by-doc-xref-form,READ,docs-by-doc-xref,Documents by Document and Cross Reference,,,45%,25%
+docs-by-duty-function-form,READ,docs-by-duty-function,Documents by Duty Function,,,45%,20%
+docs-by-file-form,READ,docs-by-file,Documents for File,,,45%,15%
+docs-by-fnct-list-name-form,READ,docs-by-fnct-list-name,Documents by Function List General Field Name,,,45%,20%
+docs-by-funct-fld-name-form,READ,docs-by-funct-fld-name,Documents by Duty Function General Field Name,,,45%,20%
+docs-by-function-list-form,READ,docs-by-function-list,Documents by Function List,,,45%,20%
+docs-by-people-list-form,READ,docs-by-people-list,Documents by People List,,,45%,20%
+docs-by-ppl-list-name-form,READ,docs-by-ppl-list-name,Documents by People List General Field Name,,,45%,20%
+docs-by-tag-form,READ,docs-by-tag,Documents by Tag,,,45%,30%
+docs-by-trans-group-form,READ,docs-by-trans-group,Documents by Transaction Group,,,45%,15%
+docs-date-after-form,READ,docs-date-after,Documents Date After,,,45%,25%
+docs-date-before-form,READ,docs-date-before,Documents Date Before,,,45%,25%
+docs-date-between-form,READ,docs-date-between,Documents Date Between,,,45%,30%
+docs-date-equals-form,READ,docs-date-equals,Documents Date Equals,,,45%,25%
+docs-date-expired-form,READ,docs-date-expired,Expired Documents,,,45%,15%
+docs-int-between-form,READ,docs-int-between,Documents Integer Between,,,45%,30%
+docs-int-equals-form,READ,docs-int-equals,Documents Integer Equals,,,45%,25%
+docs-int-greater-than-form,READ,docs-int-greater-than,Documents Integer Greater,,,45%,25%
+docs-int-less-than-form,READ,docs-int-less-than,Documents Integer Less Than,,,45%,25%
+docs-multi-sel-attr-form,READ,docs-multi-sel-attr,Documents by Multi-Select Attribute,,,45%,25%
+docs-real-between-form,READ,docs-real-between,Documents Real Number Between,,,45%,30%
+docs-real-equals-form,READ,docs-real-equals,Documents Real Number Equals,,,45%,25%
+docs-real-greater-than-form,READ,docs-real-greater-than,Documents Real Number Greater Than,,,45%,25%
+docs-real-less-than-form,READ,docs-real-less-than,Documents Real Number Less Than,,,45%,25%
+doc-text-values-by-doc-form,READ,doc-text-values-by-doc,Text Values for Document,,,45%,10%
+document-details-form,READ,document-details,All Data for Document,,,45%,10%
+duty-functions-by-sid-form,READ,duty-functions-by-sid,Duty Functions by User,,,45%,10%
+fgepfl-by-file-group-form,READ,fgepfl-by-file-group,Function Lists for File Group for Edit Permission,,,45%,10%
+fgeppl-by-file-group-form,READ,fgeppl-by-file-group,People Lists for File Group for Edit Permission,,,45%,10%
+file-contains-search,READ,files-contains,File Contains - Filtered,,,45%,10%
+file-contains-search-with-docs,READ,files-contains-with-docs,File Contains,,,45%,10%
+file-contains-table-search,READ,files-containstable,File Contains. (Uses SQL CONTAINSTABLE),,,45%,10%
+file-contains-table-search-with-docs,READ,files-containstable-with-docs,File Contains. (Uses SQL CONTAINSTABLE),,,45%,10%
+file-date-values-by-file-form,READ,file-date-values-by-file,Date Values for File,,,45%,10%
+file-details-minus-tn-form,READ,file-details-minus-tn,File Details (excluding thumbnail),,,45%,10%
+file-freetext-search,READ,files-freetext,File Contains. (Uses SQL FREETEXT),,,45%,10%
+file-freetext-search-with-docs,READ,files-freetext-with-docs,File Contains. (Uses SQL FREETEXT),,,45%,10%
+file-freetext-table-search,READ,files-freetexttable,File Contains.  (Uses SQL FREETEXTTABLE),,,45%,10%
+file-freetext-table-search-with-docs,READ,files-freetexttable-with-docs,File Contains.  (Uses SQL FREETEXTTABLE),,,45%,10%
+file-groups-by-fgepfl-form,READ,file-groups-by-fgepfl,File Groups for Function List with Edit Permission,,,45%,10%
+file-groups-by-fgeppl-form,READ,file-groups-by-fgeppl,File Groups for People List,,,45%,10%
+file-groups-by-file-form,READ,file-groups-by-file,File Groups for File,,,45%,10%
+file-int-values-by-file-form,READ,file-int-values-by-file,Integer Values for File,,,45%,10%
+file-ms-attr-by-file-form,READ,file-ms-attr-by-file,Multi-Select Attributes Linked to File,,,45%,10%
+file-ms-attr-by-list-form,READ,file-ms-attr-by-list,File Multi-Select Attributes by List,,,45%,10%
+file-ms-list-not-linkd-form,READ,file-ms-list-not-linkd,Multi-Select Attributes Not Already Linked to File,,,45%,10%
+file-radiob-attr-by-list-form,READ,file-radiob-attr-by-list,File Radio Button Attributes by List,,,45%,10%
+file-rb-attr-by-file-form,READ,file-rb-attr-by-file,Radio Button Attributes Linked to File,,,45%,10%
+file-rb-list-not-linkd-form,READ,file-rb-list-not-linkd,Radio Button Attributes Not Already Linked to File,,,45%,10%
+file-real-values-by-file-form,READ,file-real-values-by-file,Real Number Values for File,,,45%,10%
+files-by-co-ms-attr-form,READ,files-by-co-ms-attr,Files for Common Object Multi-Select Attribute,,,45%,25%
+files-by-contr-file-grp-form,READ,files-by-contr-file-grp,Files for Controller File Group,,,45%,15%
+files-by-co-rb-attr-form,READ,files-by-co-rb-attr,Files for Common Object Radio Button Attribute,,,45%,25%
+files-by-doc-by-radiob-form,READ,files-by-doc-by-radiob,Files for Document by File Radio Button Attribute,,,40%,20%
+files-by-duty-function-form,READ,files-by-duty-function,Files by Duty Function,,,45%,20%
+files-by-filter-group-form,READ,files-by-filter-group,Files by Filter Group,,,45%,15%
+files-by-fnct-fld-name-form,READ,files-by-fnct-fld-name,Files by Function List General Field Name,,,45%,20%
+files-by-fnct-list-name-form,READ,files-by-fnct-list-name,Files by Duty Function General Field Name,,,45%,20%
+files-by-function-list-form,READ,files-by-function-list,Files by Function List,,,45%,20%
+files-by-ms-list-form,READ,files-by-ms-list,Files for Multi-Select List,,,45%,25%
+files-by-people-list-field-name-form,READ,all-files-by-pple-list-field-name,Files by People List General Field Name,,,45%,20%
+files-by-people-list-form,READ,files-by-people-list,Files by People List,,,45%,20%
+files-by-radio-button-form,READ,files-by-radio-button,Files by Radio Button List Attribute,,,45%,20%
+files-by-text-field-form,READ,files-by-text-field,Files by Text Field,,,45%,25%
+files-by-trans-group-form,READ,files-by-trans-group,Files by Transaction Group,,,45%,15%
+files-date-after-form,READ,files-date-after,Files Date After,,,45%,25%
+files-date-before-form,READ,files-date-before,Files Date Before,,,45%,25%
+files-date-between-form,READ,files-date-between,Files Date Between,,,45%,30%
+files-date-equals-form,READ,files-date-equals,Files Date Equals,,,45%,25%
+files-for-one-document-form,READ,files-for-one-document,Files for One Document,,,45%,20%
+files-int-between-form,READ,files-int-between,Files integer between,,,45%,30%
+files-int-equals-form,READ,files-int-equals,Files Integer Equals,,,45%,25%
+files-int-greater-than-form,READ,files-int-greater-than,Files Integer Greater Than,,,45%,25%
+files-int-less-than-form,READ,files-int-less-than,Files intester Less Than,,,45%,25%
+files-real-between-form,READ,files-real-between,Files Real Number Between,,,45%,30%
+files-real-equals-form,READ,files-real-equals,Files Real Number Equals,,,45%,25%
+files-real-greater-form,READ,files-real-greater,Files Real Number Greater Than,,,45%,25%
+files-real-less-than-form,READ,files-real-less-than,Files Real Number Less Than,,,45%,25%
+file-text-values-by-file-form,READ,file-text-values-by-file,Text Values for File,,,45%,10%
+file-upload-metadata,CUSTOM,upload-files-custom,Upload Files with Metadata,,,60%,30%
+filter-group-form,READ,filter-group,Filter Group Details,,,45%,10%
+fl-cm-obj-ms-lnk-by-fl-form,READ,fl-cm-obj-ms-lnk-by-fl,Common Object Multi-Select Objects for File,,,45%,10%
+fl-cm-obj-rb-lnk-by-fl-form,READ,fl-cm-obj-rb-lnk-by-fl,Common Object Radio Button Objects for File,,,45%,10%
+f-list-by-doc-group-form,READ,f-list-by-doc-group,Function Lists by Doc Group for Connected User  ,,,45%,10%
+fnct-lists-by-function-form,READ,fnct-lists-by-function,Function Lists by Duty Function,,,45%,10%
+form-edit-document-data,CUSTOM,edit-doc-file-data,Edit Document Data,,,50%,10%
+form-edit-file-data,CUSTOM,edit-doc-file-data,Edit File Data,,,50%,10%
+form-group-form,READ,form-group,Form Group Details,,,45%,10%
+form-name-form,READ,form-name,Form Name by ID,,,45%,10%
+function-lists-by-doc-form,READ,function-lists-by-doc,Function Lists for Document,,,45%,10%
+function-lists-by-file-form,READ,function-lists-by-file,Function Lists for File,,,45%,10%
+functions-by-doc-form,READ,functions-by-doc,Functions for Document,,,45%,10%
+functions-by-file-form,READ,functions-by-file,Functions for File,,,45%,10%
+functions-by-fnct-list-form,READ,functions-by-fnct-list,Duty Functions for Function List,,,45%,10%
+list-docid-contains,READ,doc-id-contains,Document ID Contains - Filtered,,,45%,10%
+list-docid-contains-with-fg,READ,doc-id-contains,Document ID Contains - Filtered,,,45%,10%
+list-doc-id-equals,READ,doc-id-equals,Document ID Equals - Filtered,,,45%,10%
+list-doc-radio-buttons-by-list,READ,doc-radiob-attr-by-list,Doc Radio Buttons by List,,,45%,10%
+list-docs-by-radio-button,READ,docs-by-radio-button,Documents by Radio Button,,,50%,20%
+list-doc-title-contains,READ,docs-by-text-field,Document Title Contains - Filtered,,,45%,10%
+list-filename-contains,READ,all-files-by-filename,Filename Contains,,,45%,10%
+filtered-filename-contains,READ,files-by-filename,Filename Contains - Filtered,,,45%,10%
+list-users-by-roles,READ,users-by-role,Users by Role,,,20%,10%
+list-users-contains,READ,users-contains,Username Contains,,,45%,10%
+one-doc-all-data-form,READ,one-doc-all-data,One Document Data -- Unfiltered,,,45%,15%
+one-document-data-form,READ,one-document-data,One Document Data,,,45%,20%
+people-lists-by-doc-form,READ,people-lists-by-doc,People Lists for Document,,,45%,10%
+people-lists-by-file-form,READ,people-lists-by-file,People Lists for File,,,45%,10%
+people-lists-by-person-form,READ,people-lists-by-person,Person List by Person,,,45%,10%
+persons-by-people-list-form,READ,persons-by-people-list,Users by People List,,,45%,10%
+p-list-by-doc-group-form,READ,p-list-by-doc-group,People Lists by Doc Group for Connected User  ,,,45%,10%
+read-all-docs-by-doc-group,READ,all-docs-by-doc-group,All Documents By Document Group,,,50%,15%
+read-doc-rb-attr-by-doc,READ,doc-rb-attr-by-doc,Document Radio Button Attributes,documentId,,40%,20%
+read-log-by-file-id-form,READ,read-log-by-file-id,Read Log Entries for File,,,45%,10%
+read-log-by-filename-form,READ,read-log-by-filename,Read Log by Filename,,,45%,10%
+read-log-by-sid-id-form,READ,read-log-by-sid-id,Read Log by User,,,45%,10%
+read-log-by-username-form,READ,read-log-by-username,Read Log by Username,,,45%,10%
+read-log-date-between-form,READ,read-log-date-between,Read Log Entries Date Between,,,45%,15%
+read-privileges-by-user-form,READ,read-privileges-by-user,Privileges by User,,,45%,10%
+recent-documents-form,READ,recent-documents,Recent Documents,,,45%,15%
+recent-files-form,READ,recent-files,Recent Files,,,45%,15%
+rid-auth-contr-doc-group-user-form,DUC,rid-auth-contr-doc-group-user,Link User to Controller Doc Group,,,45%,20%
+rid-auth-contr-file-group-user-form,DUC,rid-auth-contr-file-group-user,Link User to Controller Level File Group,,,45%,20%
+rid-auth-doc-group-viewer-form,DUC,rid-auth-doc-group-viewer,Authorize User for Viewing Restricted Doc Group,,,40%,20%
+rid-auth-form-group-owner-form,DUC,rid-auth-form-group-owner,Authorize Form Group Owner,,,45%,20%
+rid-auth-user-role-form,DUC,rid-auth-user-role,Authorize User Role,,,45%,15%
+rid-contr-file-group-link-update-form,DUC,rid-contr-file-group-link-update,Update File to Controller File Group Link,,,45%,20%
+rid-del-any-form-id-form,DUC,rid-del-any-form-id,Delete Form Any Form ID,,,45%,10%
+rid-del-common-object-form,DUC,rid-del-common-object,Delete Common Object,,,45%,10%
+rid-del-common-obj-list-item-form,DUC,rid-del-common-obj-list-item,Delete Common Object List Item,,,45%,15%
+rid-del-com-obj-attribute-form,DUC,rid-del-com-obj-attribute,Delete Common Object Attribute,,,45%,10%
+rid-del-com-obj-list-name-form,DUC,rid-del-com-obj-list-name,Delete Common Object List,,,45%,10%
+rid-del-contr-doc-group-link-form,DUC,rid-del-contr-doc-group-link,Delete Doc to Controller Doc Group Link,,,45%,15%
+rid-del-contr-doc-group-name-form,DUC,rid-del-contr-doc-group-name,Delete Controller Document Edit Group,,,45%,10%
+rid-del-contr-doc-group-sid-form,DUC,rid-del-contr-doc-group-sid,Delete User to Controller Doc Group Link,,,45%,15%
+rid-del-contr-file-group-link-form,DUC,rid-del-contr-file-group-link,Delete File to Controller File Group Link,,,45%,15%
+rid-del-contr-file-group-name-form,DUC,rid-del-contr-file-group-name,Delete Controller File Edit Group,,,45%,10%
+rid-del-contr-file-group-sid-form,DUC,rid-del-contr-file-group-sid,Delete User to Controller File Group Link,,,45%,15%
+rid-del-doc-date-field-name-form,DUC,rid-del-doc-date-field-name,Delete Doc Date Field,,,45%,10%
+rid-del-doc-date-value-form,DUC,rid-del-doc-date-value,Delete Doc to Date Field Link,,,45%,15%
+rid-del-doc-funct-list-link-form,DUC,rid-del-doc-funct-list-link,Delete Doc to Duty Function List Link,,,45%,20%
+rid-del-doc-gp-ed-perm-funct-form,DUC,rid-del-doc-gp-ed-perm-funct,Delete Doc Group Edit Permission for Function List,,,45%,15%
+rid-del-doc-gp-ed-perm-people-form,DUC,rid-del-doc-gp-ed-perm-people,Delete Doc Group Edit Permission for People List Link,,,45%,15%
+rid-del-doc-group-link-restr-form,DUC,rid-del-doc-group-link-restr,Delete Doc to Doc Group Link for Connected User,,,45%,15%
+rid-del-doc-group-name-rstr-form,DUC,rid-del-doc-group-name-rstr,Delete Document Group,,,45%,10%
+rid-del-doc-group-viewer-perm-form,DUC,rid-del-doc-group-viewer-perm,Delete Doc Group View Permission,,,45%,15%
+rid-del-doc-int-field-name-form,DUC,rid-del-doc-int-field-name,Delete a Document Integer Field,,,45%,10%
+rid-del-doc-int-value-form,DUC,rid-del-doc-int-value,Delete Doc to Integer Field Link,,,45%,15%
+rid-del-doc-ms-attr-fg-link-form,DUC,rid-del-doc-ms-attr-fg-link,Delete Doc Multi-Select Attribute to Filter Group Link,,,45%,15%
+rid-del-doc-ms-attribute-form,DUC,rid-del-doc-ms-attribute,Delete a Docment Multi-Select Attribute,,,45%,10%
+rid-del-doc-ms-list-form,DUC,rid-del-doc-ms-list,Delete a Doc Multi-Select List,,,45%,10%
+rid-del-doc-multi-select-link-form,DUC,rid-del-doc-multi-select-link,Delete Doc Multi-Select Link,,,45%,20%
+rid-del-doc-people-list-link-form,DUC,rid-del-doc-people-list-link,Delete Document to People List Link,,,45%,20%
+rid-del-doc-radiob-attr-form,DUC,rid-del-doc-radiob-attr,Delete Doc Radio Button Attribute,,,45%,10%
+rid-del-doc-radiob-link-form,DUC,rid-del-doc-radiob-link,Delete Doc Radio Button List Link,,,45%,15%
+rid-del-doc-radiob-list-form,DUC,rid-del-doc-radiob-list,Delete Doc Radio Button List,,,45%,10%
+rid-del-doc-rb-attr-fg-link-form,DUC,rid-del-doc-rb-attr-fg-link,Delete Doc Radio Button Attribute to Filter Group Link,,,45%,15%
+rid-del-doc-real-field-name-form,DUC,rid-del-doc-real-field-name,Delete Doc Real Number Field,,,45%,10%
+rid-del-doc-real-value-form,DUC,rid-del-doc-real-value,Delete Doc Real Number Field Link,,,45%,15%
+rid-del-doc-tag-form,DUC,rid-del-doc-tag,Delete Document Tag,,,45%,10%
+rid-del-doc-text-field-name-form,DUC,rid-del-doc-text-field-name,Delete Doc Free Text Field,,,45%,10%
+rid-del-doc-text-value-form,DUC,rid-del-doc-text-value,Delete Doc to Text Field Link,,,45%,15%
+rid-del-doc-to-com-obj-ms-link-form,DUC,rid-del-doc-to-com-obj-ms-link,Delete Doc to Common Object Link via Multi-Select List,,,45%,20%
+rid-del-doc-to-com-obj-rb-link-form,DUC,rid-del-doc-to-com-obj-rb-link,Delete Doc to Common Object Link via Radio Button List,,,45%,15%
+rid-del-doc-to-function-link-form,DUC,rid-del-doc-to-function-link,Delete Doc to Duty Function Link,,,45%,20%
+rid-del-doc-transaction-group-form,DUC,rid-del-doc-transaction-group,Delete Document Transaction Group,,,45%,10%
+rid-del-document-id-form,DUC,rid-del-document-id,Delete Document ID,,,45%,10%
+rid-del-doc-xref-form,DUC,rid-del-doc-xref,Delete Document Cross Reference Link,,,45%,15%
+rid-del-duty-function-form,DUC,rid-del-duty-function,Delete Duty Function,,,45%,10%
+rid-del-duty-function-sid-link-form,DUC,rid-del-duty-function-sid-link,Delete Duty Function to User Link,,,45%,15%
+rid-del-file-date-field-name-form,DUC,rid-del-file-date-field-name,Delete File Date Field,,,45%,10%
+rid-del-file-date-value-form,DUC,rid-del-file-date-value,Delete File to Date Field Link,,,45%,15%
+rid-del-file-doc-link-form,DUC,rid-del-file-doc-link,Delete File to Doc Link,,,45%,15%
+rid-del-file-form,DUC,rid-del-file,Delete File,,,45%,10%
+rid-del-file-funct-list-link-form,DUC,rid-del-file-funct-list-link,Delete File to Duty Function List Link,,,45%,20%
+rid-del-file-gp-ed-perm-funct-form,DUC,rid-del-file-gp-ed-perm-funct,Delete Edit Permission for User Function List to File Group,,,45%,15%
+rid-del-file-gp-ed-perm-people-form,DUC,rid-del-file-gp-ed-perm-people,Delete File Group to People List Link for Edit Permission,,,45%,15%
+rid-del-file-group-link-form,DUC,rid-del-file-group-link,Delete File to File Group Link,,,45%,15%
+rid-del-file-group-name-form,DUC,rid-del-file-group-name,Delete File Group,,,45%,10%
+rid-del-file-int-field-name-form,DUC,rid-del-file-int-field-name,Delete File Integer Field,,,45%,10%
+rid-del-file-int-value-form,DUC,rid-del-file-int-value,Delete File to Integer Field Link,,,45%,15%
+rid-del-file-ms-attr-fg-link-form,DUC,rid-del-file-ms-attr-fg-link,Delete File Multi-Select to Filter Group Link,,,45%,15%
+rid-del-file-ms-attribute-form,DUC,rid-del-file-ms-attribute,Delete File Multi-Select Attribute,,,45%,10%
+rid-del-file-ms-list-form,DUC,rid-del-file-ms-list,Delete File Multi-Select List,,,45%,10%
+rid-del-file-multi-select-link-form,DUC,rid-del-file-multi-select-link,Delete File to Multi-Select Attribute Link,,,45%,20%
+rid-del-file-people-list-link-form,DUC,rid-del-file-people-list-link,Delete File to People List Link,,,45%,20%
+rid-del-file-radiob-attr-form,DUC,rid-del-file-radiob-attr,Delete File Radio Button List,,,45%,10%
+rid-del-file-radiob-link-form,DUC,rid-del-file-radiob-link,Delete File to File Radio Button Link,,,45%,15%
+rid-del-file-radiob-list-form,DUC,rid-del-file-radiob-list,Delete File Radio Button List,,,45%,10%
+rid-del-file-rb-attr-fg-link-form,DUC,rid-del-file-rb-attr-fg-link,Delete File Radio Button Attribute to Filter Group Link,,,45%,15%
+rid-del-file-real-field-name-form,DUC,rid-del-file-real-field-name,Delete File Real Number Field,,,45%,10%
+rid-del-file-real-value-form,DUC,rid-del-file-real-value,Delete File Real Number Value,,,45%,15%
+rid-del-file-text-field-name-form,DUC,rid-del-file-text-field-name,Delete File Text Field,,,45%,10%
+rid-del-file-text-value-form,DUC,rid-del-file-text-value,Delete File to Text Field Link,,,45%,15%
+rid-del-file-to-cm-obj-ms-link-form,DUC,rid-del-file-to-cm-obj-ms-link,Delete File to Common Object Link via Multi-Select List,,,45%,20%
+rid-del-file-to-com-obj-rb-link-form,DUC,rid-del-file-to-com-obj-rb-link,Delete File to Common Object Link via Radio Button List,,,45%,15%
+rid-del-file-to-function-link-form,DUC,rid-del-file-to-function-link,Delete File to Duty Function Link,,,45%,20%
+rid-del-filter-group-form,DUC,rid-del-filter-group,Delete Filter Group,,,45%,10%
+rid-del-fm-dc-c-ob-ms-def-form,DUC,rid-del-fm-dc-c-ob-ms-def,Delete Form Document Common Object Default,,,45%,20%
+rid-del-fm-dc-c-ob-ms-lnk-form,DUC,rid-del-fm-dc-c-ob-ms-lnk,Delete Form to Document Common Object Multi-Select Field Link,,,45%,15%
+rid-del-fm-dc-c-ob-rb-lnk-form,DUC,rid-del-fm-dc-c-ob-rb-lnk,Delete Form to Document Common Object Radio Button Field Link,,,45%,15%
+rid-del-fm-doc-crtd-by-id-link-form,DUC,rid-del-fm-doc-crtd-by-id-link,Delete Form to Document Created-By-ID Field Link,,,45%,10%
+rid-del-fm-doc-crtd-by-nm-link-form,DUC,rid-del-fm-doc-crtd-by-nm-link,Delete Form to Document Created-By-Name Field Link,,,45%,10%
+rid-del-fm-doc-funct-lst-links-form,DUC,rid-del-fm-doc-funct-lst-links,Delete Form to Document Duty Function List Link,,,45%,10%
+rid-del-fm-fl-c-ob-ms-lnk-form,DUC,rid-del-fm-fl-c-ob-ms-lnk,Delete Form to File Common Object Multi-Select Link,,,45%,15%
+rid-del-fm-fl-c-ob-rb-lnk-form,DUC,rid-del-fm-fl-c-ob-rb-lnk,Delete Form to File Common Object Radio Button Link,,,45%,15%
+rid-del-fm-fl-com-obj-ms-def-form,DUC,rid-del-fm-fl-com-obj-ms-def,Delete Form File Multi-Select Common Object Default,,,45%,20%
+rid-del-fm-fl-crtd-by-id-link-form,DUC,rid-del-fm-fl-crtd-by-id-link,Delete Form to File Created-By-ID Field Link,,,45%,10%
+rid-del-fm-fl-crtd-by-nm-link-form,DUC,rid-del-fm-fl-crtd-by-nm-link,Delete Form to File Created-By-Name Field Link,,,45%,10%
+rid-del-fm-fl-funct-lst-links-form,DUC,rid-del-fm-fl-funct-lst-links,Delete Form to File Function List Field Link,,,45%,15%
+rid-del-form-doc-created-link-form,DUC,rid-del-form-doc-created-link,Delete Form to Document Created Date Field Link,,,45%,10%
+rid-del-form-doc-date-link-form,DUC,rid-del-form-doc-date-link,Delete Form to Document Date Name Field Link,,,45%,15%
+rid-del-form-doc-int-link-form,DUC,rid-del-form-doc-int-link,Delete Form to Document Integer Field Link,,,45%,15%
+rid-del-form-doc-lock-link-form,DUC,rid-del-form-doc-lock-link,Delete Form to Document Lock Status Field Link,,,45%,10%
+rid-del-form-doc-ms-link-form,DUC,rid-del-form-doc-ms-link,Delete Form to Document Multi-Select Field Link,,,45%,15%
+rid-del-form-doc-multi-sel-def-form,DUC,rid-del-form-doc-multi-sel-def,Delete Form to Document Multi-Select Object Default,,,45%,20%
+rid-del-form-doc-radiob-link-form,DUC,rid-del-form-doc-radiob-link,Delete Form to Doc Radio Button List Field Link,,,45%,15%
+rid-del-form-doc-real-link-form,DUC,rid-del-form-doc-real-link,Delete Form to Document Real Number Field Link,,,45%,15%
+rid-del-form-doc-tr-grp-link-form,DUC,rid-del-form-doc-tr-grp-link,Delete Form to Document Transaction Group Field Link,,,45%,10%
+rid-del-form-file-created-link-form,DUC,rid-del-form-file-created-link,Delete Form to File-Created Date Field,,,45%,10%
+rid-del-form-file-date-link-form,DUC,rid-del-form-file-date-link,Delete Form to File Date Field Link,,,45%,15%
+rid-del-form-file-hash-link-form,DUC,rid-del-form-file-hash-link,Delete Form to File Content Hash Field Link,,,45%,10%
+rid-del-form-file-int-link-form,DUC,rid-del-form-file-int-link,Delete Form to File Integer Field Link,,,45%,15%
+rid-del-form-file-ms-link-form,DUC,rid-del-form-file-ms-link,Delete Form to File Multi-Select List Link,,,45%,15%
+rid-del-form-file-name-link-form,DUC,rid-del-form-file-name-link,Delete Form to Filename Field Link,,,45%,10%
+rid-del-form-file-plist-links-form,DUC,rid-del-form-file-plist-links,Delete Form to File People List Link,,,45%,15%
+rid-del-form-file-radiob-link-form,DUC,rid-del-form-file-radiob-link,Delete Form to File Radio Button List Field Link,,,45%,15%
+rid-del-form-file-real-link-form,DUC,rid-del-form-file-real-link,Delete Form to File Real Number Field Link,,,45%,15%
+rid-del-form-file-size-link-form,DUC,rid-del-form-file-size-link,Delete Form to File Size Field Link,,,45%,10%
+rid-del-form-file-tr-grp-link-form,DUC,rid-del-form-file-tr-grp-link,Delete Form to File Transaction Group Field Link,,,45%,10%
+rid-del-form-group-name-form,DUC,rid-del-form-group-name,Delete Form Group,,,45%,10%
+rid-del-form-group-owner-form,DUC,rid-del-form-group-owner,Delete Form Group Owner,,,45%,15%
+rid-del-frm-doc-free-txt-link-form,DUC,rid-del-frm-doc-free-txt-link,Delete Form to Document Free Text Field Link,,,45%,15%
+rid-del-frm-doc-funct-links-form,DUC,rid-del-frm-doc-funct-links,Delete Form to Document Duty Function Field Link,,,45%,15%
+rid-del-frm-doc-ppl-lst-lnks-form,DUC,rid-del-frm-doc-ppl-lst-lnks,Delete Form to Document People Field Link,,,45%,15%
+rid-del-frm-file-free-txt-link-form,DUC,rid-del-frm-file-free-txt-link,Delete Form to File Free Text Field Link,,,45%,15%
+rid-del-frm-file-funct-links-form,DUC,rid-del-frm-file-funct-links,Delete Form to File Duty Function Field Link,,,45%,15%
+rid-del-frm-file-multi-sel-def-form,DUC,rid-del-frm-file-multi-sel-def,Delete Form to File Milti-Select Object Default,,,45%,20%
+rid-del-function-list-form,DUC,rid-del-function-list,Delete Duty Function From Function List,,,45%,15%
+rid-del-function-list-name-form,DUC,rid-del-function-list-name,Delete Duty Function List,,,45%,10%
+rid-del-general-field-name-form,DUC,rid-del-general-field-name,Delete General Field Name,,,45%,10%
+rid-del-indiv-br-tree-form,DUC,rid-del-indiv-br-tree,Delete Personal Browsing Tree,,,45%,10%
+rid-del-people-list-form,DUC,rid-del-people-list,Delete User From People List,,,45%,15%
+rid-del-people-list-name-form,DUC,rid-del-people-list-name,Delete People List,,,45%,10%
+rid-del-restricted-form-id-form,DUC,rid-del-restricted-form-id,Delete Form ID,,,45%,10%
+rid-del-sid-form,DUC,rid-del-sid,Delete User,,,45%,10%
+rid-del-tag-browsing-tree-form,DUC,rid-del-tag-browsing-tree,Delete Tag Browsing Tree,,,45%,10%
+rid-del-tag-br-tree-branch-form,DUC,rid-del-tag-br-tree-branch,Delete Tag Browsing Tree Branch,,,45%,10%
+rid-del-tag-br-tr-perm-flist-form,DUC,rid-del-tag-br-tr-perm-flist,Delete Tag Browsing Tree to Function List Link,,,45%,15%
+rid-del-tag-br-tr-perm-plist-form,DUC,rid-del-tag-br-tr-perm-plist,Revoke Tag Browsing Tree People List Edit Permission,,,45%,15%
+rid-del-tag-doc-link-form,DUC,rid-del-tag-doc-link,Delete Tag to Document Link,,,45%,15%
+rid-del-tag-group-id-name-form,DUC,rid-del-tag-group-id-name,Delete Tag Group,,,45%,10%
+rid-del-tag-group-link-form,DUC,rid-del-tag-group-link,Delete Tag to Tag Group Link,,,45%,15%
+rid-del-tag-group-perm-flist-form,DUC,rid-del-tag-group-perm-flist,Revoke Tag Group Authorisation,,,45%,15%
+rid-del-tag-group-perm-plist-form,DUC,rid-del-tag-group-perm-plist,Revoke Tag Linking Authorisation for People List,,,45%,15%
+rid-del-tag-tree-branch-form,DUC,rid-del-tag-tree-branch,Delete Tag Tree Branch,,,45%,10%
+rid-del-tag-tree-form,DUC,rid-del-tag-tree,Delete Tag Tree,,,45%,10%
+rid-del-tag-tree-node-form,DUC,rid-del-tag-tree-node,Delete Tag Tree Node,,,45%,10%
+rid-del-tag-tree-perm-flist-form,DUC,rid-del-tag-tree-perm-flist,Revoke Tag Tree Edit Authorisation for Function List,,,45%,15%
+rid-del-transaction-group-form,DUC,rid-del-transaction-group,Delete Transaction Group,,,45%,10%
+rid-del-unit-of-measure-form,DUC,rid-del-unit-of-measure,Delete Unit of Measure,,,45%,10%
+rid-del-user-role-form,DUC,rid-del-user-role,Revoke User Role,,,45%,15%
+rid-del-wf-funct-output-file-form,DUC,rid-del-wf-funct-output-file,Delete File to Workflow Output Step For Function,,,45%,20%
+rid-del-wf-input-step-file-form,DUC,rid-del-wf-input-step-file,Delete File to Workflow Input Step Link,,,45%,15%
+rid-del-wf-people-output-file-form,DUC,rid-del-wf-people-output-file,Delete File to Workflow Output Step for Person,,,45%,20%
+rid-del-wf-step-duty-funct-form,DUC,rid-del-wf-step-duty-funct,Delete Workflow Instance Step to Duty Function Link,,,45%,15%
+rid-del-wf-step-status-defn-form,DUC,rid-del-wf-step-status-defn,Delete Workflow Step Status Definition,,,45%,10%
+rid-del-workflow-action-form,DUC,rid-del-workflow-action,Delete Workflow Action,,,45%,10%
+rid-del-workflow-instance-def-form,DUC,rid-del-workflow-instance-def,Delete Workflow Instance,,,45%,10%
+rid-del-workflow-instance-step-form,DUC,rid-del-workflow-instance-step,Delete Workflow Instance Step,,,45%,10%
+rid-del-workflow-model-form,DUC,rid-del-workflow-model,Delete Workflow Model,,,45%,10%
+rid-del-workflow-output-def-form,DUC,rid-del-workflow-output-def,Delete Workflow Output Definition,,,45%,10%
+rid-del-workflow-participant-form,DUC,rid-del-workflow-participant,Delete Workflow Instance Step to User Link,,,45%,15%
+rid-del-workflow-rule-form,DUC,rid-del-workflow-rule,Delete Workflow Rule,,,45%,10%
+rid-del-workflow-rule-link-form,DUC,rid-del-workflow-rule-link,Delete Workflow Rule to Workflow Step Link,,,45%,15%
+rid-del-workflow-step-def-form,DUC,rid-del-workflow-step-def,Delete Workflow Step Definition,,,45%,10%
+rid-del-workflow-step-transn-form,DUC,rid-del-workflow-step-transn,Delete Workflow Model Step Transition,,,45%,10%
+rid-del-xref-type-form,DUC,rid-del-xref-type,Delete Cross Reference Type,,,45%,10%
+rid-doc-group-perm-people-notes-update-form,DUC,rid-doc-group-perm-people-notes-update,Update Doc Group and People List Link Notes,,,45%,20%
+rid-form-file-free-text-link-update-form,DUC,rid-form-file-free-text-link-update,Update Form to File Free Text Field Link,,,45%,45%
+rid-ins-common-object-form,DUC,rid-ins-common-object,Create Common Object Record,,,45%,25%
+rid-ins-common-object-lst-item-form,DUC,rid-ins-common-object-lst-item,Create Common Object List Item,,,45%,20%
+rid-ins-com-obj-attribute-form,DUC,rid-ins-com-obj-attribute,Create Common Object Attribute,,,45%,20%
+rid-ins-com-obj-list-name-form,DUC,rid-ins-com-obj-list-name,Create Common Object List,,,45%,25%
+rid-ins-contr-doc-group-link-form,DUC,rid-ins-contr-doc-group-link,Create Doc to Controller Doc Group Link,,,45%,20%
+rid-ins-contr-doc-group-name-form,DUC,rid-ins-contr-doc-group-name,Create Controller Document Group,,,45%,20%
+rid-ins-contr-file-group-link-form,DUC,rid-ins-contr-file-group-link,Create File to Controller File Group Link,,,45%,20%
+rid-ins-contr-file-group-name-form,DUC,rid-ins-contr-file-group-name,Create Controller File Group,,,45%,20%
+rid-ins-doc-date-field-name-form,DUC,rid-ins-doc-date-field-name,Create Document Date Field,,,45%,20%
+rid-ins-doc-date-value-form,DUC,rid-ins-doc-date-value,Create Doc Date Value,,,45%,20%
+rid-ins-doc-function-link-form,DUC,rid-ins-doc-function-link,Create Doc to Duty Function Link,,,45%,20%
+rid-ins-doc-funct-list-link-form,DUC,rid-ins-doc-funct-list-link,Create Doc to Duty Function List Link,,,45%,20%
+rid-ins-doc-gp-ed-perm-funct-form,DUC,rid-ins-doc-gp-ed-perm-funct,Create a Doc Group Edit Permission to Function List Link,,,45%,20%
+rid-ins-doc-gp-ed-perm-people-form,DUC,rid-ins-doc-gp-ed-perm-people,Create Doc Group Edit Permission to People List Link,,,45%,20%
+rid-ins-doc-group-link-restr-form,DUC,rid-ins-doc-group-link-restr,Create Doc to Doc Group Link for Connected User,,,45%,20%
+rid-ins-doc-group-name-form,DUC,rid-ins-doc-group-name,Create Document Group,,,45%,20%
+rid-ins-doc-int-field-name-form,DUC,rid-ins-doc-int-field-name,Create Document Integer Field,,,45%,25%
+rid-ins-doc-int-value-form,DUC,rid-ins-doc-int-value,Create Doc Integer Value,,,45%,20%
+rid-ins-doc-ms-attr-fg-link-form,DUC,rid-ins-doc-ms-attr-fg-link,Create Doc Multi-Select Attribute to Filter Group Link,,,45%,15%
+rid-ins-doc-ms-attribute-form,DUC,rid-ins-doc-ms-attribute,Create Document Multi-Select Attribute,,,45%,30%
+rid-ins-doc-multi-select-link-form,DUC,rid-ins-doc-multi-select-link,Create Doc to Multi-Select List Attribute Link,,,45%,20%
+rid-ins-doc-multi-select-list-form,DUC,rid-ins-doc-multi-select-list,Create Document Multi-Select List,,,45%,20%
+rid-ins-doc-people-list-link-form,DUC,rid-ins-doc-people-list-link,Create Document to People List Link,,,45%,20%
+rid-ins-doc-radiob-attr-form,DUC,rid-ins-doc-radiob-attr,Create Document Radio Button Attribute,,,45%,30%
+rid-ins-doc-radiob-link-form,DUC,rid-ins-doc-radiob-link,Create Doc Radio Button Attribute Link,,,45%,20%
+rid-ins-doc-rb-attr-fg-link-form,DUC,rid-ins-doc-rb-attr-fg-link,Create Doc Radio Button Attribute to Filter Group Link,,,45%,15%
+rid-ins-doc-real-field-name-form,DUC,rid-ins-doc-real-field-name,Create Document Real Number Field,,,45%,25%
+rid-ins-doc-real-value-form,DUC,rid-ins-doc-real-value,Create Doc Real Number Value,,,45%,20%
+rid-ins-doc-tag-form,DUC,rid-ins-doc-tag,Create Document Tag,,,45%,25%
+rid-ins-doc-text-field-name-form,DUC,rid-ins-doc-text-field-name,Create Document Free Text Field,,,45%,20%
+rid-ins-doc-text-value-form,DUC,rid-ins-doc-text-value,Create Doc Text Value,,,45%,20%
+rid-ins-doc-to-com-obj-ms-link-form,DUC,rid-ins-doc-to-com-obj-ms-link,Create Doc to Common Object Link via Multi-Select List,,,45%,20%
+rid-ins-doc-to-com-obj-rb-link-form,DUC,rid-ins-doc-to-com-obj-rb-link,Create Doc to Common Object Link via Radio Button List,,,45%,20%
+rid-ins-document-id-restr-form,DUC,rid-ins-document-id-restr,Create Doc ID With Doc Group for Connected User,,,45%,25%
+rid-ins-doc-xref-form,DUC,rid-ins-doc-xref,Create Document Cross Reference Link,,,45%,25%
+rid-ins-duty-function-form,DUC,rid-ins-duty-function,Create Duty Function,,,45%,20%
+rid-ins-duty-function-sid-link-form,DUC,rid-ins-duty-function-sid-link,Create Duty Function to User Link,,,45%,20%
+rid-ins-file-binary-input-form,DUC,rid-ins-file-binary-input,Upload a File,,,45%,20%
+rid-ins-file-date-field-name-form,DUC,rid-ins-file-date-field-name,Create File Date Field,,,45%,20%
+rid-ins-file-date-value-form,DUC,rid-ins-file-date-value,Create File Date Value,,,45%,20%
+rid-ins-file-doc-link-form,DUC,rid-ins-file-doc-link,Create File to Doc Link,,,45%,20%
+rid-ins-file-function-link-form,DUC,rid-ins-file-function-link,Create File to Duty Function Link,,,45%,20%
+rid-ins-file-funct-list-link-form,DUC,rid-ins-file-funct-list-link,Create File to Duty Function List Link,,,45%,20%
+rid-ins-file-gp-ed-perm-funct-form,DUC,rid-ins-file-gp-ed-perm-funct,Create Edit Permission for User Function List to File Group,,,45%,20%
+rid-ins-file-gp-ed-perm-people-form,DUC,rid-ins-file-gp-ed-perm-people,Create File Group to People List Link for Edit Permission,,,45%,20%
+rid-ins-file-group-link-form,DUC,rid-ins-file-group-link,Create File to File Group Link,,,45%,20%
+rid-ins-file-group-name-form,DUC,rid-ins-file-group-name,Create File Group Name,,,45%,20%
+rid-ins-file-int-field-name-form,DUC,rid-ins-file-int-field-name,Create File Integer Field,,,45%,25%
+rid-ins-file-int-value-form,DUC,rid-ins-file-int-value,Create File Integer Field Value,,,45%,20%
+rid-ins-file-ms-attr-fg-link-form,DUC,rid-ins-file-ms-attr-fg-link,Create File Multi-Select Attribute to Filter Group Link,,,45%,15%
+rid-ins-file-ms-attribute-form,DUC,rid-ins-file-ms-attribute,Create File Multi-Select Attribute,,,45%,30%
+rid-ins-file-multi-select-link-form,DUC,rid-ins-file-multi-select-link,Create File to Multi-Select Attribute Link,,,45%,20%
+rid-ins-file-multi-select-list-form,DUC,rid-ins-file-multi-select-list,Create File Multi-Select List,,,45%,20%
+rid-ins-file-people-list-link-form,DUC,rid-ins-file-people-list-link,Create File to People List Link,,,45%,20%
+rid-ins-file-radiob-attr-form,DUC,rid-ins-file-radiob-attr,Create File Radio Button Attribute,,,45%,30%
+rid-ins-file-radiob-link-form,DUC,rid-ins-file-radiob-link,Create File to File Radio Button Attribute Link,,,45%,20%
+rid-ins-file-radiob-list-form,DUC,rid-ins-file-radiob-list,Create File Radio Button Attribute List,,,45%,30%
+rid-ins-file-rb-attr-fg-link-form,DUC,rid-ins-file-rb-attr-fg-link,Create File Radio Button Attribute to Filter Group Link,,,45%,15%
+rid-ins-file-real-field-name-form,DUC,rid-ins-file-real-field-name,Create File Real Number Field,,,45%,25%
+rid-ins-file-real-value-form,DUC,rid-ins-file-real-value,Create File Real Number Value,,,45%,20%
+rid-ins-file-text-field-name-form,DUC,rid-ins-file-text-field-name,Create File Free Text Field,,,45%,20%
+rid-ins-file-text-value-form,DUC,rid-ins-file-text-value,Create File Text Field Value,,,45%,20%
+rid-ins-file-to-com-obj-ms-lnk-form,DUC,rid-ins-file-to-com-obj-ms-lnk,Create File to Common Object Link via Multi-Select List,,,45%,20%
+rid-ins-file-to-com-obj-radiob-lnk-form,DUC,rid-ins-file-to-com-obj-radiob-lnk,Create File to Common Object Link via Radio Button List,,,45%,20%
+rid-ins-filter-group-form,DUC,rid-ins-filter-group,Create Filter Group,,,45%,20%
+rid-ins-fm-dc-c-ob-ms-def-form,DUC,rid-ins-fm-dc-c-ob-ms-def,Create Form Document Common Object Default,,,45%,20%
+rid-ins-fm-dc-c-ob-ms-lnk-form,DUC,rid-ins-fm-dc-c-ob-ms-lnk,Create Form to Document Common Object Multi-Select List Link,,,45%,45%
+rid-ins-fm-dc-c-ob-rb-lnk-form,DUC,rid-ins-fm-dc-c-ob-rb-lnk,Create Form to Document Common Object Radio Button Link,,,45%,45%
+rid-ins-fm-doc-crtd-by-id-link-form,DUC,rid-ins-fm-doc-crtd-by-id-link,Create Form to Document-Created-By-ID Field Link,,,45%,35%
+rid-ins-fm-doc-crtd-by-nm-link-form,DUC,rid-ins-fm-doc-crtd-by-nm-link,Create Form to Document-Created-By-Name Field Link,,,45%,35%
+rid-ins-fm-doc-funct-lst-links-form,DUC,rid-ins-fm-doc-funct-lst-links,Create Form to Document Duty Function List Field Link,,,45%,40%
+rid-ins-fm-fl-c-ob-ms-lnk-form,DUC,rid-ins-fm-fl-c-ob-ms-lnk,Create Form to File Common Object Multi-Select Link,,,45%,45%
+rid-ins-fm-fl-c-ob-rb-lnk-form,DUC,rid-ins-fm-fl-c-ob-rb-lnk,Create Form to File Common Object Radio Button Object Link,,,45%,45%
+rid-ins-fm-fl-com-obj-ms-def-form,DUC,rid-ins-fm-fl-com-obj-ms-def,Create Form File Common Object Default,,,45%,20%
+rid-ins-fm-fl-crtd-by-id-link-form,DUC,rid-ins-fm-fl-crtd-by-id-link,Create Form to File-Created-By-ID Field Link,,,45%,35%
+rid-ins-fm-fl-crtd-by-nm-link-form,DUC,rid-ins-fm-fl-crtd-by-nm-link,Create Form to File-Created-By-Name Field Link,,,45%,35%
+rid-ins-fm-fl-funct-lst-links-form,DUC,rid-ins-fm-fl-funct-lst-links,Create Form to File Duty Function List Field Link,,,45%,45%
+rid-ins-form-doc-created-link-form,DUC,rid-ins-form-doc-created-link,Create Form to Document-Created-Date Field Link,,,45%,35%
+rid-ins-form-doc-date-link-form,DUC,rid-ins-form-doc-date-link,Create Form to Document Date Name Field Link,,,45%,45%
+rid-ins-form-doc-free-text-lnk-form,DUC,rid-ins-form-doc-free-text-lnk,Create Form to Document Free Text Field Link,,,45%,45%
+rid-ins-form-doc-int-lnk-form,DUC,rid-ins-form-doc-int-lnk,Create Form to Document Integer Field Link,,,45%,45%
+rid-ins-form-doc-lock-link-form,DUC,rid-ins-form-doc-lock-link,Create Form to Document Lock Status Field Link,,,45%,40%
+rid-ins-form-doc-ms-link-form,DUC,rid-ins-form-doc-ms-link,Create Form to Document Multi-Select Field Link,,,45%,45%
+rid-ins-form-doc-multi-sel-def-form,DUC,rid-ins-form-doc-multi-sel-def,Create Form to Document Multi-Select Object Default,,,45%,20%
+rid-ins-form-doc-radiob-link-form,DUC,rid-ins-form-doc-radiob-link,Create Form to Document Radio Button List Link,,,45%,50%
+rid-ins-form-doc-real-link-form,DUC,rid-ins-form-doc-real-link,Create Form to Document Real Number Field Link,,,45%,45%
+rid-ins-form-doc-tr-grp-link-form,DUC,rid-ins-form-doc-tr-grp-link,Create Form to Document Transaction Group Field Link,,,45%,40%
+rid-ins-form-file-created-link-form,DUC,rid-ins-form-file-created-link,Create Form to File-Created-Date Field Link,,,45%,10%
+rid-ins-form-file-date-link-form,DUC,rid-ins-form-file-date-link,Create Form to File Date Field Link,,,45%,45%
+rid-ins-form-file-free-txt-lnk-form,DUC,rid-ins-form-file-free-txt-lnk,Create Form to File Free Text Field Link,,,45%,45%
+rid-ins-form-file-hash-link-form,DUC,rid-ins-form-file-hash-link,Create Form to File Content Hash Field Link,,,45%,40%
+rid-ins-form-file-int-lnk-form,DUC,rid-ins-form-file-int-lnk,Create Form to File Integer Field Link,,,45%,45%
+rid-ins-form-file-ms-link-form,DUC,rid-ins-form-file-ms-link,Create Form to File Multi-Select List Link,,,45%,45%
+rid-ins-form-file-name-link-form,DUC,rid-ins-form-file-name-link,Create Form to Filename Field Link,,,45%,40%
+rid-ins-form-file-plist-links-form,DUC,rid-ins-form-file-plist-links,Create Form to File People List Field Link,,,45%,45%
+rid-ins-form-file-radiob-link-form,DUC,rid-ins-form-file-radiob-link,Create Form to File Radio Button List Field Link,,,45%,50%
+rid-ins-form-file-real-link-form,DUC,rid-ins-form-file-real-link,Create Form to File Real Number Field Link,,,45%,45%
+rid-ins-form-file-size-link-form,DUC,rid-ins-form-file-size-link,Create Form to File Size Field Link,,,45%,40%
+rid-ins-form-file-tr-grp-link-form,DUC,rid-ins-form-file-tr-grp-link,Create Form to File Transaction Group Link,,,45%,40%
+rid-ins-form-group-name-form,DUC,rid-ins-form-group-name,Create Form Group Name,,,45%,20%
+rid-ins-form-id-name-form,DUC,rid-ins-form-id-name,Create Form,,,45%,30%
+rid-ins-frm-doc-funct-links-form,DUC,rid-ins-frm-doc-funct-links,Create Form to Document Duty Function Field Link,,,45%,45%
+rid-ins-frm-doc-ppl-lst-lnks-form,DUC,rid-ins-frm-doc-ppl-lst-lnks,Create Form to Document People List Field Link,,,45%,45%
+rid-ins-frm-file-funct-links-form,DUC,rid-ins-frm-file-funct-links,Create Form to File Duty Function Field Link,,,45%,45%
+rid-ins-frm-file-multi-sel-def-form,DUC,rid-ins-frm-file-multi-sel-def,Create Form to File Multi-Select Object Default,,,45%,20%
+rid-ins-function-list-form,DUC,rid-ins-function-list,Create Duty Function,,,45%,20%
+rid-ins-function-list-name-form,DUC,rid-ins-function-list-name,Create Duty Function List,,,45%,20%
+rid-ins-general-field-name-form,DUC,rid-ins-general-field-name,Create General Field Name,,,45%,25%
+rid-ins-grant-authoriser-form,DUC,rid-ins-grant-authoriser,Grant Authorizer,,,45%,15%
+rid-ins-people-list-form,DUC,rid-ins-people-list,Add User To People List,,,45%,20%
+rid-ins-people-list-name-form,DUC,rid-ins-people-list-name,Create People List,,,45%,20%
+rid-ins-personal-people-list-form,DUC,rid-ins-personal-people-list,Create Personal People List,,,45%,15%
+rid-ins-revoke-authoriser-form,DUC,rid-ins-revoke-authoriser,Revoke Authorizer,,,45%,15%
+rid-ins-step-status-definition-form,DUC,rid-ins-step-status-definition,Create Workflow Step Status Definition,,,45%,20%
+rid-ins-tag-browsing-tree-name-form,DUC,rid-ins-tag-browsing-tree-name,Create Tag Browsing Tree,,,45%,25%
+rid-ins-tag-browsing-tree-node-form,DUC,rid-ins-tag-browsing-tree-node,Create Tag Browsing Tree Node,,,45%,25%
+rid-ins-tag-br-tr-perm-flist-form,DUC,rid-ins-tag-br-tr-perm-flist,Create Tag Browsing Tree to Function List Link,,,45%,15%
+rid-ins-tag-br-tr-perm-plist-form,DUC,rid-ins-tag-br-tr-perm-plist,Authorize Tag Browsng Tree Edit Permission for People List,,,45%,15%
+rid-ins-tag-doc-link-form,DUC,rid-ins-tag-doc-link,Create Tag to Document Link,,,45%,15%
+rid-ins-tag-group-id-name-form,DUC,rid-ins-tag-group-id-name,Create Tag Group,,,45%,25%
+rid-ins-tag-group-link-form,DUC,rid-ins-tag-group-link,Create Tag to Tag Group Link,,,45%,15%
+rid-ins-tag-group-perm-flist-form,DUC,rid-ins-tag-group-perm-flist,Authorize Tag Linking for Function List,,,45%,15%
+rid-ins-tag-group-perm-plist-form,DUC,rid-ins-tag-group-perm-plist,Authorize Tag Linking for People List,,,45%,15%
+rid-ins-tag-tree-name-form,DUC,rid-ins-tag-tree-name,Create Tag Tree Name,,,45%,25%
+rid-ins-tag-tree-node-form,DUC,rid-ins-tag-tree-node,Create Tag Relationship Tree Node,,,45%,20%
+rid-ins-tag-tree-perm-flist-form,DUC,rid-ins-tag-tree-perm-flist,Authorize Tag Tree Editing for Function List,,,45%,15%
+rid-ins-tag-tree-perm-plist-form,DUC,rid-ins-tag-tree-perm-plist,Authorize Tag Tree Editing for People List,,,45%,15%
+rid-ins-transaction-group-form,DUC,rid-ins-transaction-group,Create Transaction Group,,,45%,10%
+rid-ins-unit-of-measure-form,DUC,rid-ins-unit-of-measure,Create Unit of Measure,,,45%,20%
+rid-ins-wf-funct-output-file-form,DUC,rid-ins-wf-funct-output-file,Create File to Workflow Output Step For Function,,,45%,20%
+rid-ins-wf-input-step-file-form,DUC,rid-ins-wf-input-step-file,Create File to Workflow Input Step Link,,,45%,15%
+rid-ins-wf-people-output-file-form,DUC,rid-ins-wf-people-output-file,Create File to Workflow output Step for Connected User,,,45%,20%
+rid-ins-wf-step-duty-funct-form,DUC,rid-ins-wf-step-duty-funct,Create Workflow Instance Step to Duty Function Link,,,45%,20%
+rid-ins-workflow-action-form,DUC,rid-ins-workflow-action,Create Workflow Action Name,,,45%,20%
+rid-ins-workflow-instance-def-form,DUC,rid-ins-workflow-instance-def,Create Workflow Instance,,,45%,25%
+rid-ins-workflow-instance-step-form,DUC,rid-ins-workflow-instance-step,Create Workflow Instance Step,,,45%,35%
+rid-ins-workflow-model-name-form,DUC,rid-ins-workflow-model-name,Create Workflow Model Name,,,45%,20%
+rid-ins-workflow-output-def-form,DUC,rid-ins-workflow-output-def,Create Workflow Output Definition,,,45%,20%
+rid-ins-workflow-participant-form,DUC,rid-ins-workflow-participant,Create Workflow Instance Step to User Link,,,45%,20%
+rid-ins-workflow-rule-form,DUC,rid-ins-workflow-rule,Create Workflow Rule,,,45%,20%
+rid-ins-workflow-rule-link-form,DUC,rid-ins-workflow-rule-link,Create Workflow Rule to Workflow Step Transition Edge Link,,,45%,15%
+rid-ins-workflow-step-def-form,DUC,rid-ins-workflow-step-def,Create Workflow Model Node Step,,,45%,30%
+rid-ins-workflow-step-transn-form,DUC,rid-ins-workflow-step-transn,Create Workflow Model Step Transition,,,45%,35%
+rid-ins-xref-type-form,DUC,rid-ins-xref-type,Create Cross Reference Type,,,45%,20%
+rid-people-list-name-update-form,DUC,rid-people-list-name-update,Update People List Details,,,45%,25%
+rid-tag-browse-tree-name-indiv-create-form,DUC,rid-tag-browse-tree-name-indiv-create,Create Tag Tree for Connected User,,,45%,25%
+rid-tag-browse-tree-name-indiv-update-form,DUC,rid-tag-browse-tree-name-indiv-update,Update Personal Tage Browsing Tree,,,45%,30%
+rid-tag-browse-tree-node-delete-form,DUC,rid-tag-browse-tree-node-delete,Delete Tag Browsing Tree Node,,,45%,10%
+rid-tag-tree-perm-plist-delete-form,DUC,rid-tag-tree-perm-plist-delete,Revoke Tag to Tag Group Linking for People List,,,45%,15%
+rid-upd-cancel-authoriser-requ-form,DUC,rid-upd-cancel-authoriser-requ,Cancel Authorizer Request,,,45%,10%
+rid-upd-common-object-form,DUC,rid-upd-common-object,Udate Common Object,,,45%,30%
+rid-upd-common-obj-list-item-form,DUC,rid-upd-common-obj-list-item,Update List Position of Common Object List Item,,,45%,20%
+rid-upd-com-obj-attribute-form,DUC,rid-upd-com-obj-attribute,Update Common Object Attributes,,,45%,25%
+rid-upd-com-obj-list-name-form,DUC,rid-upd-com-obj-list-name,Update Common Object List,,,45%,30%
+rid-upd-contr-doc-group-link-form,DUC,rid-upd-contr-doc-group-link,Update Doc to Controller Doc Group Link,,,45%,20%
+rid-upd-contr-doc-group-name-form,DUC,rid-upd-contr-doc-group-name,Update Controller Doc Edit Group Name,,,45%,25%
+rid-upd-contr-doc-group-sid-form,DUC,rid-upd-contr-doc-group-sid,Update User to Controller Doc Group Link Notes,,,45%,20%
+rid-upd-contr-file-group-name-form,DUC,rid-upd-contr-file-group-name,Update Controller File Edit Group Details,,,45%,25%
+rid-upd-contr-file-group-sid-form,DUC,rid-upd-contr-file-group-sid,Updates User to Controller File Group Link Notes,,,45%,20%
+rid-upd-dc-gp-ed-prm-fct-notes-form,DUC,rid-upd-dc-gp-ed-prm-fct-notes,Update Doc Group Edit Permission Function List Link Notes,,,45%,20%
+rid-upd-default-date-style-form,DUC,rid-upd-default-date-style,Update Default Date-Time Style in Global Settings,,,45%,10%
+rid-upd-doc-date-field-name-form,DUC,rid-upd-doc-date-field-name,Update Doc Date Field,,,45%,25%
+rid-upd-doc-date-value-form,DUC,rid-upd-doc-date-value,Update Doc Date Value,,,45%,20%
+rid-upd-doc-group-name-rstr-form,DUC,rid-upd-doc-group-name-rstr,Update Doc Group for Connected User,,,45%,25%
+rid-upd-doc-group-viewer-notes-form,DUC,rid-upd-doc-group-viewer-notes,Update Doc Viewer Group Permission Notes,,,45%,20%
+rid-upd-doc-grp-lnk-notes-rstr-form,DUC,rid-upd-doc-grp-lnk-notes-rstr,Update Doc to Doc Group Link Notes,,,45%,20%
+rid-upd-doc-int-field-name-form,DUC,rid-upd-doc-int-field-name,Update Document Integer Field,,,45%,25%
+rid-upd-doc-int-value-form,DUC,rid-upd-doc-int-value,Update Doc Integer Field Value,,,45%,20%
+rid-upd-doc-ms-attr-fg-link-form,DUC,rid-upd-doc-ms-attr-fg-link,Update a Doc Multi-Select to Filter Group Link,,,45%,20%
+rid-upd-doc-ms-attr-list-form,DUC,rid-upd-doc-ms-attr-list,Update Attribute List for Doc Multi-Select Attribute,,,45%,15%
+rid-upd-doc-ms-attr-posn-form,DUC,rid-upd-doc-ms-attr-posn,Update Doc Multi-Select Attribute Position,,,45%,15%
+rid-upd-doc-ms-attr-text-form,DUC,rid-upd-doc-ms-attr-text,Update Doc Multi-Select Attribute Text Fields,,,45%,25%
+rid-upd-doc-ms-list-posn-form,DUC,rid-upd-doc-ms-list-posn,Update Doc Multi-Select List Position,,,45%,15%
+rid-upd-doc-ms-list-text-form,DUC,rid-upd-doc-ms-list-text,Update Doc Multi-Select List Text Fields,,,45%,25%
+rid-upd-doc-multi-select-link-form,DUC,rid-upd-doc-multi-select-link,Update Doc to Multi-Select Attribute Link,,,45%,25%
+rid-upd-doc-radiob-attr-form,DUC,rid-upd-doc-radiob-attr,Update Doc Radio Button Attribute,,,45%,30%
+rid-upd-doc-radiob-link-form,DUC,rid-upd-doc-radiob-link,Update Doc Radio Button Attribute Link,,,45%,20%
+rid-upd-doc-rb-attr-fg-link-form,DUC,rid-upd-doc-rb-attr-fg-link,Update Doc Radio Button to Filter Group Link,,,45%,20%
+rid-upd-doc-rb-attr-list-form,DUC,rid-upd-doc-rb-attr-list,Update Doc Radio Button Attribute List,,,45%,15%
+rid-upd-doc-rb-attr-posn-form,DUC,rid-upd-doc-rb-attr-posn,Update Doc Radio Button Attribute List Position,,,45%,15%
+rid-upd-doc-rb-list-posn-form,DUC,rid-upd-doc-rb-list-posn,Update List Position of Doc Radio Button List,,,45%,15%
+rid-upd-doc-rb-list-text-form,DUC,rid-upd-doc-rb-list-text,Update Doc Radio Button List Text Fields,,,45%,25%
+rid-upd-doc-rb-restriction-form,DUC,rid-upd-doc-rb-restriction,Updates Doc Radio Button List Restricted Flag,,,45%,15%
+rid-upd-doc-real-field-name-form,DUC,rid-upd-doc-real-field-name,Update Doc Real Number Field,,,45%,25%
+rid-upd-doc-real-value-form,DUC,rid-upd-doc-real-value,Update Doc Real Number Value,,,45%,20%
+rid-upd-doc-tag-form,DUC,rid-upd-doc-tag,Update Tag Text Fields,,,45%,25%
+rid-upd-doc-text-field-name-form,DUC,rid-upd-doc-text-field-name,Update Doc Free Text Field,,,45%,25%
+rid-upd-doc-text-value-form,DUC,rid-upd-doc-text-value,Update Doc Text Value,,,45%,20%
+rid-upd-doc-to-com-obj-ms-link-form,DUC,rid-upd-doc-to-com-obj-ms-link,Update Doc to Multi-Select Common Object Link,,,45%,25%
+rid-upd-doc-to-com-obj-rb-link-form,DUC,rid-upd-doc-to-com-obj-rb-link,Update Doc to Radio Button Common Object Link,,,45%,25%
+rid-upd-doc-transaction-group-form,DUC,rid-upd-doc-transaction-group,Update Document Transaction Group,,,45%,15%
+rid-upd-document-id-form,DUC,rid-upd-document-id,Update Document ID,,,45%,20%
+rid-upd-doc-xref-text-form,DUC,rid-upd-doc-xref-text,Update Document Cross Reference Link Notes,,,45%,20%
+rid-upd-duty-function-form,DUC,rid-upd-duty-function,Update Duty Function,,,45%,25%
+rid-upd-duty-function-sid-link-form,DUC,rid-upd-duty-function-sid-link,Update Duty Function to User Link Notes,,,45%,20%
+rid-upd-file-date-field-name-form,DUC,rid-upd-file-date-field-name,Update File Date Name Text Fields,,,45%,25%
+rid-upd-file-date-value-form,DUC,rid-upd-file-date-value,Update File Date Value,,,45%,20%
+rid-upd-file-doc-link-form,DUC,rid-upd-file-doc-link,Update File to Document Link,,,45%,25%
+rid-upd-file-group-link-form,DUC,rid-upd-file-group-link,Update File to File Group Link Notes,,,45%,20%
+rid-upd-file-group-name-form,DUC,rid-upd-file-group-name,Update File Group,,,45%,25%
+rid-upd-file-int-field-name-form,DUC,rid-upd-file-int-field-name,Update File Integer Field,,,45%,25%
+rid-upd-file-int-value-form,DUC,rid-upd-file-int-value,Update File Integer Field Value,,,45%,20%
+rid-upd-file-ms-attr-fg-link-form,DUC,rid-upd-file-ms-attr-fg-link,Update File Multi-Select Attribute to Filter Group Link,,,45%,20%
+rid-upd-file-ms-attr-list-form,DUC,rid-upd-file-ms-attr-list,Re-assign a File Multi-Select Attribute to a Different List,,,45%,15%
+rid-upd-file-ms-attr-posn-form,DUC,rid-upd-file-ms-attr-posn,Update File Multi-Select Attribute List Position,,,45%,15%
+rid-upd-file-ms-attr-text-form,DUC,rid-upd-file-ms-attr-text,Update File Multi-Select Attribute Text Fields,,,45%,25%
+rid-upd-file-ms-list-posn-form,DUC,rid-upd-file-ms-list-posn,Update File Multi-Select List Position,,,45%,15%
+rid-upd-file-ms-list-text-form,DUC,rid-upd-file-ms-list-text,Update File Multi-Select List Text Fields,,,45%,25%
+rid-upd-file-multi-select-link-form,DUC,rid-upd-file-multi-select-link,Update File to Multi-Select Attribute Link,,,45%,25%
+rid-upd-filename-form,DUC,rid-upd-filename,Update Filename,,,45%,15%
+rid-upd-file-radiob-link-form,DUC,rid-upd-file-radiob-link,Update File to File Radio Button Attribute Link,,,45%,20%
+rid-upd-file-rb-attr-fg-link-form,DUC,rid-upd-file-rb-attr-fg-link,Update File Radio Button to Filter Group Link,,,45%,20%
+rid-upd-file-rb-attr-list-form,DUC,rid-upd-file-rb-attr-list,Re-assign a File Radio Button Attribute to a Different List,,,45%,15%
+rid-upd-file-rb-attr-posn-form,DUC,rid-upd-file-rb-attr-posn,Update File Radio Button Attribute List Position,,,45%,15%
+rid-upd-file-rb-attr-text-form,DUC,rid-upd-file-rb-attr-text,Update File Radio Button Attribute Text Fields,,,45%,25%
+rid-upd-file-rb-list-posn-form,DUC,rid-upd-file-rb-list-posn,Update List Position of File Radio Button List,,,45%,15%
+rid-upd-file-rb-list-text-form,DUC,rid-upd-file-rb-list-text,Update File Radio Button List Attribute Text Fields,,,45%,25%
+rid-upd-file-rb-restriction-form,DUC,rid-upd-file-rb-restriction,Update File Radio Button List Restricted Flag,,,45%,15%
+rid-upd-file-real-field-name-form,DUC,rid-upd-file-real-field-name,Update File Real Number Text Fields,,,45%,25%
+rid-upd-file-real-value-form,DUC,rid-upd-file-real-value,Update File Real Number Value,,,45%,20%
+rid-upd-file-text-field-name-form,DUC,rid-upd-file-text-field-name,Update File Text Field Name Text Fields,,,45%,25%
+rid-upd-file-text-value-form,DUC,rid-upd-file-text-value,Update File Text Field Value,,,45%,20%
+rid-upd-file-to-cm-obj-ms-link-form,DUC,rid-upd-file-to-cm-obj-ms-link,Update File to Multi-Select Common Object Link,,,45%,25%
+rid-upd-file-to-com-obj-rb-lnk-form,DUC,rid-upd-file-to-com-obj-rb-lnk,Update File to Radio Button Common Object Link,,,45%,25%
+rid-upd-file-transaction-group-form,DUC,rid-upd-file-transaction-group,Update File Transaction Group,,,45%,15%
+rid-upd-filter-group-posn-form,DUC,rid-upd-filter-group-posn,Update Filter Group List Position,,,45%,15%
+rid-upd-filter-group-text-form,DUC,rid-upd-filter-group-text,Update Filter Group Text Fields,,,45%,25%
+rid-upd-fl-gp-ed-prm-fct-notes-form,DUC,rid-upd-fl-gp-ed-prm-fct-notes,Update File Group Function List Edit Permission Notes,,,45%,20%
+rid-upd-fl-gp-ed-prm-ppl-notes-form,DUC,rid-upd-fl-gp-ed-prm-ppl-notes,Update File Group People List Edit Permission Notes,,,45%,20%
+rid-upd-fm-dc-c-ob-ms-def-form,DUC,rid-upd-fm-dc-c-ob-ms-def,Update Form Document Common Object Multi-Select Default,,,45%,25%
+rid-upd-fm-dc-c-ob-ms-lnk-form,DUC,rid-upd-fm-dc-c-ob-ms-lnk,Update Form to Document Common Object Multi-Select List Link,,,45%,45%
+rid-upd-fm-dc-c-ob-rb-lnk-form,DUC,rid-upd-fm-dc-c-ob-rb-lnk,Update Form to Document Common Object Radio Button Link,,,45%,45%
+rid-upd-fm-doc-crtd-by-id-link-form,DUC,rid-upd-fm-doc-crtd-by-id-link,Update Form to Document-Created-By-ID Field Link,,,45%,35%
+rid-upd-fm-doc-crtd-by-nm-link-form,DUC,rid-upd-fm-doc-crtd-by-nm-link,Update Form to Document-Created-By-Name Field Link,,,45%,35%
+rid-upd-fm-doc-funct-lst-links-form,DUC,rid-upd-fm-doc-funct-lst-links,Update Form to Document Function List Field Link,,,45%,45%
+rid-upd-fm-fl-c-ob-ms-lnk-form,DUC,rid-upd-fm-fl-c-ob-ms-lnk,Update Form to File Common Object Multi-Select Link,,,45%,45%
+rid-upd-fm-fl-c-ob-rb-lnk-form,DUC,rid-upd-fm-fl-c-ob-rb-lnk,Update Form to File Common Object Radio Button Attribute Link,,,45%,45%
+rid-upd-fm-fl-com-obj-ms-def-form,DUC,rid-upd-fm-fl-com-obj-ms-def,Update Form File Common Object Multi-Select Default,,,45%,25%
+rid-upd-fm-fl-crtd-by-id-link-form,DUC,rid-upd-fm-fl-crtd-by-id-link,Update Form to File-Created-By-ID Field Link,,,45%,35%
+rid-upd-fm-fl-crtd-by-nm-link-form,DUC,rid-upd-fm-fl-crtd-by-nm-link,Update Form to File-Created-By-Name Field Link,,,45%,35%
+rid-upd-fm-fl-funct-lst-links-form,DUC,rid-upd-fm-fl-funct-lst-links,Update Form to File Function List Field Link,,,45%,45%
+rid-upd-form-doc-created-link-form,DUC,rid-upd-form-doc-created-link,Update Form to Document-Created-Date Field Link,,,45%,35%
+rid-upd-form-doc-date-link-form,DUC,rid-upd-form-doc-date-link,Update Form to Document Date Field Link,,,45%,45%
+rid-upd-form-doc-free-text-lnk-form,DUC,rid-upd-form-doc-free-text-lnk,Update Form to Document Free Text Field Link,,,45%,45%
+rid-upd-form-doc-int-lnk-form,DUC,rid-upd-form-doc-int-lnk,Update Form to Document Integer Field Link,,,45%,45%
+rid-upd-form-doc-lock-link-form,DUC,rid-upd-form-doc-lock-link,Update Form to Documet Lock Status Field Link,,,45%,40%
+rid-upd-form-doc-ms-link-form,DUC,rid-upd-form-doc-ms-link,Update Form to Document Multi-Select Field Link,,,45%,45%
+rid-upd-form-doc-multi-sel-def-form,DUC,rid-upd-form-doc-multi-sel-def,Update Form to Document Multi-Select Default,,,45%,25%
+rid-upd-form-doc-radiob-link-form,DUC,rid-upd-form-doc-radiob-link,Update Form to Document Radio Button Field Link,,,45%,50%
+rid-upd-form-doc-real-lnk-form,DUC,rid-upd-form-doc-real-lnk,Update Form to Document Real Number Field Link,,,45%,45%
+rid-upd-form-doc-tr-grp-link-form,DUC,rid-upd-form-doc-tr-grp-link,Update Form to Document Transaction Group Field Link,,,45%,40%
+rid-upd-form-file-created-link-form,DUC,rid-upd-form-file-created-link,Update Form to File-Created-Date Field Link,,,45%,10%
+rid-upd-form-file-date-link-form,DUC,rid-upd-form-file-date-link,Update Form to File Date Field Link,,,45%,45%
+rid-upd-form-file-hash-link-form,DUC,rid-upd-form-file-hash-link,Update Form to File Content Hash Field Link,,,45%,40%
+rid-upd-form-file-int-link-form,DUC,rid-upd-form-file-int-link,Update Form to File Integer Field Link,,,45%,45%
+rid-upd-form-file-ms-link-form,DUC,rid-upd-form-file-ms-link,Update Form to File Multi-Select Field Link,,,45%,45%
+rid-upd-form-file-name-link-form,DUC,rid-upd-form-file-name-link,Update Form to Filename Field Link,,,45%,40%
+rid-upd-form-file-plist-links-form,DUC,rid-upd-form-file-plist-links,Update Form to File People List Field Link,,,45%,45%
+rid-upd-form-file-radiob-link-form,DUC,rid-upd-form-file-radiob-link,Update Form to File Radio Button Field Link,,,45%,45%
+rid-upd-form-file-real-link-form,DUC,rid-upd-form-file-real-link,Update Form to File Real Number Field Link,,,45%,45%
+rid-upd-form-file-size-link-form,DUC,rid-upd-form-file-size-link,Update Form to File Size Link,,,45%,40%
+rid-upd-form-file-tr-grp-link-form,DUC,rid-upd-form-file-tr-grp-link,Update Form to File Transaction Group Link,,,45%,40%
+rid-upd-form-group-owner-form,DUC,rid-upd-form-group-owner,Update Form Group Owner Authorisation,,,45%,20%
+rid-upd-form-group-posn-form,DUC,rid-upd-form-group-posn,Update List Postion of Form Group,,,45%,15%
+rid-upd-form-group-text-form,DUC,rid-upd-form-group-text,Update Form Group Text Fields,,,45%,25%
+rid-upd-form-id-posn-form,DUC,rid-upd-form-id-posn,Update Form List Position,,,45%,15%
+rid-upd-form-id-text-form,DUC,rid-upd-form-id-text,Update Form Text Fields,,,45%,25%
+rid-upd-frm-doc-funct-links-form,DUC,rid-upd-frm-doc-funct-links,Update Form to Document Duty Function Field Link,,,45%,45%
+rid-upd-frm-doc-ppl-lst-lnks-form,DUC,rid-upd-frm-doc-ppl-lst-lnks,Update Form to Document People List Field Link,,,45%,45%
+rid-upd-frm-file-funct-links-form,DUC,rid-upd-frm-file-funct-links,Update Form to File Duty Function Field Link,,,45%,45%
+rid-upd-frm-file-multi-sel-def-form,DUC,rid-upd-frm-file-multi-sel-def,Update Form to File Multi-Select Object Default,,,45%,25%
+rid-upd-function-list-form,DUC,rid-upd-function-list,Update List Position of Duty Function,,,45%,20%
+rid-upd-function-list-name-form,DUC,rid-upd-function-list-name,Update Duty Function List,,,45%,25%
+rid-upd-general-field-name-form,DUC,rid-upd-general-field-name,Update General Field Name,,,45%,30%
+rid-upd-general-field-name-position-form,DUC,rid-upd-general-field-name-position,Update General Field Name List Position,,,45%,15%
+rid-upd-lock-document-id-form,DUC,rid-upd-lock-document-id,Lock Document ID,,,45%,10%
+rid-upd-people-list-form,DUC,rid-upd-people-list,Update List Position of User in People List,,,45%,20%
+rid-upd-sid-form,DUC,rid-upd-sid,Update User,,,45%,20%
+rid-upd-tag-group-link-form,DUC,rid-upd-tag-group-link,Update Tag to Tag Group Link,,,45%,20%
+rid-upd-tag-browsing-tree-name-form,DUC,rid-upd-tag-browsing-tree-name,Update Tag Browsing Tree Details,,,45%,30%
+rid-upd-tag-browsing-tree-node-form,DUC,rid-upd-tag-browsing-tree-node,Update Browsing Tree Node Position,,,45%,15%
+rid-upd-tag-br-tree-tag-form,DUC,rid-upd-tag-br-tree-tag,Replace Tag at Tag Browsing Tree Node,,,45%,15%
+rid-upd-tag-doc-link-form,DUC,rid-upd-tag-doc-link,Update Tag to Document Link,,,45%,25%
+rid-upd-tag-group-id-name-form,DUC,rid-upd-tag-group-id-name,Update Tag Group Details,,,45%,30%
+rid-upd-tag-tree-name-form,DUC,rid-upd-tag-tree-name,Update Tag Relationship Tree Details,,,45%,30%
+rid-upd-tag-tree-node-form,DUC,rid-upd-tag-tree-node,Update Tag Relationship Tree Node Position,,,45%,15%
+rid-upd-tag-tree-tag-form,DUC,rid-upd-tag-tree-tag,Replace Tag at Tag Relationship Tree Node,,,45%,15%
+rid-upd-transaction-group-form,DUC,rid-upd-transaction-group,Update Transaction Group Note,,,45%,15%
+rid-upd-unit-of-measure-form,DUC,rid-upd-unit-of-measure,Update Unit of Measure,,,45%,25%
+rid-upd-unlock-document-id-form,DUC,rid-upd-unlock-document-id,Unlock Document ID,,,45%,10%
+rid-upd-user-role-link-notes-form,DUC,rid-upd-user-role-link-notes,Update User Role Link Notes,,,45%,20%
+rid-upd-wf-funct-output-file-form,DUC,rid-upd-wf-funct-output-file,Update File to Workflow Output Step for Function,,,45%,35%
+rid-upd-wf-input-step-file-form,DUC,rid-upd-wf-input-step-file,Update File to Workflow Input Step Link,,,45%,25%
+rid-upd-wf-inst-def-pres-step-form,DUC,rid-upd-wf-inst-def-pres-step,Update Workflow Instance Present Step,,,45%,15%
+rid-upd-wf-people-output-file-form,DUC,rid-upd-wf-people-output-file,Update File to Workflow Output Step for Person,,,45%,35%
+rid-upd-wf-step-duty-funct-form,DUC,rid-upd-wf-step-duty-funct,Update Workflow Step Duty Function Link,,,45%,35%
+rid-upd-wf-step-status-defn-form,DUC,rid-upd-wf-step-status-defn,Update Workflow Instance Step Status Definition,,,45%,25%
+rid-upd-wf-step-status-def-psn-form,DUC,rid-upd-wf-step-status-def-psn,Update Step Status Defintion List Position,,,45%,15%
+rid-upd-workflow-action-form,DUC,rid-upd-workflow-action,Update Workflow Instance Workflow Action,,,45%,25%
+rid-upd-workflow-action-posn-form,DUC,rid-upd-workflow-action-posn,Update List Position of Workflow Action,,,45%,15%
+rid-upd-workflow-instance-def-form,DUC,rid-upd-workflow-instance-def,Update Workflow Instance,,,45%,30%
+rid-upd-workflow-instance-step-form,DUC,rid-upd-workflow-instance-step,Update Workflow Instance Step,,,45%,40%
+rid-upd-workflow-model-name-form,DUC,rid-upd-workflow-model-name,Update Workflow Model Details,,,45%,25%
+rid-upd-workflow-model-nm-posn-form,DUC,rid-upd-workflow-model-nm-posn,Update List Position for Workflow Model,,,45%,15%
+rid-upd-workflow-output-def-form,DUC,rid-upd-workflow-output-def,Update Workflow Output Definition,,,45%,25%
+rid-upd-workflow-output-posn-form,DUC,rid-upd-workflow-output-posn,Update List Position for Workflow Output,,,45%,15%
+rid-upd-workflow-participant-form,DUC,rid-upd-workflow-participant,Update Workflow Step Participant,,,45%,25%
+rid-upd-workflow-rule-form,DUC,rid-upd-workflow-rule,Update Workflow Output Definition Details,,,45%,25%
+rid-upd-workflow-rule-link-form,DUC,rid-upd-workflow-rule-link,Update Workflow Rule to Step Transition Link,,,45%,25%
+rid-upd-workflow-rule-posn-form,DUC,rid-upd-workflow-rule-posn,Update List Position for Workflow Rule,,,45%,15%
+rid-upd-workflow-step-def-form,DUC,rid-upd-workflow-step-def,Update Workflow Model Step,,,45%,45%
+rid-upd-workflow-step-transn-form,DUC,rid-upd-workflow-step-transn,Update Workflow Model Step Transition,,,45%,30%
+rid-upd-xref-type-list-posn-form,DUC,rid-upd-xref-type-list-posn,Update Cross Reference Type List Position,,,45%,15%
+rid-upd-xref-type-text-form,DUC,rid-upd-xref-type-text,Update Cross Reference Type Text Fields,,,45%,25%
+rid-validate-document-id-form,DUC,rid-validate-document-id,Validate Document ID,,,45%,10%
+sel-one-file-data-form,READ,sel-one-file-data,File Data,,,45%,15%
+sel-one-file-data-form-direct,READ,sel-one-file-data,Select One File - Filtered,,,45%,15%
+sids-by-duty-function-form,READ,sids-by-duty-function,Users by Duty Function,,,45%,10%
+tag-by-tag-id-form,READ,tag-by-tag-id,Tag Details,,,45%,10%
+tag-get-ancestors-form,READ,tag-get-ancestors,Tag Ancestors,,,45%,10%
+tag-get-descendants-form,READ,tag-get-descendants,Tag Descendants,,,45%,10%
+tag-get-root-form,READ,tag-get-root,Root Node,,,45%,10%
+tag-groups-by-tag-form,READ,tag-groups-by-tag,Tag Groups by Tag,,,45%,10%
+tags-by-doc-form,READ,tags-by-doc,Tags for Document,,,45%,15%
+tags-by-string-form,READ,tags-by-string,Tags by Name,,,45%,10%
+tags-by-tag-group-form,READ,tags-by-tag-group,Tags by Tag Group,,,45%,10%
+tag-tree-by-tree-id-form,READ,tag-tree-by-tree-id,Tags by Tag Tree,,,45%,10%
+edit-tag-tree-by-tree-id-form,READ,tag-tree-by-tree-id,Tags by Editable Tag Tree,,,45%,10%
+transaction-group-direct-form,READ,transaction-group,Transaction Group by ID,,,45%,10%
+transaction-group-form,READ,transaction-group,Transaction Group Note,,,45%,10%
+tree-node-form,READ,tree-node,Node Details,,,45%,10%
+trees-by-tag-form,READ,trees-by-tag,Trees by Tag,,,45%,10%
+tr-group-contains-form,READ,tr-group-contains,Transaction Group Contains,containsString,,45%,10%
+wf-funct-by-step-id-form,READ,wf-funct-by-step-id,Duty Functions by Step,,,45%,10%
+wf-funct-files-by-step-form,READ,wf-funct-files-by-step,Function Files by Step,,,45%,10%
+wf-input-files-by-step-form,READ,wf-input-files-by-step,Input Files by Step,,,45%,10%
+wf-inst-def-by-doc-form,READ,wf-inst-def-by-doc,Workflow Instance Definitions for Document,,,45%,10%
+wf-inst-def-by-model-form,READ,wf-inst-def-by-model,Workflow Instance Definition for Workflow Model,,,45%,10%
+wf-inst-steps-by-inst-form,READ,wf-inst-steps-by-inst,Steps for Workflow,,,45%,10%
+wf-people-by-step-id-form,READ,wf-people-by-step-id,Participants by Step,,,45%,10%
+wf-people-files-by-step-form,READ,wf-people-files-by-step,People Files by Step,,,45%,10%
+wf-rules-by-model-step-form,READ,wf-rules-by-model-step,Workflow Rules by Model Step,,,45%,10%
+wf-step-get-ancestors-form,READ,wf-step-get-ancestors,Ancestors for Step,,,45%,10%
+wf-step-get-descendts-form,READ,wf-step-get-descendts,Descendants for Step,,,45%,10%
+wf-step-get-parents-form,READ,wf-step-get-parents,Parent for Step,,,45%,10%
+wf-step-get-siblings-form,READ,wf-step-get-siblings,Siblings for Step,,,45%,10%
+wf-step-get-step-data-form,READ,wf-step-get-step-data,Step Data,,,45%,10%
+wf-steps-by-duty-funct-form,READ,wf-steps-by-duty-funct,Workflow Instance Steps by Duty Function,,,45%,10%
+wf-steps-by-model-name-form,READ,wf-steps-by-model-name,Workflow Nodes for Workflow Model,,,45%,10%
+wf-steps-by-person-form,READ,wf-steps-by-person,Workflow Steps by User (Defaults to connected user if blank.),,,45%,10%
+wf-track-log-by-id-form,READ,wf-track-log-by-id,Track Log by Log ID,,,45%,10%
+wf-tr-log-index-by-doc-form,READ,wf-tr-log-index-by-doc,Track Log Index for Document,,,45%,10%
+workflow-step-transn-form,READ,workflow-step-transn,Step Transition Details,,,45%,10%
+all-people-list-names-form,READ,all-people-list-names,All People Lists,,,45%,10%
+people-lists-for-connected-user-form,READ,people-lists-for-connected-user,People Lists for Connected User,,,45%,10%
+non-pers-pple-lst-nms-form,READ,non-pers-pple-lst-nms,Non-Personal People Lists,,,45%,10%
+rid-upd-tag-group-perm-plist-form,DUC,rid-upd-tag-group-perm-plist,Update a record to authorize people list members to link tags to a tag group. ,,,45%,30%
+rid-upd-tag-tree-perm-plist-form,DUC,rid-upd-tag-tree-perm-plist,Update a record to authorize people list members to edit a tag tree.,,,45%,30%
+rid-upd-tag-br-tr-perm-plist-form,DUC,rid-upd-tag-br-tr-perm-plist,Update a record to authorize people list members to edit a tag browsing tree.,,,45%,30%
+rid-upd-tag-tree-perm-flist-form,DUC,rid-upd-tag-tree-perm-flist,Update a record to authorize function list members to edit a tag tree.,,,45%,30%
+rid-upd-tag-group-perm-flist-form,DUC,rid-upd-tag-group-perm-flist,Update a record to authorize function list members to link tags to a tag group.,,,45%,30%
+rid-upd-tag-br-tr-perm-flist-form,DUC,rid-upd-tag-br-tr-perm-flist,Update a record to authorize function list members to edit a tag browsing tree.,,,45%,30%
+rid-restore-sid-form,DUC,rid-restore-sid,Restore a deactivated user.,,,45%,30%
+workflow-model-step-direct,PASSTHROUGH,,Workflow Model Step ID,,,20%,10%
+step-transition-id-direct-form,PASSTHROUGH,,Workflow Step Transition ID,,,20%,10%
+workflow-instance-step-id-direct-form,PASSTHROUGH,,Workflow Instance Step ID,,,20%,10%
+present-step-id-direct-form,PASSTHROUGH,,Workflow Present Step ID,,,20%,10%
+workflow-instance-id-direct-form,PASSTHROUGH,,Workflow Instance ID,,,20%,10%
+sel-one-file-data-form-direct-passthrough,PASSTHROUGH,,Select One File,,,45%,15%
+bookings-by-user-form,READ,booking-ids-by-sidid,Document Booking Transactions by User,,,45%,10%
+booking-ids-by-docid-form,READ,booking-ids-by-docid,Document Booking Transactions by Document,,,45%,10%
+booking-ids-by-date-form,READ,booking-ids-by-date,Document Booking Transactions by Date,,,45%,20%
+book-in-files-form,READ,book-in-files,Files for a Given Document Booking Transaction,,,45%,20%
+rid-ins-book-in-form,DUC,rid-ins-book-in,Book a Document In,,,45%,40%
+rid-ins-book-in-file-form,DUC,rid-ins-book-in-file,Book In Files To a Document,,,45%,20%
+rid-del-book-in-id-form,DUC,rid-del-book-in-id,Delete Book In Transaction,,,45%,20%
+rid-ins-book-out-form,DUC,rid-ins-book-out,Book a Document Out,,,45%,20%
+browsing-trees-by-tag-form,READ,browsing-trees-by-tag,Tag Browsing Trees by Tag,,,45%,20%
+rid-ins-file-user-link-form,DUC,rid-ins-file-user-link,Insert File to User Link,,,45%,20%
+rid-ins-doc-user-link-form,DUC,rid-ins-doc-user-link,Insert Document to User Link,,,45%,20%
+rid-del-doc-user-link-form,DUC,rid-del-doc-user-link,Delete Document to User Link,,,45%,20%
+rid-del-file-user-link-form,DUC,rid-del-file-user-link,Delete File to User Link,,,45%,20%
+rid-ins-frm-doc-user-lnks-form,DUC,rid-ins-frm-doc-user-lnks,Create Form Document to User Link,,,45%,45%
+rid-ins-frm-file-user-lnks-form,DUC,rid-ins-frm-file-user-lnks,Create Form File to User Link,,,45%,45%
+rid-upd-frm-doc-user-lnks-form,DUC,rid-upd-frm-doc-user-lnks,Update Form Document to User Link,,,45%,45%
+rid-upd-frm-file-user-lnks-form,DUC,rid-upd-frm-file-user-lnks,Update Form File to User Link,,,45%,45%
+rid-del-frm-file-user-lnks-form,DUC,rid-del-frm-file-user-lnks,Delete Form File to User Link,,,45%,20%
+rid-del-frm-doc-user-lnks-form,DUC,rid-del-frm-doc-user-lnks,Delete Form Document to User Link,,,45%,20%
+users-by-doc-form,READ,reading.usp_SEL_users_by_doc,Users Linked to a Document,,,45%,20%
+users-by-file-form,READ,reading.usp_SEL_users_by_file,Users Linked to a File,,,45%,20%
+docs-by-user-form,READ,reading.usp_SEL_docs_by_user,Documents Linked to a User (Filtered),,,45%,20%
+all-docs-by-user-form,READ,reading.usp_SEL_all_docs_by_user,Documents Linked to a User (Unfiltered),,,45%,20%
+docs-by-user-fgn-form,READ,reading.usp_SEL_docs_by_user_fgn,Documents Linked by User Field Name (Filtered),,,45%,20%
+all-docs-by-user-fgn-form,READ,reading.usp_SEL_all_docs_by_user_fgn,Documents Linked by User Field Name (Unfiltered),,,45%,20%
+files-by-user-form,READ,reading.usp_SEL_files_by_user,Files Linked to a User (Filtered),,,45%,20%
+all-files-by-user-form,READ,reading.usp_SEL_all_files_by_user,Files Linked to a User (Unfiltered),,,45%,20%
+files-by-user-fgn-form,READ,reading.usp_SEL_files_by_user_fgn,Files Linked to a User Field Name (Filtered),,,45%,20%
+all-files-by-user-fgn-form,READ,reading.usp_SEL_all_fl_by_user_fgn,Files Linked to a User Field Name (Unfiltered),,,45%,20%

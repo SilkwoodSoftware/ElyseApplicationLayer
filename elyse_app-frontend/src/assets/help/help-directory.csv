@@ -1,0 +1,55 @@
+HelpId,Title,ParentHelpId,ContentFile,Role,Order,LastUpdated,Description
+introduction,Introduction,,introduction.md,,1,23 02 2026,Introduction to Elyse
+interface,User Interface Basics,,basic-user-interface.md,,2,23 02 2026,User interface basics
+basic-searching,Basic Searching,,basic-searching.md,,3,23 02 2026,Explanation of basic functions for searching documents and files.
+onboarding,Onboarding,,onboarding.md,,4,23 02 2026,Explaination of the role selection feature. 
+reader-level,Reader Level Role,,reader-level.md,Reader;Reviewer;Editor;Controller,5,23 02 2026,Overview of Reader level role privileges.
+tag-management,Tag Management,,tag-management.md,Editor;Controller,6,23 02 2026,Explanation of tag and tag tree management.
+reviewer-level,Reviewer Level Role,,reviewer-level.md,Reviewer;Editor,7,23 02 2026,Explanation of the reviewer level role. 
+editor-level,Editor Level Role,,editor-level.md,Editor,8,23 02 2026,Explanation of the Editor level role.
+loading-files,Loading Files,,loading-files.md,Editor;Controller;Reviewer,6,23 02 2026,Explanation of functions for loading files. 
+controller-level,Controller Level Role,,controller-level.md,Controller,12,23 02 2026,Explanation of Controller level role.
+configurator-level,Configurator Level Role,,configurator-level.md,Configurator,15,23 02 2026,Explanation of the Configurator level role.
+authorizer-level,Authorizer Level Role,,authorizer-level.md,Authorizer,20,23 02 2026,Explanation of the Authorizer level role
+document-groups-al,Document Groups,authorizer-level,document-groups.md,Editor;Controller;Authorizer,1,23 02 2026,Explanation of document groups.
+controller-groups-al,Controller Groups,authorizer-level,controller-groups.md,Controller;Authorizer,2,23 02 2026,Explanation of controller groups.
+command-palette,The Command Palette,basic-searching,command-palette.md,,1,23 02 2026,Explanation of the command palette.
+introduction-to-tags-bs,Introduction to Tags,basic-searching,introduction-to-tags.md,,2,23 02 2026,Introduction to Elyse tags.
+metadata-types,Elyse Metadata Basics,basic-searching,metadata-types.md,,3,23 02 2026,Introduction to Elyse metadata types.
+role-selection,Role Selection,command-palette,role-selection.md,,1,23 02 2026,Explaination of the role selection feature. 
+document-groups-cl,Document Groups,controller-level,document-groups.md,Editor;Controller;Authorizer,1,23 02 2026,Explanation of document groups.
+file-groups-cl,File Groups,controller-level,file-groups.md,Editor;Controller;Authorizer,2,23 02 2026,Explanation of file groups.
+controller-groups-cl,Controller Groups,controller-level,controller-groups.md,Controller;Authorizer,3,23 02 2026,Explanation of controller groups.
+doc-group-edit-cl,Document Group Edit Permissions,controller-level,document-group-editor-permissions.md,Editor;Controller,4,23 02 2026,Explanation of document group edit permissions.
+file-viewing-cl,File Viewing Rights,controller-level,file-viewing-rights.md,Reader;Reviewer;Editor;Controller,5,23 02 2026,Explanation of file viewing rights.
+loading-files-st,Loading Files,editor-level,loading-files.md,Editor;Controller,1,23 02 2026,Explanation of functions for loading files. 
+introduction-to-tags-el,Introduction to Tags,editor-level,introduction-to-tags.md,Editor,3,23 02 2026,Introduction to Elyse tags.
+tag-management-el,Tag Management,editor-level,tag-management.md,Editor;Controller,4,23 02 2026,Explanation of tag and tag tree management.
+booking-management,Booking Management,editor-level,booking-management.md,Editor;Controller,5,23 02 2026,Explanation of booking management.
+document-groups-el,Document Groups,editor-level,document-groups.md,Editor;Controller;Authorizer,6,23 02 2026,Explanation of document groups.
+file-groups-el,File Groups,editor-level,file-groups.md,Editor;Controller;Authorizer,7,23 02 2026,Explanation of file groups.
+doc-group-edit-el,Document Group Edit Permissions,editor-level,document-group-editor-permissions.md,Editor;Controller,8,23 02 2026,Explanation of document group edit permissions.
+file-viewing-ed,File Viewing Rights,editor-level,file-viewing-rights.md,Reader;Reviewer;Editor;Controller,9,23 02 2026,Explanation of file viewing rights.
+what-is,What Is a Controlled Document,introduction,what-is-a-controlled-document.md,,1,23 02 2026,Explanation of how controlled documents differ from other types of documents. 
+introduction-rl,Introduction,reader-level,introduction.md,,3,23 02 2026,Introduction to Elyse metadata types.
+introduction-to-tags-rl,Introduction to Tags,reader-level,introduction-to-tags.md,,4,23 02 2026,Introduction to Elyse tags.
+file-viewing-rd,File Viewing Rights,reader-level,file-viewing-rights.md,Reader;Reviewer;Editor;Controller,5,23 02 2026,Explanation of file viewing rights.
+file-viewing-rv,File Viewing Rights,reviewer-level,file-viewing-rights.md,Reader;Reviewer;Editor;Controller,1,23 02 2026,Explanation of file viewing rights.
+forms-ed,Forms,editor-level,forms.md,Editor;Controler;Configurator,10,23 02 2026,Explanation of forms.
+forms-cl,Forms,controller-level,forms.md,Editor;Controler;Configurator,6,23 02 2026,Explanation of forms.
+forms-conl,Forms,configurator-level,forms.md,Editor;Controler;Configurator,1,23 02 2026,Explanation of forms.
+filter-groups-rd,Filter Groups,reader-level,filter-groups.md,Reader;Reviewer;Editor;Controller;Configurator,5,23 02 2026,Explanation of filter groups.
+filter-groups-rv,Filter Groups,reviewer-level,filter-groups.md,Reader;Reviewer;Editor;Controller;Configurator,2,23 02 2026,Explanation of filter groups.
+filter-groups-ed,Filter Groups,editor-level,filter-groups.md,Reader;Reviewer;Editor;Controller;Configurator,11,23 02 2026,Explanation of filter groups.
+filter-groups-cl,Filter Groups,controller-level,filter-groups.md,Reader;Reviewer;Editor;Controller;Configurator,7,23 02 2026,Explanation of filter groups.
+filter-groups-conf,Filter Groups,configurator-level,filter-groups.md,Reader;Reviewer;Editor;Controller;Configurator,2,23 02 2026,Explanation of filter groups.
+workflow-management-rv,Workflow Management,reviewer-level,workflow-management.md,Reviewer;Editor;Controller;Configurator,3,23 02 2026,Explanation of workflow management.
+workflow-management-el,Workflow Management,editor-level,workflow-management.md,Reviewer;Editor;Controller;Configurator,12,23 02 2026,Explanation of workflow management.
+workflow-management-cl,Workflow Management,controller-level,workflow-management.md,Reviewer;Editor;Controller;Configurator,8,23 02 2026,Explanation of workflow management.
+workflow-management-conf,Workflow Management,configurator-level,workflow-management.md,Reviewer;Editor;Controller;Configurator,3,23 02 2026,Explanation of workflow management.
+creating-document-ids-ed,Creating Document IDs,editor-level,creating-document-ids.md,Editor;Controller,12,23 02 2026,Explanation of options for creating document IDs.
+creating-document-ids-cl,Creating Document IDs,controller-level,creating-document-ids.md,Editor;Controller,8,23 02 2026,Explanation of options for creating document IDs.
+audit-logs-el,Audit Logs,editor-level,audit-logs.md,Editor;Controller;Authorizer,13,23 02 2026,Explanation of audit logs.
+audit-logs-cl,Audit Logs,controller-level,audit-logs.md,Editor;Controller;Authorizer,9,23 02 2026,Explanation of audit logs.
+audit-logs-al,Audit Logs,authorizer-level,audit-logs.md,Editor;Controller;Authorizer,3,23 02 2026,Explanation of audit logs.
+command-palette-in,The Command Palette,interface,command-palette.md,,1,23 02 2026,Explanation of the command palette.

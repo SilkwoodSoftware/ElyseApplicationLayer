@@ -1,0 +1,27 @@
+Field Type,ID Type,Data Type,Name ID Parameter,Attribute Parameter ID,Attribute Value,Create,Read,Update,Delete
+Document Free Text,Document,Text,docTextNameId,,docTextValue,doc-attr/doc-text-value/insert,,doc-attr/doc-text-value/update,doc-attr/doc-text-value/delete
+Document Date,Document,Date,docDateNameId,,docDateValue,doc-attr/doc-date-value/insert,,doc-attr/doc-date-value/update,doc-attr/doc-date-value/delete
+Doc Radio Button Attributes,Document,List,docRadioButtonListId,docRadioButtonAttributeId,,doc-attr/doc-rb-link/insert,doc-attr/doc-rblist-attributes/read,doc-attr/doc-rb-link/update,doc-attr/doc-rb-link/delete
+Doc Multi-Select Attributes,Document,MultiSelectList,docMultiSelectListId,docMultiSelectAttributeId,,doc-attr/doc-multi-select-link/insert,doc-attr/doc-ms-attr/read-by-list,,doc-attr/doc-multi-select-link/delete
+Doc Common Objects Multi-Sel Attr,Document,MultiSelectList,commonObjectListId,commonObjectId,,doc-attr/doc-to-com-obj-ms-link/insert,com-obj/read-by-list,,document/common-object/multi-select/delete
+Doc Common Objects Radio Button Attr,Document,List,commonObjectListId,commonObjectId,,doc-attr/doc-to-com-obj-rb-link/insert,com-obj/read-by-list,,document/common-object/radio-button/delete
+Document Integer,Document,Integer,docIntNameId,,docIntValue,doc-attr/doc-int-value/insert,,doc-attr/doc-int-value/update,doc-attr/doc-int-value/delete
+Document Duty Function,Document,MultiSelectList,generalFieldNameId,functionId,,doc-attr/doc-function-link/insert,duty-functions/read-all,,doc-attr/doc-to-function-link/delete
+Document Duty Function List,Document,MultiSelectList,generalFieldNameId,functionListId,,doc-attr/doc-funct-list-link/insert,function-list-names/read-all,,doc-attr/doc-funct-list-link/delete
+Document People List,Document,MultiSelectList,generalFieldNameId,peopleListId,,doc-attr/doc-people-list-link/insert,people-list-names/read-all,,doc-attr/doc-people-list-link/delete
+Document Real Number,Document,Real,docRealNameId,,docRealNumValue,doc-attr/doc-real-value/insert,,doc-attr/doc-real-value/update,doc-attr/doc-real-value/delete
+Document Transaction Group,Document,List,,transactionGroupId,,,transaction-groups/read,doc-attr/doc-transaction-group/update,doc-attr/doc-transaction-group/delete
+Document ID Lock Status,Document,Value,,,,doc-attr/document-id/lock-doc-id,,,doc-attr/document-id/unlock-doc-id
+File Free Text,File,Text,fileTextNameId,,fileTextValue,file-attr/file-text-value/insert,,file-attr/file-text-value/update,file-attr/file-text-value/delete
+File Date,File,Date,fileDateNameId,,fileDateValue,file-attr/file-date-value/insert,,file-attr/file-date-value/update,file-attr/file-date-value/delete
+File Radio Button Attributes,File,List,fileRadioButtonListId,fileRadioButtonAttributeId,,file-attr/file-radiob-link/insert,file-attr/file-radiob-attr/read-by-list,file-attr/file-radiob-link/update,file-attr/file-radiob-link/delete
+File Multi-Select Attributes,File,MultiSelectList,fileMultiSelectListId,fileMultiSelectAttributeId,,file-attr/file-multi-select-link/insert,file-attr/file-ms-attr/read-by-list,,file-attr/file-multi-select-link/delete
+File Common Objects Multi-Sel Attr,File,MultiSelectList,commonObjectListId,commonObjectId,,file-attr/file-to-com-obj-ms-link/insert,com-obj/read-by-list,,file-attr/file-to-com-obj-ms-link/delete
+File Common Objects Radio Button Attr,File,List,commonObjectListId,commonObjectId,,file-attr/file-to-com-obj-radiob-link/insert,com-obj/read-by-list,,file-attr/file-to-com-obj-rb-link/delete
+File Integer,File,Integer,fileIntNameId,,fileIntValue,file-attr/file-int-value/insert,,file-attr/file-int-value/update,file-attr/file-int-value/delete
+File Duty Function,File,MultiSelectList,generalFieldNameId,functionId,,file-attr/file-function-link/insert,duty-functions/read-all,,file-attr/file-to-function-link/delete
+File Duty Function List,File,MultiSelectList,generalFieldNameId,functionListId,,file-attr/file-funct-list-link/insert,function-list-names/read-all,,file-attr/file-funct-list-link/delete
+File People List,File,MultiSelectList,generalFieldNameId,peopleListId,,file-attr/file-people-list-link/insert,people-list-names/read-all,,file-attr/file-people-list-link/delete
+File Real Number,File,Real,fileRealNumberFieldNameId,,fileRealNumberValue,file-attr/file-real-value/insert,,file-attr/file-real-value/update,file-attr/file-real-value/delete
+Filename,File,Text,,fileName,,,,file-attr/filename/update,
+File Transaction Group,File,List,,transactionGroupId,,,transaction-groups/read,file-attr/file-transaction-group/update,file-attr/file-transaction-group/delete

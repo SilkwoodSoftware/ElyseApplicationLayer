@@ -1,0 +1,149 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!-- Multiple Navigation Dropdowns (NEW) - Horizontal Bar Style -->
+<div class="navigation-menu multiple-dropdowns" *ngIf="model.navigationMenus && model.navigationMenus.length > 0" (click)="$event.stopPropagation()">
+  <!-- Each top-level menu becomes either a direct button or dropdown button -->
+  <ng-container *ngFor="let navMenu of model.navigationMenus; let i = index">
+    <ng-container *ngIf="hasRequiredRoleForNavMenu(navMenu)">
+      
+      <!-- Direct Action Button (for single action items) -->
+      <button
+        *ngIf="navMenu.items.length === 1 && isActionMenuItem(navMenu.items[0])"
+        class="dropbtn direct-action"
+        (click)="onMenuItemClick(navMenu.items[0])"
+        [title]="navMenu.description || navMenu.items[0].description || ''"
+      >
+        {{ navMenu.label }}
+      </button>
+
+      <!-- Dropdown Menu (for parent menus or multiple items) -->
+      <div
+        class="dropdown"
+        *ngIf="!(navMenu.items.length === 1 && isActionMenuItem(navMenu.items[0]))"
+      >
+        <button class="dropbtn" (click)="toggleMenu($event, 'nav-' + i)" [title]="navMenu.description || ''">
+          {{ navMenu.label }}
+        </button>
+
+        <!-- Dropdown content for this navigation menu -->
+        <div class="dropdown-content" [id]="'nav-' + i">
+          <ng-container *ngFor="let item of navMenu.items">
+            <ng-container *ngTemplateOutlet="menuItemTemplate; context: { item: item, level: 0, menuIndex: i }">
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      
+    </ng-container>
+  </ng-container>
+</div>
+
+<!-- Single Menu Dropdown (LEGACY - Backward Compatibility) -->
+<div class="navigation-menu" *ngIf="!model.navigationMenus || model.navigationMenus.length === 0" (click)="$event.stopPropagation()">
+  <!-- First level: NavigationBar -->
+  <ng-container *ngFor="let item of model.items; let i = index">
+    <div class="dropdown" *ngIf="hasRequiredRole(item)">
+      <button class="dropbtn" (click)="toggleMenu($event, 'menu-' + i)">{{ item.label }}</button>
+
+      <!-- Second level: Authorisation, Configuration, etc. -->
+      <div
+        class="dropdown-content"
+        *ngIf="isParentMenuItem(item)"
+        [id]="'menu-' + i"
+      >
+        <ng-container *ngFor="let child of item.children; let j = index">
+          <div class="menu-item-wrapper" *ngIf="hasRequiredRole(child)">
+            <a
+              href="#"
+              (click)="(isParentMenuItem(child) ? toggleMenu($event, 'submenu-' + i + '-' + j) : onMenuItemClick(child)); $event.preventDefault()"
+              [class.has-children]="isParentMenuItem(child)"
+              [title]="child.description || ''"
+            >
+              {{ child.label }}
+            </a>
+
+            <!-- Third level: Tables, etc. -->
+            <div
+              class="sub-dropdown-content"
+              *ngIf="isParentMenuItem(child)"
+              [id]="'submenu-' + i + '-' + j"
+            >
+              <ng-container *ngFor="let grandchild of child.children; let k = index">
+                <div class="menu-item-wrapper" *ngIf="hasRequiredRole(grandchild)">
+                  <a
+                    href="#"
+                    (click)="(isParentMenuItem(grandchild) ? toggleMenu($event, 'subsubmenu-' + i + '-' + j + '-' + k) : onMenuItemClick(grandchild)); $event.preventDefault()"
+                    [class.has-children]="isParentMenuItem(grandchild)"
+                    [title]="grandchild.description || ''"
+                  >
+                    {{ grandchild.label }}
+                  </a>
+
+                  <!-- Fourth level: All Document Group Names, etc. -->
+                  <div
+                    class="sub-sub-dropdown-content"
+                    *ngIf="isParentMenuItem(grandchild)"
+                    [id]="'subsubmenu-' + i + '-' + j + '-' + k"
+                  >
+                    <ng-container
+                      *ngFor="let greatGrandchild of grandchild.children"
+                    >
+                      <a
+                        href="#"
+                        (click)="onMenuItemClick(greatGrandchild); $event.preventDefault()"
+                        *ngIf="hasRequiredRole(greatGrandchild)"
+                        [title]="greatGrandchild.description || ''"
+                      >
+                        {{ greatGrandchild.label }}
+                      </a>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Recursive Menu Item Template for Navigation Menus -->
+<ng-template #menuItemTemplate let-item="item" let-level="level" let-menuIndex="menuIndex">
+  <div class="menu-item-wrapper" *ngIf="hasRequiredRole(item)">
+    <a
+      href="#"
+      (click)="(isParentMenuItem(item) ? toggleMenu($event, 'navsubmenu-' + menuIndex + '-' + level + '-' + item.id) : onMenuItemClick(item)); $event.preventDefault()"
+      [class.has-children]="isParentMenuItem(item)"
+      [title]="item.description || ''"
+    >
+      {{ item.label }}
+    </a>
+
+    <!-- Submenu for parent items -->
+    <div
+      class="sub-dropdown-content"
+      *ngIf="isParentMenuItem(item)"
+      [id]="'navsubmenu-' + menuIndex + '-' + level + '-' + item.id"
+    >
+      <ng-container *ngFor="let childItem of item.children">
+        <ng-container *ngTemplateOutlet="menuItemTemplate; context: { item: childItem, level: level + 1, menuIndex: menuIndex }">
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

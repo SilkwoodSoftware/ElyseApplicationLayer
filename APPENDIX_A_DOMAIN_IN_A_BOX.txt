@@ -1,0 +1,663 @@
+================================================================================
+APPENDIX A - DOMAIN IN A BOX: HYPER-V LAB ENVIRONMENT
+================================================================================
+
+OVERVIEW
+========
+
+This guide provides step-by-step instructions for building a complete Elyse
+test environment from scratch using Hyper-V virtual machines on a single
+physical computer. This is intended for lab, testing, and demonstration
+purposes.
+
+What is Hyper-V? Hyper-V is a feature built into Windows that lets you
+create "virtual machines" (VMs) — essentially computers running inside your
+computer. Each VM behaves like a separate physical machine with its own
+operating system, but they all share your physical hardware. This allows you
+to build an entire network of servers on a single PC.
+
+How to enable Hyper-V: Click Start, type "Turn Windows features on or off",
+tick Hyper-V, click OK, and restart your PC. If the Hyper-V checkbox is
+greyed out, you may need to enable virtualisation (Intel VT-x or AMD-V) in
+your PC's BIOS/UEFI settings. Note that Windows Home editions do not include
+Hyper-V — you need Windows 10/11 Pro or Enterprise.
+
+The environment consists of five virtual machines:
+
+    VM Name         Role                                    IP          RAM     Disk
+    -------         ----                                    --          ---     ----
+    ELYSE-DC01      Domain Controller (manages identities)  10.0.0.10   4 GB    60 GB
+    ELYSE-SQL01     SQL Server (stores the database)        10.0.0.20   8 GB    80 GB
+    ELYSE-BE01      Backend (IIS/.NET application server)   10.0.0.30   4 GB    60 GB
+    ELYSE-FE01      Frontend (IIS web server)               10.0.0.40   4 GB    60 GB
+    ELYSE-WK01      Workstation (Windows 11 user PC)        10.0.0.50   4 GB    64 GB
+
+    Domain name:    elyse.local
+    Network:        10.0.0.0/24 (Internal switch, no internet)
+
+This appendix cross-references the main deployment documents at the
+appropriate points. You will be directed to:
+    - 01_DOMAIN_SETUP.txt for Active Directory configuration
+    - 02_SQL_SERVER_AND_DATABASE.txt for SQL Server and database setup
+    - 03_KCD_CONFIGURATION.txt for Kerberos Constrained Delegation
+
+PREREQUISITES
+=============
+
+    [ ] A physical PC running Windows 10 Pro/Enterprise or Windows 11
+        Pro/Enterprise with Hyper-V enabled (see above)
+    [ ] Minimum 32 GB RAM on the host (24 GB will be allocated to VMs, the
+        rest for your host OS)
+    [ ] Minimum 350 GB free disk space (an SSD is strongly recommended for
+        performance)
+    [ ] Windows Server 2022 Evaluation ISO downloaded (free from the
+        Microsoft Evaluation Center)
+    [ ] Windows 11 Enterprise Evaluation ISO downloaded (free from the
+        Microsoft Evaluation Center)
+    [ ] SQL Server 2022 installer media downloaded — Express edition (free)
+        or higher
+    [ ] Elyse deployment packages available on the host
+
+NOTE: Downloading SQL Server Express for offline use (or use a higher
+edition if you have one): The lab VMs will not have internet access, so
+download the full installer on your host PC first.
+
+    1. Go to the SQL Server Downloads page and download the Express
+       installer.
+    2. Run the downloaded installer on your host PC. Instead of clicking
+       "Basic" or "Custom", select "Download Media".
+    3. Choose "Express Advanced" (approximately 700-800 MB). This downloads
+       a single file containing the full engine.
+    4. Save this file somewhere you can find it later (e.g.,
+       C:\Lab-Elyse\ISOs\).
+
+
+================================================================================
+PHASE 1: NETWORK AND STORAGE PREPARATION
+================================================================================
+
+STEP 1: CREATE THE HYPER-V INTERNAL SWITCH
+--------------------------------------------
+
+A virtual switch is like a virtual network cable that connects your VMs
+together. An "Internal" switch allows the VMs to communicate with each other
+and with your host PC, but does NOT give them internet access — perfect for
+an isolated lab.
+
+1. Open Hyper-V Manager (click Start, type "Hyper-V Manager", click the
+   result).
+2. On the right-hand side of the window, in the Actions pane, click "Virtual
+   Switch Manager..."
+3. A new window opens. On the left, "New virtual network switch" should
+   already be highlighted.
+4. On the right, select "Internal".
+5. Click "Create Virtual Switch".
+6. In the Name field, type: Elyse-Internal-Switch
+7. Leave all other settings as they are.
+8. Click OK.
+
+What just happened? You created a virtual network. When you create VMs in
+the next steps, you will connect them to this switch so they can "talk" to
+each other using IP addresses, just like real computers on a real network.
+
+STEP 2: CREATE VM STORAGE FOLDERS
+-----------------------------------
+
+Each VM stores its files (virtual hard drives, configuration, etc.) in a
+folder. We create a dedicated folder for each VM to keep things organised.
+
+1. Open File Explorer (click the folder icon on your taskbar, or press
+   Windows Key + E).
+2. Navigate to your fastest drive (usually C:). Click "This PC" in the left
+   pane, then double-click your C: drive.
+3. Right-click in an empty area > New > Folder. Name it "Lab-Elyse" and
+   press Enter.
+4. Double-click Lab-Elyse to open it.
+5. Create six sub-folders inside it (right-click > New > Folder for each):
+   DC01, SQL01, BE01, FE01, WK01, ISOs
+6. Copy your downloaded ISO files into C:\Lab-Elyse\ISOs\. (Navigate to your
+   Downloads folder, right-click each ISO > Copy, then navigate to the ISOs
+   folder, right-click > Paste.)
+
+The folder structure should look like this:
+
+       C:\Lab-Elyse\DC01\
+       C:\Lab-Elyse\SQL01\
+       C:\Lab-Elyse\BE01\
+       C:\Lab-Elyse\FE01\
+       C:\Lab-Elyse\WK01\
+       C:\Lab-Elyse\ISOs\
+
+
+================================================================================
+PHASE 2: DOMAIN CONTROLLER (ELYSE-DC01)
+================================================================================
+
+STEP 3: CREATE THE ELYSE-DC01 VIRTUAL MACHINE
+-----------------------------------------------
+
+1. In Hyper-V Manager, right-click your computer name in the left pane
+   and select New > Virtual Machine...
+2. Before You Begin: Click Next.
+3. Specify Name and Location:
+       Name: ELYSE-DC01
+       Check "Store the virtual machine in a different location"
+       Browse to: C:\Lab-Elyse\DC01
+4. Specify Generation: Select Generation 2.
+5. Assign Memory:
+       Startup memory: 4096 MB
+       Uncheck "Use Dynamic Memory"
+6. Configure Networking: Select Elyse-Internal-Switch.
+7. Connect Virtual Hard Disk:
+       Size: 60 GB
+8. Installation Options:
+       Select "Install an operating system from a bootable image file"
+       Browse to your Windows Server 2022 ISO.
+9. Click Finish.
+
+STEP 4: HARDWARE CONFIGURATION (ELYSE-DC01)
+----------------------------------------------
+
+Before starting the VM:
+
+1. Right-click ELYSE-DC01 in Hyper-V Manager and select Settings.
+2. Security: Ensure "Enable Trusted Platform Module (TPM)" is checked.
+3. Processor: Set "Number of virtual processors" to 2.
+4. Click OK.
+
+STEP 5: INSTALL WINDOWS SERVER (ELYSE-DC01)
+----------------------------------------------
+
+1. Right-click ELYSE-DC01 and select Connect. A console window opens.
+2. Click the Start button (green icon at the top).
+3. IMPORTANT: When "Press any key to boot from CD or DVD" appears, press
+   a key immediately. If you miss it, click Reset and try again.
+4. In Windows Setup:
+       Language/Keyboard: Leave as default, click Next, then Install Now.
+5. Select: Windows Server 2022 Standard Evaluation (Desktop Experience).
+   Do NOT select the Server Core version.
+6. Accept the license terms and click Next.
+7. Select: Custom: Install Microsoft Server Operating System only (advanced).
+8. Select Drive 0 (60 GB) and click Next.
+9. Wait for installation to complete (approximately 5-10 minutes).
+10. Set the Administrator password (e.g., ElyseLab2026!) and record it.
+11. At the lock screen, use the keyboard icon in the VM console toolbar
+    to send Ctrl+Alt+Delete.
+
+STEP 6: CONFIGURE STATIC IP AND RENAME (ELYSE-DC01)
+------------------------------------------------------
+
+1. Set the Static IP:
+   a. In Server Manager, click Local Server on the left sidebar.
+   b. Click the link next to the Ethernet adapter (shows DHCP).
+   c. Right-click the Ethernet adapter and select Properties.
+   d. Select Internet Protocol Version 4 (TCP/IPv4) and click Properties.
+   e. Select "Use the following IP address":
+          IP address:       10.0.0.10
+          Subnet mask:      255.255.255.0
+          Default gateway:  (leave blank)
+   f. Select "Use the following DNS server addresses":
+          Preferred DNS:    127.0.0.1
+   g. Click OK and Close.
+
+2. Rename the Computer:
+   a. In Server Manager > Local Server, click the link next to
+      Computer name.
+   b. Click Change...
+   c. Computer name: ELYSE-DC01
+   d. Click OK.
+   e. Restart the VM when prompted.
+
+STEP 7: INSTALL ACTIVE DIRECTORY DOMAIN SERVICES
+---------------------------------------------------
+
+1. In Server Manager, click Manage (top right) > Add Roles and Features.
+2. Click Next until you reach Server Roles.
+3. Check: Active Directory Domain Services.
+4. Click "Add Features" when prompted.
+5. Click Next through the remaining screens and click Install.
+6. Wait for installation to complete. Do not close the window.
+
+STEP 8: PROMOTE TO DOMAIN CONTROLLER
+---------------------------------------
+
+After the AD DS installation completes, click the "Promote this server to
+a domain controller" link (or click the yellow warning flag in Server
+Manager).
+
+1. Deployment Configuration: Select "Add a new forest".
+2. Root domain name: elyse.local
+3. Click Next.
+4. Domain Controller Options:
+       Functional levels: Windows Server 2016
+       Check: Domain Name System (DNS) server
+       DSRM Password: Use the same Administrator password.
+5. Click Next.
+6. DNS Options: Ignore the DNS Delegation warning. Click Next.
+7. Additional Options: NetBIOS name will auto-fill as ELYSE. Click Next.
+8. Paths: Leave as default. Click Next.
+9. Prerequisites Check: Verify the green checkmark appears ("All
+   prerequisite checks passed successfully"). Click Install.
+
+The server will restart automatically. The first login after promotion
+takes longer than usual as Group Policy and AD profiles are initialised.
+
+STEP 9: POST-PROMOTION HEALTH CHECK
+--------------------------------------
+
+1. Verify DNS Configuration:
+   a. Press Windows Key + R, type ncpa.cpl, press Enter.
+   b. Right-click the Ethernet adapter > Properties.
+   c. Select IPv4 > Properties.
+   d. Verify Preferred DNS server is 127.0.0.1.
+      (Windows sometimes changes this to ::1 during DC promotion.
+      Change it back to 127.0.0.1 if needed.)
+   e. Click OK and Close.
+
+2. Verify the Domain:
+   a. In Server Manager, click Tools > Active Directory Users and
+      Computers.
+   b. In the left pane, verify elyse.local is listed.
+   c. Expand elyse.local. You should see: Builtin, Computers, Domain
+      Controllers, Users.
+
+STEP 10: CONFIGURE ACTIVE DIRECTORY FOR ELYSE
+------------------------------------------------
+
+Now follow 01_DOMAIN_SETUP.txt to create the service accounts and security
+group required by Elyse. When following that document in this lab context:
+
+    - Replace "yourdomain.com" with "elyse.local"
+    - Replace "YOURDOMAIN" with "ELYSE"
+    - Use your lab password for the service account passwords
+
+Complete all steps in 01_DOMAIN_SETUP.txt before proceeding.
+
+
+================================================================================
+PHASE 3: SQL SERVER (ELYSE-SQL01)
+================================================================================
+
+STEP 11: CREATE THE ELYSE-SQL01 VIRTUAL MACHINE
+--------------------------------------------------
+
+1. In Hyper-V Manager, right-click your computer name > New > Virtual
+   Machine...
+2. Name: ELYSE-SQL01
+3. Location: C:\Lab-Elyse\SQL01
+4. Generation: Generation 2
+5. Memory: 8192 MB (8 GB). Uncheck Dynamic Memory.
+6. Network: Elyse-Internal-Switch
+7. Hard Disk: 80 GB
+8. Installation Options: Select your Windows Server 2022 ISO.
+9. Click Finish.
+
+STEP 12: HARDWARE CONFIGURATION (ELYSE-SQL01)
+------------------------------------------------
+
+1. Right-click ELYSE-SQL01 > Settings.
+2. Processor: Set to 4 virtual processors.
+3. Security: Check "Enable Trusted Platform Module".
+4. Checkpoints (optional): Change to "Standard Checkpoints" for easier
+   rollback during setup.
+5. Click OK.
+
+STEP 13: INSTALL WINDOWS SERVER (ELYSE-SQL01)
+------------------------------------------------
+
+1. Connect to the VM and click Start.
+2. Press a key immediately when prompted to boot from the ISO.
+3. Select: Windows Server 2022 Standard Evaluation (Desktop Experience).
+4. Select: Custom install.
+5. Select Drive 0 (80 GB) and click Next.
+6. Wait for installation. Do NOT press a key during reboots.
+7. Set the Administrator password (use the same lab password).
+
+STEP 14: CONFIGURE NETWORKING (ELYSE-SQL01)
+----------------------------------------------
+
+1. Press Windows Key + R, type ncpa.cpl, press Enter.
+2. Right-click Ethernet > Properties.
+3. Select IPv4 > Properties.
+4. Set:
+       IP address:       10.0.0.20
+       Subnet mask:      255.255.255.0
+       Default gateway:  (leave blank)
+       Preferred DNS:    10.0.0.10
+5. Click OK and Close.
+
+STEP 15: JOIN THE DOMAIN (ELYSE-SQL01)
+-----------------------------------------
+
+1. In Server Manager, click Local Server.
+2. Click the link next to Computer name.
+3. Click Change...
+4. Computer name: ELYSE-SQL01
+5. Member of: Select Domain, type: elyse.local
+6. Click OK.
+7. Credentials:
+       Username: ELYSE\Administrator
+       Password: (your lab password)
+8. You should see: "Welcome to the elyse.local domain."
+9. Restart the VM.
+10. After reboot, log in as ELYSE\Administrator.
+
+STEP 16: TRANSFER SQL SERVER INSTALLER TO THE VM
+---------------------------------------------------
+
+Since the lab environment has no internet access, transfer the SQL Server
+Express installer to ELYSE-SQL01:
+
+Option A (Enhanced Session / Clipboard):
+    If Enhanced Session Mode is enabled in Hyper-V, copy the installer file
+    on the host and paste it onto the VM desktop.
+
+Option B (ISO Mount):
+    If you downloaded the installer as an ISO, go to the VM settings in
+    Hyper-V Manager and mount the ISO in the DVD drive.
+
+STEP 17: INSTALL SQL SERVER AND RESTORE THE DATABASE
+-------------------------------------------------------
+
+Now follow 02_SQL_SERVER_AND_DATABASE.txt to install SQL Server Express and
+restore the Elyse database. When following that document in this lab context:
+
+    - Replace "YOURDOMAIN" with "ELYSE"
+    - Replace "yourdomain.com" with "elyse.local"
+    - The svc_sql account was created in Step 10 (via 01_DOMAIN_SETUP.txt)
+    - Transfer the Elyse database backup file to the VM using the same
+      method as the SQL Server installer (Step 16)
+
+Complete all steps in 02_SQL_SERVER_AND_DATABASE.txt before proceeding.
+
+STEP 18: CONFIGURE KCD
+-------------------------
+
+Now follow 03_KCD_CONFIGURATION.txt to register SPNs and configure
+Kerberos Constrained Delegation. Perform the steps on ELYSE-DC01.
+
+When following that document in this lab context:
+
+    - Replace "YOURDOMAIN" with "ELYSE"
+    - Replace "yourdomain.com" with "elyse.local"
+    - SQL Server hostname: ELYSE-SQL01
+    - Backend hostname: ELYSE-BE01
+
+Complete all steps in 03_KCD_CONFIGURATION.txt before proceeding.
+
+
+================================================================================
+PHASE 4: BACKEND SERVER (ELYSE-BE01)
+================================================================================
+
+STEP 19: CREATE THE ELYSE-BE01 VIRTUAL MACHINE
+-------------------------------------------------
+
+1. In Hyper-V Manager, create a new Virtual Machine:
+       Name: ELYSE-BE01
+       Location: C:\Lab-Elyse\BE01
+       Generation: Generation 2
+       Memory: 4096 MB (4 GB). Uncheck Dynamic Memory.
+       Network: Elyse-Internal-Switch
+       Hard Disk: 60 GB
+       OS: Windows Server 2022 ISO
+2. Hardware Tweaks (right-click VM > Settings):
+       Processor: Set to 2.
+       Security: Enable TPM.
+3. Install Windows Server:
+       Choose Standard Evaluation (Desktop Experience).
+       Set your lab password.
+
+STEP 20: CONFIGURE NETWORKING AND JOIN DOMAIN (ELYSE-BE01)
+-------------------------------------------------------------
+
+1. Set Static IP:
+       Press Windows Key + R, type ncpa.cpl, press Enter.
+       Right-click Ethernet > Properties.
+       Select IPv4 > Properties.
+       IP address:       10.0.0.30
+       Subnet mask:      255.255.255.0
+       Default gateway:  (leave blank)
+       Preferred DNS:    10.0.0.10
+       Click OK and Close.
+
+2. Join the Domain:
+       In Server Manager, click Local Server.
+       Click the link next to Computer name.
+       Click Change...
+       Computer name: ELYSE-BE01
+       Member of: Domain: elyse.local
+       Click OK.
+       Credentials:
+           Username: ELYSE\Administrator
+           Password: (your lab password)
+       You should see: "Welcome to the elyse.local domain."
+       Restart the VM.
+
+3. After reboot, log in as ELYSE\Administrator.
+
+STEP 21: DEPLOY THE BACKEND
+------------------------------
+
+Transfer the backend deployment zip to ELYSE-BE01 and follow
+SERVER_README.txt (included in the zip) to install the .NET backend.
+
+When configuring the .env file:
+    DB_HOST=ELYSE-SQL01
+    DB_NAME=Elyse_DB
+    USE_KCD=true
+
+
+================================================================================
+PHASE 5: FRONTEND SERVER (ELYSE-FE01)
+================================================================================
+
+STEP 22: CREATE THE ELYSE-FE01 VIRTUAL MACHINE
+-------------------------------------------------
+
+1. In Hyper-V Manager, create a new Virtual Machine:
+       Name: ELYSE-FE01
+       Location: C:\Lab-Elyse\FE01
+       Generation: Generation 2
+       Memory: 4096 MB. Uncheck Dynamic Memory.
+       Network: Elyse-Internal-Switch
+       Hard Disk: 60 GB
+       OS: Windows Server 2022 ISO
+2. Hardware Tweaks (right-click VM > Settings):
+       Processor: Set to 2.
+       Security: Enable TPM.
+       Firmware: Ensure DVD Drive is at the top of the boot order.
+3. Install Windows Server:
+       Choose Standard Evaluation (Desktop Experience).
+       Set your lab password.
+
+STEP 23: CONFIGURE NETWORKING AND JOIN DOMAIN (ELYSE-FE01)
+-------------------------------------------------------------
+
+1. Set Static IP:
+       Press Windows Key + R, type ncpa.cpl, press Enter.
+       Right-click Ethernet > Properties.
+       Uncheck IPv6 (to prevent DNS interference).
+       Select IPv4 > Properties.
+       IP address:       10.0.0.40
+       Subnet mask:      255.255.255.0
+       Default gateway:  (leave blank)
+       Preferred DNS:    10.0.0.10
+       Click OK and Close.
+
+2. Join the Domain:
+       In Server Manager, click Local Server.
+       Click the link next to Computer name.
+       Click Change...
+       Computer name: ELYSE-FE01
+       Member of: Domain: elyse.local
+       Click OK.
+       Credentials:
+           Username: ELYSE\Administrator
+           Password: (your lab password)
+       You should see: "Welcome to the elyse.local domain."
+       Restart the VM.
+
+3. After reboot, log in as ELYSE\Administrator.
+
+STEP 24: DEPLOY THE FRONTEND
+-------------------------------
+
+Transfer the frontend deployment zip to ELYSE-FE01 and follow
+FRONTEND_README.txt (included in the zip) to install the Angular frontend.
+
+When configuring assets/config.json:
+    {
+      "apiUrl": "http://ELYSE-FE01:8080/api"
+    }
+
+Because the backend is on a separate server (ELYSE-BE01), you must also edit
+the web.config file in C:\inetpub\wwwroot\Elyse\frontend\. Open it in Notepad
+and change the BackEndProxy rewrite rule from:
+    http://127.0.0.1:5000/api/{R:1}
+to:
+    http://ELYSE-BE01:5000/api/{R:1}
+
+This tells the frontend IIS site to proxy API requests to the backend server.
+
+
+================================================================================
+PHASE 6: WORKSTATION (ELYSE-WK01) - OPTIONAL
+================================================================================
+
+The workstation VM provides a domain-joined Windows 11 client for testing
+the application as an end user would experience it.
+
+STEP 25: DOWNLOAD THE WINDOWS 11 ENTERPRISE ISO
+--------------------------------------------------
+
+If not already downloaded:
+
+1. On the physical host, go to the Microsoft Evaluation Center.
+2. Download Windows 11 Enterprise (64-bit, English).
+3. Save to C:\Lab-Elyse\ISOs\.
+
+STEP 26: CREATE THE ELYSE-WK01 VIRTUAL MACHINE
+--------------------------------------------------
+
+1. In Hyper-V Manager, create a new Virtual Machine:
+       Name: ELYSE-WK01
+       Location: C:\Lab-Elyse\WK01
+       Generation: Generation 2
+       Memory: 4096 MB. Uncheck Dynamic Memory.
+       Network: Elyse-Internal-Switch
+       Hard Disk: 64 GB
+       OS: Windows 11 Enterprise ISO
+2. Hardware Tweaks (right-click VM > Settings):
+       Security: Enable TPM (required for Windows 11).
+       Processor: Set to 2.
+       Click OK.
+
+STEP 27: INSTALL WINDOWS 11
+------------------------------
+
+1. Connect to the VM and click Start.
+2. Press a key immediately to boot from the ISO.
+3. Follow the installer prompts. If asked for a product key, select
+   "I don't have a product key" or the evaluation option.
+4. When asked "How would you like to set up this device?", choose
+   "Set up for work or school".
+5. On the sign-in screen, select "Sign-in options" and choose
+   "Domain join instead" (or "Local account").
+
+OOBE Network Bypass (if prompted to connect to a network):
+
+1. On the "Let's connect you to a network" screen, press Shift + F10
+   to open a Command Prompt.
+2. Type: OOBE\BYPASSNRO
+3. Press Enter. The VM will reboot.
+4. Go through the Region and Keyboard screens again.
+5. On the network screen, click "I don't have internet".
+6. Click "Continue with limited setup".
+
+6. Create a local user (e.g., LabAdmin) and set a password.
+7. Complete the setup to reach the desktop.
+
+STEP 28: CONFIGURE NETWORKING AND JOIN DOMAIN (ELYSE-WK01)
+-------------------------------------------------------------
+
+1. Set Static IP:
+       Right-click Start > Run, type ncpa.cpl, press Enter.
+       Right-click Ethernet > Properties.
+       Uncheck IPv6.
+       Select IPv4 > Properties.
+       IP address:       10.0.0.50
+       Subnet mask:      255.255.255.0
+       Default gateway:  (leave blank)
+       Preferred DNS:    10.0.0.10
+       Click OK and Close.
+
+2. Join the Domain (Windows 11 method):
+       Click Start > Settings > Accounts > Access work or school.
+       Click the Connect button.
+       IMPORTANT: Do NOT type in the email box. Look at the bottom of the
+       pop-up for: "Join this device to a local Active Directory domain".
+       Click that link.
+       Domain: elyse.local
+       Credentials:
+           Username: ELYSE\Administrator
+           Password: (your lab password)
+       Restart the VM.
+
+3. Verify:
+       After reboot, at the login screen, click "Other User".
+       The bottom of the screen should say "Sign in to: ELYSE".
+       Log in as ELYSE\Administrator.
+
+
+================================================================================
+PHASE 7: POST-DEPLOYMENT
+================================================================================
+
+STEP 29: BOOTSTRAP USERS AND CONFIGURE THE SYSTEM
+----------------------------------------------------
+
+Follow 04_BOOTSTRAPPING_AND_CONFIGURATION.txt to:
+
+    - Verify the installation from the workstation (ELYSE-WK01)
+    - Self-onboard the initial user(s)
+    - Bootstrap role permissions
+    - Review and configure global settings
+
+When following that document in this lab context:
+
+    - Use the ELYSE-WK01 workstation to access the application
+    - The frontend URL is: http://ELYSE-FE01:8080
+    - For a single-user lab, follow the single-user bootstrapping path
+    - Replace "YOURDOMAIN" with "ELYSE" where applicable
+
+
+================================================================================
+LAB ENVIRONMENT SUMMARY
+================================================================================
+
+When all phases are complete, the lab environment consists of:
+
+    ELYSE-DC01  (10.0.0.10)  Domain Controller for elyse.local
+    ELYSE-SQL01 (10.0.0.20)  SQL Server with Elyse_DB database
+    ELYSE-BE01  (10.0.0.30)  .NET backend on IIS with KCD
+    ELYSE-FE01  (10.0.0.40)  Angular frontend on IIS
+    ELYSE-WK01  (10.0.0.50)  Windows 11 workstation for testing
+
+    Service Accounts:
+        ELYSE\svc_sql           SQL Server Database Engine
+        ELYSE\svc_elyse_be     IIS Application Pool (backend)
+
+    Security Group:
+        ELYSE\Elyse_Users      Users permitted to access Elyse
+
+    SPNs:
+        MSSQLSvc/ELYSE-SQL01.elyse.local:1433  --> svc_sql
+        MSSQLSvc/ELYSE-SQL01:1433               --> svc_sql
+        HTTP/ELYSE-BE01.elyse.local             --> svc_elyse_be
+        HTTP/ELYSE-BE01                         --> svc_elyse_be
+
+    KCD:
+        svc_elyse_be is trusted for delegation to MSSQLSvc on svc_sql
+
+================================================================================

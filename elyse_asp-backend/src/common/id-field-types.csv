@@ -1,0 +1,69 @@
+FieldName,DataType
+Attribute ID,NUMBER
+Attribute Name ID,NUMBER
+Attribute Value ID,NUMBER
+Common Object Attribute ID,NUMBER
+Common Object ID,NUMBER
+Common Object List ID,NUMBER
+Controller Doc Group ID,NUMBER
+Controller File Group ID,NUMBER
+Cross-Reference ID,NUMBER
+Date Style,NUMBER
+Doc Group ID,NUMBER
+Doc Multi-Select Attribute ID,NUMBER
+Doc Multi-Select List ID,NUMBER
+Doc Radio Button Attribute ID,NUMBER
+Doc Radio Button List ID,NUMBER
+Document Date Field Name ID,NUMBER
+Document Free Text Field Name ID,NUMBER
+Document ID,TEXT
+Document Integer Field Name ID,NUMBER
+Document Real Number Field Name ID,NUMBER
+Duty Function ID,NUMBER
+File Date Field Name ID,NUMBER
+File Free Text Field Name ID,NUMBER
+File Group ID,NUMBER
+File ID,NUMBER
+File Integer Field Name ID,NUMBER
+File Multi-Select Attribute ID,NUMBER
+File Multi-Select List ID,NUMBER
+File Radio Button Attribute ID,NUMBER
+File Radio Button List ID,NUMBER
+File Real Number Field Name ID,NUMBER
+Filter Group ID,NUMBER
+Form Group ID,NUMBER
+Form ID,NUMBER
+Free Text Field Name,NUMBER
+Function List ID,NUMBER
+General Field Name ID,NUMBER
+ID,NUMBER
+Instance Step ID,NUMBER
+List ID,NUMBER
+List Position,NUMBER
+Log Index ID,NUMBER
+Name List Position,NUMBER
+Output Definition ID,NUMBER
+People List ID,NUMBER
+Present Step ID,NUMBER
+Request ID,NUMBER
+Role Name,TEXT
+Step ID,NUMBER
+Step Status Definition ID,NUMBER
+Step Status ID,NUMBER
+Step Transition ID,NUMBER
+Tag Browsing Tree ID,NUMBER
+Tag Browsing Tree Node ID,NUMBER
+Tag Group ID,NUMBER
+Tag ID,NUMBER
+Tag Tree ID,NUMBER
+Transaction Group ID,NUMBER
+Unit ID,NUMBER
+Units,NUMBER
+User ID,NUMBER
+Workflow Action ID,NUMBER
+Workflow Instance ID,NUMBER
+Workflow Instance Step ID,NUMBER
+Workflow Model ID,NUMBER
+Workflow Model Step ID,NUMBER
+Workflow Output ID,NUMBER
+Workflow Rule ID,NUMBER

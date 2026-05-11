@@ -1,0 +1,53 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+
+<input type="radio" name="type" value="user" (change)="onTypeChange('user')" 
+ [(ngModel)]="selectedType"> Windows User
+ <input type="radio" name="type" value="group" (change)="onTypeChange('group')" 
+ [(ngModel)]="selectedType"> Windows Group
+<p>Note that Windows Group names are not readily converted to binary SID in SQL.' </p>
+<p>Consequently Windows Groups cannot yet be added here.  Instead add user by SID. </p>
+ <div class="form-group">
+  <label for="userInput">Windows Name:</label>
+  <input id="userInput" class="form-control" [(ngModel)]="userInput" (change)="onInputChange($event)">
+</div>
+
+<div class="form-group">
+  <label for="descriptionInput">Description:</label>
+  <input id="descriptionInput" class="form-control" [(ngModel)]="description">
+</div>
+
+
+ <div class="form-group">
+  <label for="userGroupSelect">Select:</label>
+  <select id="userGroupSelect" class="form-control" [(ngModel)]="selectedWindowsName" (change)="onSelectChange($event)">
+    <ng-container *ngIf="selectedType === 'user'">
+      <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+    </ng-container>
+    <ng-container *ngIf="selectedType === 'group'">
+      <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+    </ng-container>
+  </select>
+</div>
+<button class="confirmation-buttons" type="button" (click)="onSubmit()">Add User</button>
+
+ <!-- Display the result -->
+ <div *ngIf="messageItems.length > 0" class="messages-container">
+  <span *ngFor="let item of messageItems" class="result-item">
+    {{ item.label }}: <span class="result-value">{{ item.value }}</span>
+  </span>
+</div>

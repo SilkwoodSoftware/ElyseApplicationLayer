@@ -1,0 +1,315 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Import the shared table styles to match existing styling
+@import '../../stylesheets/tables.scss';
+
+.custom-view-container {
+    // Use the same container styling as tables
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    position: relative;
+    width: calc(100% - 50px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(80vh - 5px);
+    overflow-y: auto;
+    scrollbar-width: thick;
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+.view-heading {
+    // Match table heading styling
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+// Thumbnail section styles
+.thumbnail-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #9f9f9f;
+    
+    .field-label {
+        // Match table header styling
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ededef;
+        background-color: #22203a;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        border: 1px solid #9f9f9f;
+    }
+    
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #9f9f9f;
+        
+        .thumbnail-image {
+            // Display thumbnails at full 400px size from backend
+            max-width: 400px;
+            max-height: 400px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+    }
+}
+
+// Vertical data layout using table-like styling
+.view-content-vertical {
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 0.6rem;
+    line-height: 1.2;
+}
+
+.data-row-vertical {
+    margin-bottom: 20px;
+    border: 1px solid #9f9f9f;
+    background-color: white;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.field-container-vertical {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    
+    // Alternate row coloring like tables
+    &:nth-child(even) {
+        background-color: #bfcfdd;
+    }
+}
+
+.field-label-vertical {
+    // Style like table headers
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #ededef;
+    background-color: #22203a;
+    padding: 5px 10px;
+    text-align: left;
+    border: 1px solid #9f9f9f;
+    min-width: 200px;
+    max-width: 250px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+}
+
+.field-value-vertical {
+    // Style like table data cells
+    font-family: Arial, sans-serif;
+    font-size: 0.6rem;
+    line-height: 1.2;
+    color: #000;
+    padding: 5px 10px;
+    text-align: left;
+    border: 1px solid #9f9f9f;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: text;
+    background-color: inherit;
+    
+}
+
+.loading-message, .no-data-message {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-family: Arial, sans-serif;
+}
+
+// Messages styling is imported from central messages.scss
+// No local override needed - uses shared styling
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .custom-view-container {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .field-container-vertical {
+        flex-direction: column;
+    }
+    
+    .field-label-vertical {
+        min-width: auto;
+        max-width: none;
+        border-bottom: none;
+    }
+    
+    .field-value-vertical {
+        border-top: none;
+    }
+}
+
+// Use table scrollbar styling
+.custom-view-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.custom-view-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.custom-view-container::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.custom-view-container::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+// File Upload Form Styles
+.file-upload-form-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #9f9f9f;
+}
+
+.upload-form {
+    .form-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-field {
+        .field-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            
+            .field-label {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #22203a;
+                margin-bottom: 5px;
+            }
+            
+            .form-control {
+                padding: 8px 12px;
+                border: 1px solid #9f9f9f;
+                border-radius: 4px;
+                font-family: Arial, sans-serif;
+                font-size: 0.75rem;
+                background-color: white;
+                
+                &:focus {
+                    outline: none;
+                    border-color: #007bff;
+                    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+                }
+                
+                &:disabled {
+                    background-color: #e9ecef;
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+            }
+            
+            .field-help {
+                font-size: 0.6rem;
+                color: #6c757d;
+                font-style: italic;
+                margin-top: 2px;
+            }
+        }
+        
+        .action-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            
+            .upload-button {
+                padding: 12px 24px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 0.8rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+                
+                &:hover:not(:disabled) {
+                    background-color: #0056b3;
+                }
+                
+                &:disabled {
+                    background-color: #6c757d;
+                    cursor: not-allowed;
+                    opacity: 0.6;
+                }
+                
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+                }
+            }
+        }
+    }
+}
+
+// Responsive adjustments for upload form
+@media (max-width: 768px) {
+    .file-upload-form-container {
+        margin-left: -10px;
+        margin-right: -10px;
+        padding: 15px;
+    }
+    
+    .upload-form {
+        .form-fields {
+            gap: 12px;
+        }
+        
+        .action-button-container {
+            .upload-button {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+    }
+}

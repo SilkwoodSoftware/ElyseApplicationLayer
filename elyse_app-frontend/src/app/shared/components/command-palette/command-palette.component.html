@@ -1,0 +1,154 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="command-palette-container">
+  <div class="command-palette-header">
+    <h2>Command Palette</h2>
+    
+    <!-- View Mode Tabs -->
+    <div class="view-mode-tabs">
+      <button
+        [class.active]="viewMode === 'search'"
+        (click)="switchViewMode('search')">
+        Search
+      </button>
+      <button
+        [class.active]="viewMode === 'nameDescription'"
+        (click)="switchViewMode('nameDescription')">
+        Name/Description Search
+      </button>
+      <button
+        [class.active]="viewMode === 'all'"
+        (click)="switchViewMode('all')">
+        All
+      </button>
+      <button
+        [class.active]="viewMode === 'recent'"
+        (click)="switchViewMode('recent')">
+        Recent
+      </button>
+      <button
+        [class.active]="viewMode === 'favorites'"
+        (click)="switchViewMode('favorites')">
+        Favorites
+      </button>
+    </div>
+    
+    <!-- Name/Description Search Input (only visible in nameDescription mode) -->
+    <div class="name-description-search" *ngIf="viewMode === 'nameDescription'">
+      <div class="input-group">
+        <label>Name/Description:</label>
+        <input
+          type="text"
+          #nameDescriptionInput
+          [(ngModel)]="nameDescriptionSearchText"
+          (input)="onNameDescriptionSearchChange()"
+          placeholder="Search..."
+          class="name-description-input">
+      </div>
+    </div>
+    
+    <!-- Search Inputs (only visible in search mode) -->
+    <div class="search-inputs" *ngIf="viewMode === 'search'">
+      <div class="input-group">
+        <label>Actions:</label>
+        <app-token-input
+          #actionInput
+          [searchFunction]="searchActions"
+          placeholder="Search..."
+          (tokensChange)="onActionTokensChange($event)">
+        </app-token-input>
+      </div>
+      
+      <div class="input-group">
+        <label>Objects:</label>
+        <app-token-input
+          [searchFunction]="searchObjects"
+          placeholder="Search..."
+          (tokensChange)="onObjectTokensChange($event)">
+        </app-token-input>
+      </div>
+      
+      <div class="input-group">
+        <label>Fields:</label>
+        <app-token-input
+          [searchFunction]="searchFields"
+          [displayProperty]="'FieldName'"
+          placeholder="Search..."
+          (tokensChange)="onFieldTokensChange($event)">
+        </app-token-input>
+      </div>
+    </div>
+  </div>
+  
+  <div class="command-palette-body">
+    <!-- Commands Table -->
+    <table class="commands-table" *ngIf="displayedCommands.length > 0">
+      <thead>
+        <tr>
+          <th style="width: 18px;">★</th>
+          <th style="width: 25%;">
+            <div class="column-heading">
+              <span class="column-title" (click)="onColumnSelect('Label')">Command</span>
+              <span class="sort-icon" *ngIf="sortColumn === 'Label'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+            </div>
+          </th>
+          <th>
+            <div class="column-heading">
+              <span class="column-title" (click)="onColumnSelect('Description')">Description</span>
+              <span class="sort-icon" *ngIf="sortColumn === 'Description'">{{sortOrder === 'asc' ? '▲' : '▼'}}</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let command of displayedCommands; let i = index"
+          [class.selected]="isCommandSelected(i)"
+          (click)="executeCommand(command)"
+          (mouseenter)="selectedCommandIndex = i"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="command.Label">
+          <td class="favorite-cell">
+            <button
+              [class.is-favorite]="isFavorite(command)"
+              (click)="toggleFavorite(command, $event)"
+              tabindex="-1"
+              title="Toggle favorite">
+              {{ isFavorite(command) ? '★' : '☆' }}
+            </button>
+          </td>
+          <td>{{ command.Label }}</td>
+          <td>{{ command.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="displayedCommands.length === 0">
+      <ng-container *ngIf="viewMode === 'search'">No commands match your search</ng-container>
+      <ng-container *ngIf="viewMode === 'nameDescription'">No commands match your search</ng-container>
+      <ng-container *ngIf="viewMode === 'recent'">No recent commands</ng-container>
+      <ng-container *ngIf="viewMode === 'favorites'">No favorite commands</ng-container>
+      <ng-container *ngIf="viewMode === 'all'">No commands available</ng-container>
+    </div>
+  </div>
+  
+  <div class="command-palette-footer">
+    <button (click)="close()">Close</button>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.context-menu {
+  position: absolute;
+  z-index: 1000;
+  width: max-content; // Flexible width to fit content without wrapping
+  min-width: 200px; // Minimum width for consistency
+  max-width: 600px; // Maximum width to prevent excessively wide menus
+  background-color: hsl(191, 16%, 81%); // Match background color with other menus
+  box-shadow: 0px 8px 16px 0px rgba(76, 76, 76, 0.726); // Match shadow with other menus
+  border-radius: 0; // Remove border radius to match other menus
+  border: none; // Remove border to match other menus
+  
+  // Prevent text selection inside menu
+  user-select: none;
+}
+
+.context-menu-container {
+  padding: 0; // Match padding with other menus
+}
+
+.context-menu-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 16px; // Match padding with other menus
+  cursor: pointer;
+  font-size: 0.7rem; // Match font size with other menus
+  color: #000000; // Match text color with other menus
+  white-space: nowrap; // Prevent text wrapping
+  
+  &:hover {
+    background-color: #f1f1f1; // Match hover color with other menus
+    color: #000000;
+  }
+  
+  &.disabled {
+    color: #999999;
+    cursor: default;
+    
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.context-menu-item-label {
+  flex: 1;
+}
+
+.context-menu-item-shortcut {
+  margin-left: 16px;
+  color: #777777;
+  font-size: 0.6rem; // Match font size with other menus
+}
+
+// Submenu styling
+.submenu-item {
+  position: relative;
+  
+  // Remove hover behavior - submenus will be shown via JavaScript
+  // &:hover {
+  //   > .submenu {
+  //     display: block;
+  //   }
+  // }
+}
+
+.submenu-arrow {
+  margin-left: 8px;
+  font-size: 0.6rem;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Position below the parent menu item - matches navigation bar */
+  left: 50px; /* Offset to the right to show more of the parent menu - matches navigation bar */
+  width: max-content; /* Flexible width to fit content without wrapping */
+  min-width: 200px; /* Minimum width for consistency */
+  max-width: 600px; /* Maximum width to prevent excessively wide menus */
+  background-color: hsl(191, 16%, 81%);
+  box-shadow: 0px 8px 16px 0px rgba(76, 76, 76, 0.726);
+  z-index: 1001;
+  padding: 0;
+  margin-left: 0; /* No additional margin needed with left: 50px */
+  
+  // Match the styling of the main menu's dropdown-content
+  .context-menu-items {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .context-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 16px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    color: #000000;
+    white-space: nowrap; /* Prevent text wrapping */
+    
+    &:hover {
+      background-color: #f1f1f1;
+      color: #000000;
+    }
+  }
+  
+  // Support nested submenus - each level positions relative to its parent
+  .submenu {
+    // Nested submenus inherit the same positioning rules
+    // They will appear to the right of their parent submenu item
+  }
+}
+
+// Animation
+.context-menu {
+  animation: fadeIn 0.1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

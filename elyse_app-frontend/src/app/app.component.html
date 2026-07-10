@@ -1,0 +1,58 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div>
+  <!-- Only show navigation if hideNavigation is false -->
+  <div class="navigation-container" *ngIf="!hideNavigation">
+    <app-navigation
+      [selectedIds]="selectedIds"
+      (userDeleted)="refreshTable()"
+    ></app-navigation>
+
+    <!-- Add our new menu component -->
+    <app-menu [model]="menuComponentModel"></app-menu>
+    
+    <!-- Command Palette Button -->
+    <button class="dropbtn help-btn command-palette-btn" (click)="openCommandPalette()" title="Open Command Palette (Ctrl+Shift+P)">
+      ⌘
+    </button>
+    
+    <!-- Excel Export Button -->
+    <button class="dropbtn help-btn excel-btn" (click)="onExcelExport()" title="Export current table to Excel">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" fill="currentColor">
+        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+      </svg>
+    </button>
+    
+    <!-- Help Button - positioned at the far right after all menus -->
+    <button class="dropbtn help-btn" (click)="openHelpWindow()" title="Open Help">
+      ?
+    </button>
+  </div>
+
+  <div class="content" [class.help-content]="hideNavigation">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Context Menu Component - positioned absolutely (only for main app) -->
+<app-context-menu *ngIf="!hideNavigation"></app-context-menu>
+
+<!-- Global Thinking Indicator - shows during API calls and processing -->
+<app-thinking-indicator
+  *ngIf="processingIndicator.processing$ | async"
+  [overlay]="true">
+</app-thinking-indicator>

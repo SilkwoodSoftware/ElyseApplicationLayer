@@ -1,0 +1,5 @@
+ViewId,StoredProcedure,RouteUrl,ApiEndpoint,ViewType,TemplateName,InputParameters,OutputParameters,Title,Width,Height,Description,FormFields
+file-detail,reading.usp_SEL_file_details,/file-detail,file-details/read,FILE_DETAIL,,fileId,transactionMessage;transactionStatus;thumbnail,File Detail View,800px,600px,Display file data with thumbnail image in vertical layout,
+upload-files-custom,,/upload-files-custom,file-upload,FILE_UPLOAD,,documentId;docGroupId;functionId;peopleListId,newFileId;newDocumentId;transactionMessage;transactionStatus,Upload Files with Metadata,900px,700px,Upload files with metadata collection using CSV-driven form fields,
+upload-files,,/upload-files,file-upload,FILE_UPLOAD,,documentId;docGroupId;fileGroupId;retentionMonths;duplicateCheck,,Upload Files and Edit Data,900px,700px,Upload files with metadata and automatically edit document/file data,DocIDByMenu;FileGroupID;DocGroupID;RetentionPeriod;DuplCheck
+edit-doc-file-data,,/edit-doc-file-data,,FORM_BASED,,documentId;fileId,,Edit Document and File Data,800px,600px,Edit document and file metadata and attributes,

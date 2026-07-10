@@ -1,0 +1,48 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div
+  *ngIf="visible"
+  class="context-menu"
+  [style.left.px]="position.x"
+  [style.top.px]="position.y">
+  
+  <div class="context-menu-container">
+    <div class="context-menu-items">
+      <!-- Menu items -->
+      <div
+        *ngFor="let item of menuItems"
+        class="context-menu-item"
+        [title]="item.description || ''"
+        (click)="onMenuItemClick(item)">
+        
+        <span class="context-menu-item-label">{{ item.menuLabel }}</span>
+        
+        <!-- Icon if available -->
+        <span
+          *ngIf="item.icon"
+          class="context-menu-item-shortcut">
+          <img [src]="'/assets/icons/' + item.icon + '.svg'" alt="icon">
+        </span>
+      </div>
+      
+      <!-- Show a message when no items are available -->
+      <div *ngIf="menuItems.length === 0" class="context-menu-item disabled">
+        <span class="context-menu-item-label">No options available</span>
+      </div>
+    </div>
+  </div>
+</div>

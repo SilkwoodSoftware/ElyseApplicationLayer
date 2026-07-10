@@ -1,0 +1,73 @@
+/*
+ * Copyright 2025 Silkwood Software Pty. Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+// Returns denormalised data for all instance steps for a given workflow instance ID.
+[Route("api/workflow/instance/step/instance")]
+[ApiController]
+public class ReadWorkflowInstanceStepsByInstance : BaseStoredProcedureController
+{
+    public ReadWorkflowInstanceStepsByInstance(StoredProcedureService storedProcedureService, ILogger<ReadWorkflowInstanceStepsByInstance> logger)
+        : base(storedProcedureService, logger, null)
+    {
+    }
+
+    [HttpGet("read")]
+    public async Task<IActionResult> Read([FromQuery] long? workflowInstanceId = null)
+    {
+        return await ExecuteWithErrorHandlingAsync(
+            "reading workflow instance steps by instance",
+            async () =>
+            {
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@instanceid", workflowInstanceId ?? (object)DBNull.Value }
+                };
+
+                var rawResult = await _storedProcedureService.ExecuteStoredProcedureAsync("reading.usp_SEL_wf_inst_steps_by_inst", parameters);
+                
+                // Transform the workflow instance step data from EAV format to columnar format
+                if (rawResult.ResultSets != null && rawResult.ResultSets.Count > 0 && rawResult.ResultSets[0].Any())
+                {
+                    rawResult.ResultSets[0] = TransformWorkflowInstanceData(rawResult.ResultSets[0]);
+                }
+                
+                return rawResult;
+            },
+            result =>
+            {
+                var transactionMessage = GetOutputParameterValue(result, "@message");
+                var transactionStatus = GetOutputParameterValue(result, "@transaction_status");
+                var numSteps = GetOutputParameterValue(result, "@num_steps");
+                var numRecords = GetOutputParameterValue(result, "@num_records");
+
+                var response = new
+                {
+                    transactionMessage,
+                    transactionStatus,
+                    numSteps,
+                    numRecords,
+                    result.ResultSets
+                };
+
+                return Ok(response);
+            });
+    }
+}

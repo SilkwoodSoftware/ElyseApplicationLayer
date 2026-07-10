@@ -1,0 +1,24 @@
+ELYSE BACKEND - CHANGELOG
+=========================
+
+This file tracks all changes to the Elyse Backend application.
+Version format: YYYY.MM.DD-HHMM (date and time of build)
+
+-------------------------------------------------------------------------
+
+Version 2026-03-18
+-------------------------------------------
+Initial release.
+-------------------------------------------
+
+Version 2026-06-06
+
+Debugged data transformation to fix missing File IDs.
+-------------------------------------------
+Version 2026-06-13
+
+Added endpoint for usp_UPD_form_form_group_link.
+-------------------------------------------
+Version 2026-07-10
+
+Release identifier system extended. 

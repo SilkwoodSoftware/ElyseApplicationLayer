@@ -1,0 +1,43 @@
+<!--
+  Copyright 2025 Silkwood Software Pty. Ltd.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="container">
+  <h2>Create Document ID</h2>
+  <form (ngSubmit)="createDocumentId(documentId.value, transactionGroupId.value, idLockStatus.value)">
+    <div class="form-group">
+      <label for="documentId">Document ID:</label>
+      <input type="text" id="documentId" #documentId class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="transactionGroup">Transaction Group:</label>
+      <input type="text" id="transactionGroup" #transactionGroupId class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="idLockStatus">ID Lock Status:</label>
+      <select id="idLockStatus" #idLockStatus class="form-control">
+        <option value="Unlocked" selected>Unlocked</option>
+        <option value="Locked">Locked</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+</div>
+<!-- Display the result -->
+<div *ngIf="messageItems.length > 0" class="messages-container">
+  <span *ngFor="let item of messageItems" class="result-item">
+    {{ item.label }}: <span class="result-value">{{ item.value }}</span>
+  </span>
+</div>
